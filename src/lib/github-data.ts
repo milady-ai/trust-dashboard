@@ -86,33 +86,32 @@ export async function fetchClosedPRs(
     const pulls = await fetchJson<PullListItem[]>(listUrl, token);
     if (pulls.length === 0) break;
 
-    const enriched = await Promise.all(
-      pulls.map(async (pr) => {
-        const detailUrl = `${GITHUB_API}/repos/${owner}/${repo}/pulls/${pr.number}`;
-        const reviewsUrl = `${GITHUB_API}/repos/${owner}/${repo}/pulls/${pr.number}/reviews?per_page=100`;
+    for (const pr of pulls) {
+      const detailUrl = `${GITHUB_API}/repos/${owner}/${repo}/pulls/${pr.number}`;
+      const reviewsUrl = `${GITHUB_API}/repos/${owner}/${repo}/pulls/${pr.number}/reviews?per_page=100`;
 
-        const [detail, reviews] = await Promise.all([
-          fetchJson<PullDetail>(detailUrl, token),
-          fetchJson<PullReview[]>(reviewsUrl, token),
-        ]);
+      const [detail, reviews] = await Promise.all([
+        fetchJson<PullDetail>(detailUrl, token),
+        fetchJson<PullReview[]>(reviewsUrl, token),
+      ]);
 
-        return {
-          number: detail.number,
-          title: detail.title,
-          userLogin: detail.user.login,
-          avatarUrl: detail.user.avatar_url ?? "https://github.com/ghost.png",
-          mergedAt: detail.merged_at,
-          closedAt: detail.closed_at,
-          additions: detail.additions,
-          deletions: detail.deletions,
-          labels: detail.labels.map((l) => l.name),
-          reviews,
-          closedByLogin: detail.closed_by?.login ?? null,
-        } satisfies GitHubPullRequestData;
-      }),
-    );
+      allPRs.push({
+        number: detail.number,
+        title: detail.title,
+        userLogin: detail.user.login,
+        avatarUrl: detail.user.avatar_url ?? "https://github.com/ghost.png",
+        mergedAt: detail.merged_at,
+        closedAt: detail.closed_at,
+        additions: detail.additions,
+        deletions: detail.deletions,
+        labels: detail.labels.map((l) => l.name),
+        reviews,
+        closedByLogin: detail.closed_by?.login ?? null,
+      });
 
-    allPRs.push(...enriched);
+      // Avoid GitHub secondary rate limits
+      await new Promise((r) => setTimeout(r, 100));
+    }
 
     if (pulls.length < 100) break;
     page++;
