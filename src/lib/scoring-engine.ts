@@ -117,7 +117,7 @@ export const DEFAULT_CONFIG: TrustScoringConfig = {
   basePoints: {
     approve: 12,
     reject: -6,
-    close: -10,
+    close: -5,
     selfClose: -2,
   },
   diminishingRate: 0.2,
@@ -157,8 +157,8 @@ export const DEFAULT_CONFIG: TrustScoringConfig = {
   },
   velocity: {
     windowDays: 7,
-    softCapPRs: 10,
-    hardCapPRs: 25,
+    softCapPRs: 15,
+    hardCapPRs: 40,
     penaltyPerExcess: 0.15,
   },
   reviewSeverity: {
@@ -172,7 +172,7 @@ export const DEFAULT_CONFIG: TrustScoringConfig = {
   minScore: 0,
   maxScore: 100,
   initialScore: 35,
-  dailyPointCap: 35,
+  dailyPointCap: 50,
   tiers: [
     { minScore: 90, label: "legendary", description: "Elite contributor, auto-merge eligible" },
     { minScore: 75, label: "trusted", description: "Highly trusted, expedited review" },
@@ -215,6 +215,24 @@ export function computeTrustScore(
 
   const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);
 
+  // Detect superseded closes: if a close/selfClose is followed by an approve
+  // from the same contributor within 24 hours, treat the close as superseded (-2)
+  const SUPERSEDE_WINDOW_MS = 24 * 60 * 60 * 1000;
+  const supersededPRs = new Set<number>();
+  for (let i = 0; i < sorted.length; i++) {
+    const ev = sorted[i];
+    if (ev.type !== "close" && ev.type !== "selfClose") continue;
+    // Look ahead for an approve within 24h
+    for (let j = i + 1; j < sorted.length; j++) {
+      const next = sorted[j];
+      if (next.timestamp - ev.timestamp > SUPERSEDE_WINDOW_MS) break;
+      if (next.type === "approve") {
+        supersededPRs.add(ev.prNumber);
+        break;
+      }
+    }
+  }
+
   let approvalCount = 0;
   const currentStreak: { type: "approve" | "negative" | null; length: number } = {
     type: null,
@@ -239,7 +257,8 @@ export function computeTrustScore(
       finalPoints: 0,
     };
 
-    const basePoints = config.basePoints[event.type] ?? 0;
+    const isSuperseded = (event.type === "close" || event.type === "selfClose") && supersededPRs.has(event.prNumber);
+    const basePoints = isSuperseded ? -2 : (config.basePoints[event.type] ?? 0);
     detail.basePoints = basePoints;
 
     let diminishingMultiplier = 1;
