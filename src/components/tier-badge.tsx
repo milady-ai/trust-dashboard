@@ -1,11 +1,13 @@
-import { TierConfig } from "@/lib/trust-scoring";
+import { TierConfig, TrustTier, getTierConfig } from "@/lib/trust-scoring";
 
 interface TierBadgeProps {
-  tier: TierConfig;
+  tier: TierConfig | TrustTier;
   size?: "sm" | "md" | "lg";
 }
 
 export function TierBadge({ tier, size = "md" }: TierBadgeProps) {
+  const tierConfig = typeof tier === "string" ? getTierConfig(tier) : tier;
+
   const sizeClasses = {
     sm: "text-xs px-1.5 py-0.5 gap-1",
     md: "text-sm px-2 py-1 gap-1.5",
@@ -16,13 +18,13 @@ export function TierBadge({ tier, size = "md" }: TierBadgeProps) {
     <span
       className={`inline-flex items-center rounded-full font-medium ${sizeClasses[size]}`}
       style={{
-        backgroundColor: tier.bg,
-        color: tier.color,
-        border: `1px solid ${tier.color}33`,
+        backgroundColor: tierConfig.bg,
+        color: tierConfig.color,
+        border: `1px solid ${tierConfig.color}33`,
       }}
     >
-      <span>{tier.icon}</span>
-      <span className="capitalize">{tier.label}</span>
+      <span>{tierConfig.icon}</span>
+      <span className="capitalize">{tierConfig.label}</span>
     </span>
   );
 }

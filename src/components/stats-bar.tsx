@@ -1,45 +1,65 @@
-import { ContributorData, TIERS } from "@/lib/trust-scoring";
+"use client";
+
+import { ContributorData, TIERS, TrustStats, getTierConfig, isAutoMergeEligible } from "@/lib/trust-scoring";
+import { formatRelativeTime } from "@/lib/utils";
 
 interface StatsBarProps {
   contributors: ContributorData[];
+  stats: TrustStats;
+  generatedAt: string;
 }
 
-export function StatsBar({ contributors }: StatsBarProps) {
-  const totalContributors = contributors.length;
-  const avgScore = totalContributors > 0
-    ? contributors.reduce((sum, c) => sum + c.trustScore, 0) / totalContributors
-    : 0;
-  const autoMergeCount = contributors.filter(c => c.autoMergeEligible).length;
-
-  // Count per tier
-  const tierCounts = TIERS.map(tier => {
-    const nextTierIdx = TIERS.indexOf(tier) - 1;
-    const maxScore = nextTierIdx >= 0 ? TIERS[nextTierIdx].minScore : 101;
-    return {
-      tier,
-      count: contributors.filter(c => c.trustScore >= tier.minScore && c.trustScore < maxScore).length,
-    };
-  }).filter(t => t.count > 0);
+export function StatsBar({ contributors, stats, generatedAt }: StatsBarProps) {
+  const totalContributors = stats.totalContributors || contributors.length;
+  const avgScore = stats.avgScore || 0;
+  const autoMergeCount = contributors.filter(isAutoMergeEligible).length;
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <StatCard label="Contributors" value={totalContributors.toString()} />
-      <StatCard label="Avg Trust Score" value={avgScore.toFixed(1)} />
-      <StatCard label="Auto-Merge Eligible" value={autoMergeCount.toString()} />
-      <div className="rounded-lg border border-border bg-card p-4">
-        <div className="text-xs text-muted-foreground mb-2">Tier Distribution</div>
-        <div className="flex gap-1 items-end h-6">
-          {tierCounts.map(({ tier, count }) => (
-            <div
-              key={tier.label}
-              className="flex-1 rounded-sm min-w-[4px]"
-              style={{
-                backgroundColor: tier.color,
-                height: `${Math.max(20, (count / totalContributors) * 100)}%`,
-              }}
-              title={`${tier.label}: ${count}`}
-            />
-          ))}
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard label="Total Contributors" value={totalContributors.toString()} />
+        <StatCard label="Average Score" value={avgScore.toFixed(1)} />
+        <StatCard label="Auto-Merge Eligible" value={autoMergeCount.toString()} />
+        <StatCard label="Total Events" value={stats.totalEvents.toString()} />
+      </div>
+
+      <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <h3 className="text-sm font-medium">Tier Distribution</h3>
+          <p className="text-xs text-muted-foreground">Last updated: {formatRelativeTime(generatedAt)}</p>
+        </div>
+
+        <div className="h-3 w-full rounded-full bg-muted overflow-hidden flex">
+          {TIERS.map((tier) => {
+            const count = stats.tierDistribution[tier.label] || 0;
+            const pct = totalContributors > 0 ? (count / totalContributors) * 100 : 0;
+            if (pct <= 0) return null;
+
+            return (
+              <div
+                key={tier.label}
+                className="h-full"
+                style={{ width: `${pct}%`, backgroundColor: tier.color }}
+                title={`${tier.label}: ${count} (${pct.toFixed(1)}%)`}
+              />
+            );
+          })}
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-2 text-xs">
+          {TIERS.map((tier) => {
+            const count = stats.tierDistribution[tier.label] || 0;
+            if (count === 0) return null;
+            const cfg = getTierConfig(tier.label);
+
+            return (
+              <div key={tier.label} className="flex items-center gap-2 text-muted-foreground">
+                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: cfg.color }} />
+                <span className="capitalize">{tier.label}</span>
+                <span className="font-mono">{count}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

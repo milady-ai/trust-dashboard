@@ -1,9 +1,23 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const siteTitle = "Milaidy Contributor Dashboard";
+const siteDescription = "Interactive trust scoring, leaderboard insights, and simulator for milady-ai/milaidy contributors.";
+const faviconSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='#0A0A0F'/><path d='M16 44V20h7l9 14 9-14h7v24h-7V31l-9 13-9-13v13z' fill='#C084FC'/></svg>`;
+
 export const metadata: Metadata = {
-  title: "Milaidy Contributor Dashboard",
-  description: "Trust scoring leaderboard for milady-ai/milaidy contributors",
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: "https://trust-dashboard.milady.ai",
+    siteName: siteTitle,
+    type: "website",
+  },
+  icons: {
+    icon: `data:image/svg+xml,${encodeURIComponent(faviconSvg)}`,
+  },
 };
 
 export default function RootLayout({
@@ -26,6 +40,7 @@ export default function RootLayout({
             <nav className="flex items-center gap-4 text-sm text-muted-foreground">
               <a href="/" className="hover:text-foreground transition-colors">Leaderboard</a>
               <a href="/scoring" className="hover:text-foreground transition-colors">Scoring</a>
+              <a href="/simulator" className="hover:text-foreground transition-colors">Simulator</a>
               <a
                 href="https://github.com/milady-ai/milaidy"
                 target="_blank"

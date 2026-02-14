@@ -18,7 +18,7 @@ export function StreakIndicator({ type, length }: StreakIndicatorProps) {
   }
 
   return (
-    <span className="text-sm" title={`${length} consecutive rejections`}>
+    <span className="text-sm" title={`${length} consecutive negative outcomes`}>
       {"⚠️".repeat(Math.min(length, 3))}
       {length > 3 && <span className="text-tier-restricted font-mono ml-0.5">×{length}</span>}
     </span>

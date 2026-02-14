@@ -1,0 +1,5591 @@
+{
+  "generatedAt": "2026-02-14T20:47:05.677Z",
+  "repoFullName": "milady-ai/milaidy",
+  "contributors": [
+    {
+      "username": "HomunculusLabs",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/104694001?v=4",
+      "trustScore": 78.33,
+      "tier": "trusted",
+      "tierInfo": {
+        "minScore": 75,
+        "label": "trusted",
+        "description": "Highly trusted, expedited review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 43.3275,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 23,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9098,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.3541,
+            "finalPoints": 11.3541
+          },
+          {
+            "prNumber": 24,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9098,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.9416,
+            "finalPoints": 9.9416
+          },
+          {
+            "prNumber": 158,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.9483,
+            "daysSinceEvent": 3.4,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.3891,
+            "finalPoints": 10.3891
+          },
+          {
+            "prNumber": 198,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7829,
+            "recencyWeight": 0.9609,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.6427,
+            "finalPoints": 11.6427
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 4
+      },
+      "totalApprovals": 4,
+      "totalRejections": 0,
+      "totalCloses": 0,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-12T06:42:05.000Z",
+      "firstSeenAt": "2026-02-08T17:27:50.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770571670000,
+          "linesChanged": 168,
+          "labels": [],
+          "prNumber": 23
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770572012000,
+          "linesChanged": 6001,
+          "labels": [],
+          "prNumber": 24
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770804043000,
+          "linesChanged": 3468,
+          "labels": [],
+          "prNumber": 158
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770878525000,
+          "linesChanged": 448,
+          "labels": [],
+          "prNumber": 198
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770571670000,
+          "score": 47.48
+        },
+        {
+          "timestamp": 1770572012000,
+          "score": 58.41
+        },
+        {
+          "timestamp": 1770804043000,
+          "score": 68.41
+        },
+        {
+          "timestamp": 1770878525000,
+          "score": 80.09
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "wbaxterh",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/29613164?v=4",
+      "trustScore": 69.85,
+      "tier": "established",
+      "tierInfo": {
+        "minScore": 60,
+        "label": "established",
+        "description": "Proven track record"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 40.9971,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0.15,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 9,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.8997,
+            "daysSinceEvent": 6.9,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.046,
+            "finalPoints": 6.046
+          },
+          {
+            "prNumber": 11,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.8997,
+            "daysSinceEvent": 6.9,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.277,
+            "finalPoints": 3.277
+          },
+          {
+            "prNumber": 12,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.8997,
+            "daysSinceEvent": 6.9,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.2857,
+            "finalPoints": 3.2857
+          },
+          {
+            "prNumber": 64,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7829,
+            "recencyWeight": 0.9264,
+            "daysSinceEvent": 5,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.4535,
+            "finalPoints": 3.4535
+          },
+          {
+            "prNumber": 82,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.93,
+            "daysSinceEvent": 4.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.4401,
+            "finalPoints": -7.4401
+          },
+          {
+            "prNumber": 119,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7565,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.8559,
+            "finalPoints": 6.8559
+          },
+          {
+            "prNumber": 117,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7362,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.0439,
+            "finalPoints": 5.0439
+          },
+          {
+            "prNumber": 114,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7198,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.2973,
+            "finalPoints": 5.2973
+          },
+          {
+            "prNumber": 112,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7063,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.5558,
+            "finalPoints": 5.5558
+          },
+          {
+            "prNumber": 209,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6947,
+            "recencyWeight": 0.9774,
+            "daysSinceEvent": 1.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.32,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.0233,
+            "finalPoints": 6.0233
+          },
+          {
+            "prNumber": 211,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6847,
+            "recencyWeight": 0.9777,
+            "daysSinceEvent": 1.5,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.4,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.5989,
+            "finalPoints": 3.5989
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 6
+      },
+      "totalApprovals": 10,
+      "totalRejections": 0,
+      "totalCloses": 1,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-13T09:40:26.000Z",
+      "firstSeenAt": "2026-02-08T00:05:51.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770509151000,
+          "linesChanged": 21,
+          "labels": [],
+          "prNumber": 9
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770509174000,
+          "linesChanged": 8,
+          "labels": [],
+          "prNumber": 11
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770509184000,
+          "linesChanged": 1,
+          "labels": [],
+          "prNumber": 12
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770672982000,
+          "linesChanged": 6,
+          "labels": [],
+          "prNumber": 64
+        },
+        {
+          "type": "close",
+          "timestamp": 1770695072000,
+          "linesChanged": 12,
+          "labels": [],
+          "prNumber": 82
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 58,
+          "labels": [],
+          "prNumber": 119
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 11,
+          "labels": [],
+          "prNumber": 117
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 15,
+          "labels": [],
+          "prNumber": 114
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 13,
+          "labels": [],
+          "prNumber": 112
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770973963000,
+          "linesChanged": 11,
+          "labels": [],
+          "prNumber": 209
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770975626000,
+          "linesChanged": 7,
+          "labels": [],
+          "prNumber": 211
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770509151000,
+          "score": 41.72
+        },
+        {
+          "timestamp": 1770509174000,
+          "score": 45.36
+        },
+        {
+          "timestamp": 1770509184000,
+          "score": 49.01
+        },
+        {
+          "timestamp": 1770672982000,
+          "score": 52.34
+        },
+        {
+          "timestamp": 1770695072000,
+          "score": 44.27
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 51.4
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 56.74
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 62.35
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 68.23
+        },
+        {
+          "timestamp": 1770973963000,
+          "score": 73.26
+        },
+        {
+          "timestamp": 1770975626000,
+          "score": 70.64
+        }
+      ],
+      "warnings": [
+        "Velocity warning: 11 PRs in 7 days (soft cap: 10)"
+      ]
+    },
+    {
+      "username": "hellopleasures",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/99759672?v=4",
+      "trustScore": 59.29,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 24.2949,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 36,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9113,
+            "daysSinceEvent": 6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.4993,
+            "finalPoints": 3.4993
+          },
+          {
+            "prNumber": 37,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9117,
+            "daysSinceEvent": 6,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 12.4519,
+            "finalPoints": 12.4519
+          },
+          {
+            "prNumber": 38,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.9139,
+            "daysSinceEvent": 5.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.3436,
+            "finalPoints": 8.3436
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 3
+      },
+      "totalApprovals": 3,
+      "totalRejections": 0,
+      "totalCloses": 0,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-09T00:27:26.000Z",
+      "firstSeenAt": "2026-02-08T20:02:10.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770580930000,
+          "linesChanged": 10,
+          "labels": [],
+          "prNumber": 36
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770583235000,
+          "linesChanged": 978,
+          "labels": [],
+          "prNumber": 37
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770596846000,
+          "linesChanged": 119,
+          "labels": [],
+          "prNumber": 38
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770580930000,
+          "score": 38.84
+        },
+        {
+          "timestamp": 1770583235000,
+          "score": 52.5
+        },
+        {
+          "timestamp": 1770596846000,
+          "score": 61.58
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "Dexploarer",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/211557447?v=4",
+      "trustScore": 55.1,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 28.7197,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0.3,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 30,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9099,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.4825,
+            "finalPoints": 10.4825
+          },
+          {
+            "prNumber": 49,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9214,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3709,
+            "finalPoints": -7.3709
+          },
+          {
+            "prNumber": 99,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9361,
+            "daysSinceEvent": 4.3,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.612,
+            "finalPoints": -8.612
+          },
+          {
+            "prNumber": 100,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9361,
+            "daysSinceEvent": 4.3,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.3,
+            "severityMultiplier": 1,
+            "weightedPoints": -9.7354,
+            "finalPoints": -9.7354
+          },
+          {
+            "prNumber": 104,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9361,
+            "daysSinceEvent": 4.3,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.45,
+            "severityMultiplier": 1,
+            "weightedPoints": -10.8587,
+            "finalPoints": -10.8587
+          },
+          {
+            "prNumber": 108,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9437,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.9345,
+            "finalPoints": 11.9345
+          },
+          {
+            "prNumber": 109,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.9445,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.4369,
+            "finalPoints": 10.4369
+          },
+          {
+            "prNumber": 107,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9447,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.5573,
+            "finalPoints": -7.5573
+          },
+          {
+            "prNumber": 127,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7829,
+            "recencyWeight": 0.9449,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.5225,
+            "finalPoints": 8.5225
+          },
+          {
+            "prNumber": 173,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7565,
+            "recencyWeight": 0.9569,
+            "daysSinceEvent": 2.9,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.0061,
+            "finalPoints": 9.0061
+          },
+          {
+            "prNumber": 172,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7362,
+            "recencyWeight": 0.9569,
+            "daysSinceEvent": 2.9,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.7669,
+            "finalPoints": 11.7669
+          },
+          {
+            "prNumber": 196,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7198,
+            "recencyWeight": 0.9609,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.7047,
+            "finalPoints": 10.7047
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 4
+      },
+      "totalApprovals": 7,
+      "totalRejections": 0,
+      "totalCloses": 5,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-12T06:42:05.000Z",
+      "firstSeenAt": "2026-02-08T17:43:48.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770572628000,
+          "linesChanged": 8748,
+          "labels": [],
+          "prNumber": 30
+        },
+        {
+          "type": "close",
+          "timestamp": 1770642615000,
+          "linesChanged": 2046,
+          "labels": [],
+          "prNumber": 49
+        },
+        {
+          "type": "close",
+          "timestamp": 1770731578000,
+          "linesChanged": 16260,
+          "labels": [],
+          "prNumber": 99
+        },
+        {
+          "type": "close",
+          "timestamp": 1770731583000,
+          "linesChanged": 1184,
+          "labels": [],
+          "prNumber": 100
+        },
+        {
+          "type": "close",
+          "timestamp": 1770731586000,
+          "linesChanged": 236,
+          "labels": [],
+          "prNumber": 104
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770776855000,
+          "linesChanged": 1183,
+          "labels": [],
+          "prNumber": 108
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770781619000,
+          "linesChanged": 236,
+          "labels": [],
+          "prNumber": 109
+        },
+        {
+          "type": "close",
+          "timestamp": 1770782737000,
+          "linesChanged": 16287,
+          "labels": [],
+          "prNumber": 107
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770784201000,
+          "linesChanged": 24478,
+          "labels": [],
+          "prNumber": 127
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770854747000,
+          "linesChanged": 3401,
+          "labels": [],
+          "prNumber": 173
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770854747000,
+          "linesChanged": 628,
+          "labels": [],
+          "prNumber": 172
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770878525000,
+          "linesChanged": 286,
+          "labels": [],
+          "prNumber": 196
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770572628000,
+          "score": 46.52
+        },
+        {
+          "timestamp": 1770642615000,
+          "score": 38.38
+        },
+        {
+          "timestamp": 1770731578000,
+          "score": 29.12
+        },
+        {
+          "timestamp": 1770731583000,
+          "score": 18.72
+        },
+        {
+          "timestamp": 1770731586000,
+          "score": 7.12
+        },
+        {
+          "timestamp": 1770776855000,
+          "score": 19.99
+        },
+        {
+          "timestamp": 1770781619000,
+          "score": 31.06
+        },
+        {
+          "timestamp": 1770782737000,
+          "score": 23.06
+        },
+        {
+          "timestamp": 1770784201000,
+          "score": 32.08
+        },
+        {
+          "timestamp": 1770854747000,
+          "score": 41.53
+        },
+        {
+          "timestamp": 1770854747000,
+          "score": 51
+        },
+        {
+          "timestamp": 1770878525000,
+          "score": 55.92
+        }
+      ],
+      "warnings": [
+        "Velocity warning: 12 PRs in 7 days (soft cap: 10)"
+      ]
+    },
+    {
+      "username": "mavisakalyan",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/55106546?v=4",
+      "trustScore": 52.73,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 17.7333,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 169,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9533,
+            "daysSinceEvent": 3.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.4064,
+            "finalPoints": 6.4064
+          },
+          {
+            "prNumber": 170,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9569,
+            "daysSinceEvent": 2.9,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.3269,
+            "finalPoints": 11.3269
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 2
+      },
+      "totalApprovals": 2,
+      "totalRejections": 0,
+      "totalCloses": 0,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-12T00:05:47.000Z",
+      "firstSeenAt": "2026-02-11T18:19:08.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770833948000,
+          "linesChanged": 30,
+          "labels": [],
+          "prNumber": 169
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770854747000,
+          "linesChanged": 182,
+          "labels": [],
+          "prNumber": 170
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770833948000,
+          "score": 41.72
+        },
+        {
+          "timestamp": 1770854747000,
+          "score": 53.53
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "helloama",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/91581825?v=4",
+      "trustScore": 51.42,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 16.4246,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 19,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9103,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 13.1088,
+            "finalPoints": 13.1088
+          },
+          {
+            "prNumber": 18,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9103,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.3157,
+            "finalPoints": 3.3157
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 2
+      },
+      "totalApprovals": 2,
+      "totalRejections": 0,
+      "totalCloses": 0,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-08T18:25:23.000Z",
+      "firstSeenAt": "2026-02-08T18:24:52.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770575092000,
+          "linesChanged": 852,
+          "labels": [],
+          "prNumber": 19
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770575123000,
+          "linesChanged": 0,
+          "labels": [],
+          "prNumber": 18
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770575092000,
+          "score": 49.4
+        },
+        {
+          "timestamp": 1770575123000,
+          "score": 53.04
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "0xSero",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/69639595?v=4",
+      "trustScore": 48.96,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 13.9615,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 201,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9696,
+            "daysSinceEvent": 2,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 13.9615,
+            "finalPoints": 13.9615
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 1
+      },
+      "totalApprovals": 1,
+      "totalRejections": 0,
+      "totalCloses": 0,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-12T20:36:23.000Z",
+      "firstSeenAt": "2026-02-12T20:36:23.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770928583000,
+          "linesChanged": 978,
+          "labels": [],
+          "prNumber": 201
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770928583000,
+          "score": 49.4
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "odilitime",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/16395496?v=4",
+      "trustScore": 48.23,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 13.2327,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 47,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9189,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 13.2327,
+            "finalPoints": 13.2327
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 1
+      },
+      "totalApprovals": 1,
+      "totalRejections": 0,
+      "totalCloses": 0,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-09T09:03:47.000Z",
+      "firstSeenAt": "2026-02-09T09:03:47.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770627827000,
+          "linesChanged": 1383,
+          "labels": [],
+          "prNumber": 47
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770627827000,
+          "score": 49.4
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "lalalune",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/18633264?v=4",
+      "trustScore": 47.38,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 123.8417,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0.9,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 16,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9097,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.4802,
+            "finalPoints": 10.4802
+          },
+          {
+            "prNumber": 17,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9097,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.9405,
+            "finalPoints": 9.9405
+          },
+          {
+            "prNumber": 20,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.9097,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.967,
+            "finalPoints": 9.967
+          },
+          {
+            "prNumber": 57,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7829,
+            "recencyWeight": 0.9222,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.5945,
+            "finalPoints": 8.5945
+          },
+          {
+            "prNumber": 51,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7565,
+            "recencyWeight": 0.9222,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.32,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.6085,
+            "finalPoints": 10.6085
+          },
+          {
+            "prNumber": 84,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7362,
+            "recencyWeight": 0.93,
+            "daysSinceEvent": 4.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.4,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.2019,
+            "finalPoints": 9.2019
+          },
+          {
+            "prNumber": 72,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7198,
+            "recencyWeight": 0.9322,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.48,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.4414,
+            "finalPoints": 11.4414
+          },
+          {
+            "prNumber": 95,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7063,
+            "recencyWeight": 0.9324,
+            "daysSinceEvent": 4.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.6376,
+            "finalPoints": 6.6376
+          },
+          {
+            "prNumber": 164,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9484,
+            "daysSinceEvent": 3.4,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.587,
+            "finalPoints": -7.587
+          },
+          {
+            "prNumber": 166,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6947,
+            "recencyWeight": 0.9484,
+            "daysSinceEvent": 3.4,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.2229,
+            "finalPoints": 8.2229
+          },
+          {
+            "prNumber": 165,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6847,
+            "recencyWeight": 0.9484,
+            "daysSinceEvent": 3.4,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 2.6931,
+            "finalPoints": 2.6931
+          },
+          {
+            "prNumber": 175,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6759,
+            "recencyWeight": 0.9567,
+            "daysSinceEvent": 2.9,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.6411,
+            "finalPoints": 8.6411
+          },
+          {
+            "prNumber": 179,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.668,
+            "recencyWeight": 0.9568,
+            "daysSinceEvent": 2.9,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.6088,
+            "finalPoints": 7.6088
+          },
+          {
+            "prNumber": 181,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6609,
+            "recencyWeight": 0.9574,
+            "daysSinceEvent": 2.8,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.32,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.2074,
+            "finalPoints": 3.2074
+          },
+          {
+            "prNumber": 182,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6545,
+            "recencyWeight": 0.9575,
+            "daysSinceEvent": 2.8,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.4,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.3694,
+            "finalPoints": 3.3694
+          },
+          {
+            "prNumber": 178,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6487,
+            "recencyWeight": 0.9593,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.48,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.609,
+            "finalPoints": 10.609
+          },
+          {
+            "prNumber": 204,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6433,
+            "recencyWeight": 0.9681,
+            "daysSinceEvent": 2.1,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.7615,
+            "finalPoints": 10.2055,
+            "cappedBy": 0.556
+          },
+          {
+            "prNumber": 206,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6383,
+            "recencyWeight": 0.9684,
+            "daysSinceEvent": 2.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.2306,
+            "finalPoints": 0,
+            "cappedBy": 6.2306
+          },
+          {
+            "prNumber": 205,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6337,
+            "recencyWeight": 0.9684,
+            "daysSinceEvent": 2.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.1854,
+            "finalPoints": 0,
+            "cappedBy": 6.1854
+          },
+          {
+            "prNumber": 207,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6294,
+            "recencyWeight": 0.9685,
+            "daysSinceEvent": 2.1,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.5109,
+            "finalPoints": 0,
+            "cappedBy": 3.5109
+          },
+          {
+            "prNumber": 208,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6253,
+            "recencyWeight": 0.9686,
+            "daysSinceEvent": 2.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.1055,
+            "finalPoints": 0,
+            "cappedBy": 6.1055
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 12
+      },
+      "totalApprovals": 20,
+      "totalRejections": 0,
+      "totalCloses": 1,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-12T19:05:55.000Z",
+      "firstSeenAt": "2026-02-08T17:23:18.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770571398000,
+          "linesChanged": 2989,
+          "labels": [],
+          "prNumber": 16
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770571403000,
+          "linesChanged": 8889,
+          "labels": [],
+          "prNumber": 17
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770571410000,
+          "linesChanged": 8890,
+          "labels": [],
+          "prNumber": 20
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770647481000,
+          "linesChanged": 94,
+          "labels": [],
+          "prNumber": 57
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770647667000,
+          "linesChanged": 1605,
+          "labels": [],
+          "prNumber": 51
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770695057000,
+          "linesChanged": 117,
+          "labels": [],
+          "prNumber": 84
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770708417000,
+          "linesChanged": 19538,
+          "labels": [],
+          "prNumber": 72
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770709141000,
+          "linesChanged": 12,
+          "labels": [],
+          "prNumber": 95
+        },
+        {
+          "type": "close",
+          "timestamp": 1770804687000,
+          "linesChanged": 25,
+          "labels": [],
+          "prNumber": 164
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770805004000,
+          "linesChanged": 344,
+          "labels": [],
+          "prNumber": 166
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770805012000,
+          "linesChanged": 0,
+          "labels": [],
+          "prNumber": 165
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770853990000,
+          "linesChanged": 89540,
+          "labels": [],
+          "prNumber": 175
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770854557000,
+          "linesChanged": 117,
+          "labels": [],
+          "prNumber": 179
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770857657000,
+          "linesChanged": 9,
+          "labels": [],
+          "prNumber": 181
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770858698000,
+          "linesChanged": 9,
+          "labels": [],
+          "prNumber": 182
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770868688000,
+          "linesChanged": 15298,
+          "labels": [],
+          "prNumber": 178
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770920245000,
+          "linesChanged": 5672,
+          "labels": [],
+          "prNumber": 204
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770921677000,
+          "linesChanged": 14,
+          "labels": [],
+          "prNumber": 206
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770921679000,
+          "linesChanged": 14,
+          "labels": [],
+          "prNumber": 205
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770922361000,
+          "linesChanged": 2,
+          "labels": [],
+          "prNumber": 207
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770923155000,
+          "linesChanged": 23,
+          "labels": [],
+          "prNumber": 208
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770571398000,
+          "score": 46.52
+        },
+        {
+          "timestamp": 1770571403000,
+          "score": 57.45
+        },
+        {
+          "timestamp": 1770571410000,
+          "score": 68.4
+        },
+        {
+          "timestamp": 1770647481000,
+          "score": 77.27
+        },
+        {
+          "timestamp": 1770647667000,
+          "score": 88.77
+        },
+        {
+          "timestamp": 1770695057000,
+          "score": 98.22
+        },
+        {
+          "timestamp": 1770708417000,
+          "score": 100
+        },
+        {
+          "timestamp": 1770709141000,
+          "score": 100
+        },
+        {
+          "timestamp": 1770804687000,
+          "score": 100
+        },
+        {
+          "timestamp": 1770805004000,
+          "score": 100
+        },
+        {
+          "timestamp": 1770805012000,
+          "score": 100
+        },
+        {
+          "timestamp": 1770853990000,
+          "score": 100
+        },
+        {
+          "timestamp": 1770854557000,
+          "score": 90.44
+        },
+        {
+          "timestamp": 1770857657000,
+          "score": 76.64
+        },
+        {
+          "timestamp": 1770858698000,
+          "score": 61.9
+        },
+        {
+          "timestamp": 1770868688000,
+          "score": 46.85
+        },
+        {
+          "timestamp": 1770920245000,
+          "score": 47.68
+        },
+        {
+          "timestamp": 1770921677000,
+          "score": 47.67
+        },
+        {
+          "timestamp": 1770921679000,
+          "score": 47.67
+        },
+        {
+          "timestamp": 1770922361000,
+          "score": 47.67
+        },
+        {
+          "timestamp": 1770923155000,
+          "score": 47.67
+        }
+      ],
+      "warnings": [
+        "Daily cap hit on 2026-02-12: PR #204 capped from 10.76 to 10.21",
+        "Daily cap hit on 2026-02-12: PR #206 capped from 6.23 to 0",
+        "Daily cap hit on 2026-02-12: PR #205 capped from 6.19 to 0",
+        "Daily cap hit on 2026-02-12: PR #207 capped from 3.51 to 0",
+        "Daily cap hit on 2026-02-12: PR #208 capped from 6.11 to 0",
+        "Velocity warning: 21 PRs in 7 days (soft cap: 10)"
+      ]
+    },
+    {
+      "username": "2-A-M",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/96268540?v=4",
+      "trustScore": 47.22,
+      "tier": "contributing",
+      "tierInfo": {
+        "minScore": 45,
+        "label": "contributing",
+        "description": "Active contributor, standard review"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 14.3755,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0.15,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 28,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9098,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.7345,
+            "finalPoints": 8.7345
+          },
+          {
+            "prNumber": 29,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9098,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.2847,
+            "finalPoints": 8.2847
+          },
+          {
+            "prNumber": 27,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.9099,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 12.4611,
+            "finalPoints": 12.4611
+          },
+          {
+            "prNumber": 59,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9229,
+            "daysSinceEvent": 5.2,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3835,
+            "finalPoints": -7.3835
+          },
+          {
+            "prNumber": 61,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9281,
+            "daysSinceEvent": 4.8,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.5381,
+            "finalPoints": -8.5381
+          },
+          {
+            "prNumber": 111,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7829,
+            "recencyWeight": 0.9445,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.9692,
+            "finalPoints": 4.9692
+          },
+          {
+            "prNumber": 167,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9518,
+            "daysSinceEvent": 3.2,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.6142,
+            "finalPoints": -7.6142
+          },
+          {
+            "prNumber": 168,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9575,
+            "daysSinceEvent": 2.8,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.8087,
+            "finalPoints": -8.8087
+          },
+          {
+            "prNumber": 186,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7565,
+            "recencyWeight": 0.9597,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.061,
+            "finalPoints": 9.061
+          },
+          {
+            "prNumber": 213,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7362,
+            "recencyWeight": 0.9777,
+            "daysSinceEvent": 1.5,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.1941,
+            "finalPoints": 11.1941
+          },
+          {
+            "prNumber": 244,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.998,
+            "daysSinceEvent": 0.1,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.9843,
+            "finalPoints": -7.9843
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "negative",
+        "length": 1
+      },
+      "totalApprovals": 6,
+      "totalRejections": 0,
+      "totalCloses": 5,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-14T17:43:26.000Z",
+      "firstSeenAt": "2026-02-08T17:33:47.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770572027000,
+          "linesChanged": 112,
+          "labels": [],
+          "prNumber": 28
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770572031000,
+          "linesChanged": 110,
+          "labels": [],
+          "prNumber": 29
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770572440000,
+          "linesChanged": 669,
+          "labels": [],
+          "prNumber": 27
+        },
+        {
+          "type": "close",
+          "timestamp": 1770652231000,
+          "linesChanged": 771,
+          "labels": [],
+          "prNumber": 59
+        },
+        {
+          "type": "close",
+          "timestamp": 1770683242000,
+          "linesChanged": 1677,
+          "labels": [],
+          "prNumber": 61
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770781619000,
+          "linesChanged": 24,
+          "labels": [],
+          "prNumber": 111
+        },
+        {
+          "type": "close",
+          "timestamp": 1770824771000,
+          "linesChanged": 294,
+          "labels": [],
+          "prNumber": 167
+        },
+        {
+          "type": "close",
+          "timestamp": 1770858240000,
+          "linesChanged": 253,
+          "labels": [],
+          "prNumber": 168
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770871533000,
+          "linesChanged": 260,
+          "labels": [],
+          "prNumber": 186
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770975625000,
+          "linesChanged": 1363,
+          "labels": [],
+          "prNumber": 213
+        },
+        {
+          "type": "close",
+          "timestamp": 1771091006000,
+          "linesChanged": 0,
+          "labels": [
+            "build"
+          ],
+          "prNumber": 244
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770572027000,
+          "score": 44.6
+        },
+        {
+          "timestamp": 1770572031000,
+          "score": 53.71
+        },
+        {
+          "timestamp": 1770572440000,
+          "score": 67.4
+        },
+        {
+          "timestamp": 1770652231000,
+          "score": 58.94
+        },
+        {
+          "timestamp": 1770683242000,
+          "score": 49.61
+        },
+        {
+          "timestamp": 1770781619000,
+          "score": 54.62
+        },
+        {
+          "timestamp": 1770824771000,
+          "score": 46.47
+        },
+        {
+          "timestamp": 1770858240000,
+          "score": 37.2
+        },
+        {
+          "timestamp": 1770871533000,
+          "score": 46.63
+        },
+        {
+          "timestamp": 1770975625000,
+          "score": 57.87
+        },
+        {
+          "timestamp": 1771091006000,
+          "score": 47.24
+        }
+      ],
+      "warnings": [
+        "Velocity warning: 11 PRs in 7 days (soft cap: 10)"
+      ]
+    },
+    {
+      "username": "awidearray",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/58874935?v=4",
+      "trustScore": 43.65,
+      "tier": "probationary",
+      "tierInfo": {
+        "minScore": 30,
+        "label": "probationary",
+        "description": "Building trust, closer scrutiny"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 8.6452,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 14,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9005,
+            "daysSinceEvent": 6.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.6452,
+            "finalPoints": 8.6452
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 1
+      },
+      "totalApprovals": 1,
+      "totalRejections": 0,
+      "totalCloses": 0,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-08T01:33:42.000Z",
+      "firstSeenAt": "2026-02-08T01:33:42.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770514422000,
+          "linesChanged": 150,
+          "labels": [],
+          "prNumber": 14
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770514422000,
+          "score": 44.6
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "jqmwa",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/95416268?v=4",
+      "trustScore": 36.85,
+      "tier": "probationary",
+      "tierInfo": {
+        "minScore": 30,
+        "label": "probationary",
+        "description": "Building trust, closer scrutiny"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 1.85,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 98,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9441,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.5527,
+            "finalPoints": -7.5527
+          },
+          {
+            "prNumber": 193,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9619,
+            "daysSinceEvent": 2.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.4642,
+            "finalPoints": 6.4642
+          },
+          {
+            "prNumber": 216,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9898,
+            "daysSinceEvent": 0.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.9182,
+            "finalPoints": -7.9182
+          },
+          {
+            "prNumber": 217,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9905,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.8567,
+            "finalPoints": 10.8567
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 1
+      },
+      "totalApprovals": 2,
+      "totalRejections": 0,
+      "totalCloses": 2,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-14T05:57:22.000Z",
+      "firstSeenAt": "2026-02-11T03:08:24.000Z",
+      "events": [
+        {
+          "type": "close",
+          "timestamp": 1770779304000,
+          "linesChanged": 285,
+          "labels": [],
+          "prNumber": 98
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770884325000,
+          "linesChanged": 12,
+          "labels": [],
+          "prNumber": 193
+        },
+        {
+          "type": "close",
+          "timestamp": 1771044379000,
+          "linesChanged": 13,
+          "labels": [],
+          "prNumber": 216
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771048642000,
+          "linesChanged": 199,
+          "labels": [],
+          "prNumber": 217
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770779304000,
+          "score": 27
+        },
+        {
+          "timestamp": 1770884325000,
+          "score": 33.87
+        },
+        {
+          "timestamp": 1771044379000,
+          "score": 25.9
+        },
+        {
+          "timestamp": 1771048642000,
+          "score": 36.87
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "OkeyGoogle1",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/237472336?v=4",
+      "trustScore": 36.52,
+      "tier": "probationary",
+      "tierInfo": {
+        "minScore": 30,
+        "label": "probationary",
+        "description": "Building trust, closer scrutiny"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 1.5155,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 55,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9221,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3764,
+            "finalPoints": -7.3764
+          },
+          {
+            "prNumber": 56,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9262,
+            "daysSinceEvent": 5,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.8919,
+            "finalPoints": 8.8919
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "approve",
+        "length": 1
+      },
+      "totalApprovals": 1,
+      "totalRejections": 0,
+      "totalCloses": 1,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-09T21:24:02.000Z",
+      "firstSeenAt": "2026-02-09T14:20:22.000Z",
+      "events": [
+        {
+          "type": "close",
+          "timestamp": 1770646822000,
+          "linesChanged": 123,
+          "labels": [],
+          "prNumber": 55
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770672242000,
+          "linesChanged": 137,
+          "labels": [],
+          "prNumber": 56
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770646822000,
+          "score": 27
+        },
+        {
+          "timestamp": 1770672242000,
+          "score": 36.64
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "miami0x",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/129148893?v=4",
+      "trustScore": 36.28,
+      "tier": "probationary",
+      "tierInfo": {
+        "minScore": 30,
+        "label": "probationary",
+        "description": "Building trust, closer scrutiny"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": 1.2758,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 26,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9098,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.7339,
+            "finalPoints": 8.7339
+          },
+          {
+            "prNumber": 93,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9323,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.4581,
+            "finalPoints": -7.4581
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "negative",
+        "length": 1
+      },
+      "totalApprovals": 1,
+      "totalRejections": 0,
+      "totalCloses": 1,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-10T07:29:31.000Z",
+      "firstSeenAt": "2026-02-08T17:27:36.000Z",
+      "events": [
+        {
+          "type": "approve",
+          "timestamp": 1770571656000,
+          "linesChanged": 111,
+          "labels": [],
+          "prNumber": 26
+        },
+        {
+          "type": "close",
+          "timestamp": 1770708571000,
+          "linesChanged": 2,
+          "labels": [],
+          "prNumber": 93
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770571656000,
+          "score": 44.6
+        },
+        {
+          "timestamp": 1770708571000,
+          "score": 36.37
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "hanzlamateen",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/10975502?v=4",
+      "trustScore": 27.66,
+      "tier": "untested",
+      "tierInfo": {
+        "minScore": 15,
+        "label": "untested",
+        "description": "New or low-activity contributor"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": -7.3447,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 48,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9181,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3447,
+            "finalPoints": -7.3447
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "negative",
+        "length": 1
+      },
+      "totalApprovals": 0,
+      "totalRejections": 0,
+      "totalCloses": 1,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-09T07:37:44.000Z",
+      "firstSeenAt": "2026-02-09T07:37:44.000Z",
+      "events": [
+        {
+          "type": "close",
+          "timestamp": 1770622664000,
+          "linesChanged": 11,
+          "labels": [],
+          "prNumber": 48
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770622664000,
+          "score": 27
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "username": "lawyered0",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/4802498?v=4",
+      "trustScore": 26.11,
+      "tier": "untested",
+      "tierInfo": {
+        "minScore": 15,
+        "label": "untested",
+        "description": "New or low-activity contributor"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": -8.8919,
+        "streakMultiplier": 1,
+        "velocityPenalty": 1,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 13,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9003,
+            "daysSinceEvent": 6.8,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.2024,
+            "finalPoints": -7.2024
+          },
+          {
+            "prNumber": 15,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9097,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.1134,
+            "finalPoints": 6.1134
+          },
+          {
+            "prNumber": 21,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9097,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.7986,
+            "finalPoints": 5.7986
+          },
+          {
+            "prNumber": 25,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9098,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.2782,
+            "finalPoints": -7.2782
+          },
+          {
+            "prNumber": 22,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.9098,
+            "daysSinceEvent": 6.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.0124,
+            "finalPoints": 5.0124
+          },
+          {
+            "prNumber": 39,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7829,
+            "recencyWeight": 0.9187,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.22,
+            "finalPoints": 5.22
+          },
+          {
+            "prNumber": 40,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7565,
+            "recencyWeight": 0.9187,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.4174,
+            "finalPoints": 5.4174
+          },
+          {
+            "prNumber": 41,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7362,
+            "recencyWeight": 0.9187,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.0508,
+            "finalPoints": 8.0508
+          },
+          {
+            "prNumber": 42,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9187,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3496,
+            "finalPoints": -7.3496
+          },
+          {
+            "prNumber": 43,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7198,
+            "recencyWeight": 0.9187,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.4441,
+            "finalPoints": 4.4441
+          },
+          {
+            "prNumber": 44,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7063,
+            "recencyWeight": 0.9187,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.7091,
+            "finalPoints": 4.7091
+          },
+          {
+            "prNumber": 46,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6947,
+            "recencyWeight": 0.9187,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.1075,
+            "finalPoints": 7.1075
+          },
+          {
+            "prNumber": 52,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9218,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3744,
+            "finalPoints": -7.3744
+          },
+          {
+            "prNumber": 54,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.922,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.4821,
+            "finalPoints": -8.4821
+          },
+          {
+            "prNumber": 53,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6847,
+            "recencyWeight": 0.9221,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.0607,
+            "finalPoints": 0.0511,
+            "cappedBy": 6.0096
+          },
+          {
+            "prNumber": 58,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9223,
+            "daysSinceEvent": 5.3,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3785,
+            "finalPoints": -7.3785
+          },
+          {
+            "prNumber": 63,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6759,
+            "recencyWeight": 0.9264,
+            "daysSinceEvent": 5,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.8137,
+            "finalPoints": 0,
+            "cappedBy": 7.8137
+          },
+          {
+            "prNumber": 73,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.668,
+            "recencyWeight": 0.9281,
+            "daysSinceEvent": 4.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.4277,
+            "finalPoints": 6.4277
+          },
+          {
+            "prNumber": 75,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6609,
+            "recencyWeight": 0.9281,
+            "daysSinceEvent": 4.8,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.7815,
+            "finalPoints": 4.7815
+          },
+          {
+            "prNumber": 76,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6545,
+            "recencyWeight": 0.9281,
+            "daysSinceEvent": 4.8,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.0617,
+            "finalPoints": 5.0617
+          },
+          {
+            "prNumber": 79,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6487,
+            "recencyWeight": 0.9299,
+            "daysSinceEvent": 4.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.32,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.3504,
+            "finalPoints": 5.3504
+          },
+          {
+            "prNumber": 81,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.93,
+            "daysSinceEvent": 4.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.4401,
+            "finalPoints": -7.4401
+          },
+          {
+            "prNumber": 83,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.93,
+            "daysSinceEvent": 4.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.5562,
+            "finalPoints": -8.5562
+          },
+          {
+            "prNumber": 91,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6433,
+            "recencyWeight": 0.9322,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.0299,
+            "finalPoints": 4.0299
+          },
+          {
+            "prNumber": 88,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6383,
+            "recencyWeight": 0.9322,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 2.4678,
+            "finalPoints": 2.4678
+          },
+          {
+            "prNumber": 87,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6337,
+            "recencyWeight": 0.9322,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 2.6314,
+            "finalPoints": 2.6314
+          },
+          {
+            "prNumber": 86,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9323,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.4582,
+            "finalPoints": -7.4582
+          },
+          {
+            "prNumber": 94,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6294,
+            "recencyWeight": 0.9323,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.6328,
+            "finalPoints": 4.2495,
+            "cappedBy": 1.3833
+          },
+          {
+            "prNumber": 85,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6253,
+            "recencyWeight": 0.9323,
+            "daysSinceEvent": 4.6,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.0444,
+            "finalPoints": 0,
+            "cappedBy": 6.0444
+          },
+          {
+            "prNumber": 115,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9382,
+            "daysSinceEvent": 4.1,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.5054,
+            "finalPoints": -7.5054
+          },
+          {
+            "prNumber": 121,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9429,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.6747,
+            "finalPoints": -8.6747
+          },
+          {
+            "prNumber": 125,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9429,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.3,
+            "severityMultiplier": 1,
+            "weightedPoints": -9.8062,
+            "finalPoints": -9.8062
+          },
+          {
+            "prNumber": 126,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9429,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.45,
+            "severityMultiplier": 1,
+            "weightedPoints": -10.9376,
+            "finalPoints": -10.9376
+          },
+          {
+            "prNumber": 133,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9429,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.6,
+            "severityMultiplier": 1,
+            "weightedPoints": -12.0691,
+            "finalPoints": -12.0691
+          },
+          {
+            "prNumber": 123,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.943,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.75,
+            "severityMultiplier": 1,
+            "weightedPoints": -13.2027,
+            "finalPoints": -13.2027
+          },
+          {
+            "prNumber": 129,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6215,
+            "recencyWeight": 0.9437,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.9416,
+            "finalPoints": 3.9416
+          },
+          {
+            "prNumber": 128,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.618,
+            "recencyWeight": 0.9437,
+            "daysSinceEvent": 3.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.0464,
+            "finalPoints": 6.0464
+          },
+          {
+            "prNumber": 135,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6146,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.4611,
+            "finalPoints": 6.4611
+          },
+          {
+            "prNumber": 134,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6114,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.9319,
+            "finalPoints": 8.9319
+          },
+          {
+            "prNumber": 132,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6084,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.32,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.2776,
+            "finalPoints": 7.2776
+          },
+          {
+            "prNumber": 131,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6055,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.4,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.6821,
+            "finalPoints": 2.3413,
+            "cappedBy": 5.3407
+          },
+          {
+            "prNumber": 130,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6027,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.48,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.0841,
+            "finalPoints": 0,
+            "cappedBy": 8.0841
+          },
+          {
+            "prNumber": 120,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6001,
+            "recencyWeight": 0.944,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.6048,
+            "finalPoints": 0,
+            "cappedBy": 10.6048
+          },
+          {
+            "prNumber": 136,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9443,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.5546,
+            "finalPoints": -7.5546
+          },
+          {
+            "prNumber": 124,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5976,
+            "recencyWeight": 0.9445,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.0436,
+            "finalPoints": 0,
+            "cappedBy": 7.0436
+          },
+          {
+            "prNumber": 122,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5952,
+            "recencyWeight": 0.9445,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.5763,
+            "finalPoints": 0,
+            "cappedBy": 7.5763
+          },
+          {
+            "prNumber": 110,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5928,
+            "recencyWeight": 0.9445,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.3647,
+            "finalPoints": 0,
+            "cappedBy": 4.3647
+          },
+          {
+            "prNumber": 137,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5906,
+            "recencyWeight": 0.9445,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.6328,
+            "finalPoints": 0,
+            "cappedBy": 8.6328
+          },
+          {
+            "prNumber": 138,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9453,
+            "daysSinceEvent": 3.6,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.5627,
+            "finalPoints": -7.5627
+          },
+          {
+            "prNumber": 139,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9461,
+            "daysSinceEvent": 3.6,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.7039,
+            "finalPoints": -8.7039
+          },
+          {
+            "prNumber": 140,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5885,
+            "recencyWeight": 0.9462,
+            "daysSinceEvent": 3.6,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.3454,
+            "finalPoints": 0,
+            "cappedBy": 5.3454
+          },
+          {
+            "prNumber": 141,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5864,
+            "recencyWeight": 0.9484,
+            "daysSinceEvent": 3.4,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.496,
+            "finalPoints": 0,
+            "cappedBy": 7.496
+          },
+          {
+            "prNumber": 171,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5844,
+            "recencyWeight": 0.9569,
+            "daysSinceEvent": 2.9,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.2275,
+            "finalPoints": 6.2275
+          },
+          {
+            "prNumber": 177,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9577,
+            "daysSinceEvent": 2.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.6619,
+            "finalPoints": -7.6619
+          },
+          {
+            "prNumber": 176,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9577,
+            "daysSinceEvent": 2.8,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.8112,
+            "finalPoints": -8.8112
+          },
+          {
+            "prNumber": 174,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9577,
+            "daysSinceEvent": 2.8,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.3,
+            "severityMultiplier": 1,
+            "weightedPoints": -9.9605,
+            "finalPoints": -9.9605
+          },
+          {
+            "prNumber": 190,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5825,
+            "recencyWeight": 0.9592,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.9733,
+            "finalPoints": 6.9733
+          },
+          {
+            "prNumber": 185,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5807,
+            "recencyWeight": 0.9592,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.0424,
+            "finalPoints": 4.0424
+          },
+          {
+            "prNumber": 188,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5789,
+            "recencyWeight": 0.9597,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.0427,
+            "finalPoints": 8.0427
+          },
+          {
+            "prNumber": 189,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5771,
+            "recencyWeight": 0.9597,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.5716,
+            "finalPoints": 8.5716
+          },
+          {
+            "prNumber": 187,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5754,
+            "recencyWeight": 0.9597,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.32,
+            "severityMultiplier": 1,
+            "weightedPoints": 6.9985,
+            "finalPoints": 1.1424,
+            "cappedBy": 5.8561
+          },
+          {
+            "prNumber": 184,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5738,
+            "recencyWeight": 0.9597,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.4,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.4016,
+            "finalPoints": 0,
+            "cappedBy": 7.4016
+          },
+          {
+            "prNumber": 183,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5722,
+            "recencyWeight": 0.9597,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.48,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.1439,
+            "finalPoints": 0,
+            "cappedBy": 10.1439
+          },
+          {
+            "prNumber": 180,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5707,
+            "recencyWeight": 0.9597,
+            "daysSinceEvent": 2.7,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.8872,
+            "finalPoints": 0,
+            "cappedBy": 7.8872
+          },
+          {
+            "prNumber": 192,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5692,
+            "recencyWeight": 0.96,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.1475,
+            "finalPoints": 0,
+            "cappedBy": 3.1475
+          },
+          {
+            "prNumber": 191,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5678,
+            "recencyWeight": 0.96,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.2034,
+            "finalPoints": 0,
+            "cappedBy": 10.2034
+          },
+          {
+            "prNumber": 197,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5663,
+            "recencyWeight": 0.9609,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.1877,
+            "finalPoints": 0,
+            "cappedBy": 10.1877
+          },
+          {
+            "prNumber": 195,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.565,
+            "recencyWeight": 0.9609,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.163,
+            "finalPoints": 0,
+            "cappedBy": 10.163
+          },
+          {
+            "prNumber": 194,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5636,
+            "recencyWeight": 0.9609,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.1389,
+            "finalPoints": 0,
+            "cappedBy": 10.1389
+          },
+          {
+            "prNumber": 199,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5623,
+            "recencyWeight": 0.9611,
+            "daysSinceEvent": 2.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.1174,
+            "finalPoints": 0,
+            "cappedBy": 10.1174
+          },
+          {
+            "prNumber": 203,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.561,
+            "recencyWeight": 0.9696,
+            "daysSinceEvent": 2,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.1829,
+            "finalPoints": 0,
+            "cappedBy": 10.1829
+          },
+          {
+            "prNumber": 202,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5598,
+            "recencyWeight": 0.9696,
+            "daysSinceEvent": 2,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.1603,
+            "finalPoints": 0,
+            "cappedBy": 10.1603
+          },
+          {
+            "prNumber": 214,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5586,
+            "recencyWeight": 0.9777,
+            "daysSinceEvent": 1.5,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.505,
+            "finalPoints": 5.505
+          },
+          {
+            "prNumber": 212,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5574,
+            "recencyWeight": 0.9777,
+            "daysSinceEvent": 1.5,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.2019,
+            "finalPoints": 10.2019
+          },
+          {
+            "prNumber": 219,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5562,
+            "recencyWeight": 0.9902,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.3104,
+            "finalPoints": 10.3104
+          },
+          {
+            "prNumber": 218,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5551,
+            "recencyWeight": 0.9902,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.2894,
+            "finalPoints": 10.2894
+          },
+          {
+            "prNumber": 234,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.554,
+            "recencyWeight": 0.9911,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.5347,
+            "finalPoints": 5.5347
+          },
+          {
+            "prNumber": 235,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5529,
+            "recencyWeight": 0.9911,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.1565,
+            "finalPoints": 3.1565
+          },
+          {
+            "prNumber": 236,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5518,
+            "recencyWeight": 0.9912,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.1507,
+            "finalPoints": 3.1507
+          },
+          {
+            "prNumber": 232,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5508,
+            "recencyWeight": 0.9913,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.5037,
+            "finalPoints": 2.5584,
+            "cappedBy": 2.9452
+          },
+          {
+            "prNumber": 230,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5498,
+            "recencyWeight": 0.9968,
+            "daysSinceEvent": 0.2,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 1.3,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 16.6712,
+            "finalPoints": 0,
+            "cappedBy": 16.6712
+          },
+          {
+            "prNumber": 240,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5488,
+            "recencyWeight": 0.9971,
+            "daysSinceEvent": 0.2,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.8801,
+            "finalPoints": 0,
+            "cappedBy": 7.8801
+          },
+          {
+            "prNumber": 241,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5478,
+            "recencyWeight": 0.9972,
+            "daysSinceEvent": 0.2,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.5,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.5064,
+            "finalPoints": 0,
+            "cappedBy": 5.5064
+          },
+          {
+            "prNumber": 239,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9972,
+            "daysSinceEvent": 0.2,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.9775,
+            "finalPoints": -7.9775
+          },
+          {
+            "prNumber": 246,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5469,
+            "recencyWeight": 0.9977,
+            "daysSinceEvent": 0.2,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 2.0951,
+            "finalPoints": 0,
+            "cappedBy": 2.0951
+          },
+          {
+            "prNumber": 247,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5459,
+            "recencyWeight": 0.9977,
+            "daysSinceEvent": 0.1,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.3412,
+            "finalPoints": 0,
+            "cappedBy": 7.3412
+          },
+          {
+            "prNumber": 249,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.545,
+            "recencyWeight": 0.998,
+            "daysSinceEvent": 0.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.2398,
+            "finalPoints": 0,
+            "cappedBy": 4.2398
+          },
+          {
+            "prNumber": 250,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.5441,
+            "recencyWeight": 0.9981,
+            "daysSinceEvent": 0.1,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 2.5858,
+            "finalPoints": 0,
+            "cappedBy": 2.5858
+          },
+          {
+            "prNumber": 253,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9986,
+            "daysSinceEvent": 0.1,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.9886,
+            "finalPoints": -7.9886
+          },
+          {
+            "prNumber": 252,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9986,
+            "daysSinceEvent": 0.1,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -9.1872,
+            "finalPoints": -9.1872
+          },
+          {
+            "prNumber": 255,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 1,
+            "daysSinceEvent": 0,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.3,
+            "severityMultiplier": 1,
+            "weightedPoints": -10.3997,
+            "finalPoints": -10.3997
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "negative",
+        "length": 3
+      },
+      "totalApprovals": 66,
+      "totalRejections": 0,
+      "totalCloses": 25,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-14T20:44:30.000Z",
+      "firstSeenAt": "2026-02-08T01:08:05.000Z",
+      "events": [
+        {
+          "type": "close",
+          "timestamp": 1770512885000,
+          "linesChanged": 430,
+          "labels": [],
+          "prNumber": 13
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770571383000,
+          "linesChanged": 37,
+          "labels": [],
+          "prNumber": 15
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770571390000,
+          "linesChanged": 43,
+          "labels": [],
+          "prNumber": 21
+        },
+        {
+          "type": "close",
+          "timestamp": 1770571646000,
+          "linesChanged": 0,
+          "labels": [],
+          "prNumber": 25
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770571646000,
+          "linesChanged": 11,
+          "labels": [],
+          "prNumber": 22
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770626153000,
+          "linesChanged": 12,
+          "labels": [],
+          "prNumber": 39
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770626186000,
+          "linesChanged": 39,
+          "labels": [],
+          "prNumber": 40
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770626212000,
+          "linesChanged": 83,
+          "labels": [],
+          "prNumber": 41
+        },
+        {
+          "type": "close",
+          "timestamp": 1770626369000,
+          "linesChanged": 50,
+          "labels": [],
+          "prNumber": 42
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770626399000,
+          "linesChanged": 21,
+          "labels": [],
+          "prNumber": 43
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770626426000,
+          "linesChanged": 39,
+          "labels": [],
+          "prNumber": 44
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770626507000,
+          "linesChanged": 131,
+          "labels": [],
+          "prNumber": 46
+        },
+        {
+          "type": "close",
+          "timestamp": 1770645258000,
+          "linesChanged": 109,
+          "labels": [],
+          "prNumber": 52
+        },
+        {
+          "type": "close",
+          "timestamp": 1770646293000,
+          "linesChanged": 36,
+          "labels": [],
+          "prNumber": 54
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770646814000,
+          "linesChanged": 89,
+          "labels": [],
+          "prNumber": 53
+        },
+        {
+          "type": "close",
+          "timestamp": 1770648386000,
+          "linesChanged": 50,
+          "labels": [],
+          "prNumber": 58
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770672989000,
+          "linesChanged": 191,
+          "labels": [],
+          "prNumber": 63
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770683249000,
+          "linesChanged": 93,
+          "labels": [],
+          "prNumber": 73
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770683263000,
+          "linesChanged": 29,
+          "labels": [],
+          "prNumber": 75
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770683274000,
+          "linesChanged": 32,
+          "labels": [],
+          "prNumber": 76
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770694152000,
+          "linesChanged": 17,
+          "labels": [],
+          "prNumber": 79
+        },
+        {
+          "type": "close",
+          "timestamp": 1770695069000,
+          "linesChanged": 67,
+          "labels": [],
+          "prNumber": 81
+        },
+        {
+          "type": "close",
+          "timestamp": 1770695074000,
+          "linesChanged": 37,
+          "labels": [],
+          "prNumber": 83
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770708419000,
+          "linesChanged": 31,
+          "labels": [],
+          "prNumber": 91
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770708419000,
+          "linesChanged": 5,
+          "labels": [],
+          "prNumber": 88
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770708419000,
+          "linesChanged": 5,
+          "labels": [],
+          "prNumber": 87
+        },
+        {
+          "type": "close",
+          "timestamp": 1770708654000,
+          "linesChanged": 40,
+          "labels": [],
+          "prNumber": 86
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770708709000,
+          "linesChanged": 56,
+          "labels": [],
+          "prNumber": 94
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770708717000,
+          "linesChanged": 80,
+          "labels": [],
+          "prNumber": 85
+        },
+        {
+          "type": "close",
+          "timestamp": 1770744084000,
+          "linesChanged": 0,
+          "labels": [],
+          "prNumber": 115
+        },
+        {
+          "type": "close",
+          "timestamp": 1770772231000,
+          "linesChanged": 20,
+          "labels": [],
+          "prNumber": 121
+        },
+        {
+          "type": "close",
+          "timestamp": 1770772233000,
+          "linesChanged": 101,
+          "labels": [],
+          "prNumber": 125
+        },
+        {
+          "type": "close",
+          "timestamp": 1770772235000,
+          "linesChanged": 188,
+          "labels": [],
+          "prNumber": 126
+        },
+        {
+          "type": "close",
+          "timestamp": 1770772237000,
+          "linesChanged": 93,
+          "labels": [],
+          "prNumber": 133
+        },
+        {
+          "type": "close",
+          "timestamp": 1770773119000,
+          "linesChanged": 202,
+          "labels": [],
+          "prNumber": 123
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770777049000,
+          "linesChanged": 28,
+          "labels": [],
+          "prNumber": 129
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770777049000,
+          "linesChanged": 82,
+          "labels": [],
+          "prNumber": 128
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 116,
+          "labels": [],
+          "prNumber": 135
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 160,
+          "labels": [],
+          "prNumber": 134
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 148,
+          "labels": [],
+          "prNumber": 132
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 95,
+          "labels": [],
+          "prNumber": 131
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 80,
+          "labels": [],
+          "prNumber": 130
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770778977000,
+          "linesChanged": 190,
+          "labels": [],
+          "prNumber": 120
+        },
+        {
+          "type": "close",
+          "timestamp": 1770780717000,
+          "linesChanged": 33,
+          "labels": [],
+          "prNumber": 136
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770781619000,
+          "linesChanged": 242,
+          "labels": [],
+          "prNumber": 124
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770781619000,
+          "linesChanged": 172,
+          "labels": [],
+          "prNumber": 122
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770781619000,
+          "linesChanged": 33,
+          "labels": [],
+          "prNumber": 110
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770781826000,
+          "linesChanged": 202,
+          "labels": [],
+          "prNumber": 137
+        },
+        {
+          "type": "close",
+          "timestamp": 1770786736000,
+          "linesChanged": 76,
+          "labels": [],
+          "prNumber": 138
+        },
+        {
+          "type": "close",
+          "timestamp": 1770791073000,
+          "linesChanged": 76,
+          "labels": [],
+          "prNumber": 139
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770791767000,
+          "linesChanged": 76,
+          "labels": [],
+          "prNumber": 140
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770804790000,
+          "linesChanged": 344,
+          "labels": [],
+          "prNumber": 141
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770854747000,
+          "linesChanged": 149,
+          "labels": [],
+          "prNumber": 171
+        },
+        {
+          "type": "close",
+          "timestamp": 1770859843000,
+          "linesChanged": 73,
+          "labels": [],
+          "prNumber": 177
+        },
+        {
+          "type": "close",
+          "timestamp": 1770859843000,
+          "linesChanged": 198,
+          "labels": [],
+          "prNumber": 176
+        },
+        {
+          "type": "close",
+          "timestamp": 1770859843000,
+          "linesChanged": 61,
+          "labels": [],
+          "prNumber": 174
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770868539000,
+          "linesChanged": 222,
+          "labels": [],
+          "prNumber": 190
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770868547000,
+          "linesChanged": 42,
+          "labels": [],
+          "prNumber": 185
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770871533000,
+          "linesChanged": 203,
+          "labels": [],
+          "prNumber": 188
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770871533000,
+          "linesChanged": 345,
+          "labels": [],
+          "prNumber": 189
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770871533000,
+          "linesChanged": 79,
+          "labels": [],
+          "prNumber": 187
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770871533000,
+          "linesChanged": 136,
+          "labels": [],
+          "prNumber": 184
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770871533000,
+          "linesChanged": 470,
+          "labels": [],
+          "prNumber": 183
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770871533000,
+          "linesChanged": 91,
+          "labels": [],
+          "prNumber": 180
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770873141000,
+          "linesChanged": 4,
+          "labels": [],
+          "prNumber": 192
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770873169000,
+          "linesChanged": 494,
+          "labels": [],
+          "prNumber": 191
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770878525000,
+          "linesChanged": 320,
+          "labels": [],
+          "prNumber": 197
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770878525000,
+          "linesChanged": 284,
+          "labels": [],
+          "prNumber": 195
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770878525000,
+          "linesChanged": 475,
+          "labels": [],
+          "prNumber": 194
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770879656000,
+          "linesChanged": 251,
+          "labels": [],
+          "prNumber": 199
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770928583000,
+          "linesChanged": 258,
+          "labels": [],
+          "prNumber": 203
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770928583000,
+          "linesChanged": 278,
+          "labels": [],
+          "prNumber": 202
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770975625000,
+          "linesChanged": 38,
+          "labels": [],
+          "prNumber": 214
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770975626000,
+          "linesChanged": 277,
+          "labels": [],
+          "prNumber": 212
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771046598000,
+          "linesChanged": 308,
+          "labels": [],
+          "prNumber": 219
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771046599000,
+          "linesChanged": 234,
+          "labels": [],
+          "prNumber": 218
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771051968000,
+          "linesChanged": 19,
+          "labels": [],
+          "prNumber": 234
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771052091000,
+          "linesChanged": 4,
+          "labels": [],
+          "prNumber": 235
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771052436000,
+          "linesChanged": 3,
+          "labels": [],
+          "prNumber": 236
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771052806000,
+          "linesChanged": 38,
+          "labels": [],
+          "prNumber": 232
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771084077000,
+          "linesChanged": 181,
+          "labels": [
+            "ci",
+            "core",
+            "tests",
+            "build",
+            "connector",
+            "plugins"
+          ],
+          "prNumber": 230
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771086016000,
+          "linesChanged": 115,
+          "labels": [
+            "tests"
+          ],
+          "prNumber": 240
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771086202000,
+          "linesChanged": 20,
+          "labels": [
+            "tests"
+          ],
+          "prNumber": 241
+        },
+        {
+          "type": "close",
+          "timestamp": 1771086252000,
+          "linesChanged": 66,
+          "labels": [
+            "tests"
+          ],
+          "prNumber": 239
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771089036000,
+          "linesChanged": 4,
+          "labels": [
+            "ui"
+          ],
+          "prNumber": 246
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771089092000,
+          "linesChanged": 179,
+          "labels": [
+            "tests"
+          ],
+          "prNumber": 247
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771090687000,
+          "linesChanged": 25,
+          "labels": [
+            "tests",
+            "build",
+            "connector",
+            "plugins"
+          ],
+          "prNumber": 249
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771091274000,
+          "linesChanged": 4,
+          "labels": [
+            "tests"
+          ],
+          "prNumber": 250
+        },
+        {
+          "type": "close",
+          "timestamp": 1771094011000,
+          "linesChanged": 2,
+          "labels": [
+            "ci"
+          ],
+          "prNumber": 253
+        },
+        {
+          "type": "close",
+          "timestamp": 1771094216000,
+          "linesChanged": 31,
+          "labels": [
+            "ci",
+            "tests",
+            "connector",
+            "plugins"
+          ],
+          "prNumber": 252
+        },
+        {
+          "type": "close",
+          "timestamp": 1771101870000,
+          "linesChanged": 213,
+          "labels": [
+            "ci"
+          ],
+          "prNumber": 255
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770512885000,
+          "score": 27
+        },
+        {
+          "timestamp": 1770571383000,
+          "score": 33.8
+        },
+        {
+          "timestamp": 1770571390000,
+          "score": 40.18
+        },
+        {
+          "timestamp": 1770571646000,
+          "score": 32.18
+        },
+        {
+          "timestamp": 1770571646000,
+          "score": 37.69
+        },
+        {
+          "timestamp": 1770626153000,
+          "score": 43.34
+        },
+        {
+          "timestamp": 1770626186000,
+          "score": 49.24
+        },
+        {
+          "timestamp": 1770626212000,
+          "score": 58
+        },
+        {
+          "timestamp": 1770626369000,
+          "score": 50
+        },
+        {
+          "timestamp": 1770626399000,
+          "score": 54.84
+        },
+        {
+          "timestamp": 1770626426000,
+          "score": 56.22
+        },
+        {
+          "timestamp": 1770626507000,
+          "score": 55.76
+        },
+        {
+          "timestamp": 1770645258000,
+          "score": 46.92
+        },
+        {
+          "timestamp": 1770646293000,
+          "score": 39.99
+        },
+        {
+          "timestamp": 1770646814000,
+          "score": 38.12
+        },
+        {
+          "timestamp": 1770648386000,
+          "score": 35.45
+        },
+        {
+          "timestamp": 1770672989000,
+          "score": 35.46
+        },
+        {
+          "timestamp": 1770683249000,
+          "score": 36.16
+        },
+        {
+          "timestamp": 1770683263000,
+          "score": 36.68
+        },
+        {
+          "timestamp": 1770683274000,
+          "score": 37.22
+        },
+        {
+          "timestamp": 1770694152000,
+          "score": 37.8
+        },
+        {
+          "timestamp": 1770695069000,
+          "score": 37
+        },
+        {
+          "timestamp": 1770695074000,
+          "score": 36.08
+        },
+        {
+          "timestamp": 1770708419000,
+          "score": 36.52
+        },
+        {
+          "timestamp": 1770708419000,
+          "score": 36.78
+        },
+        {
+          "timestamp": 1770708419000,
+          "score": 35
+        },
+        {
+          "timestamp": 1770708654000,
+          "score": 35
+        },
+        {
+          "timestamp": 1770708709000,
+          "score": 35
+        },
+        {
+          "timestamp": 1770708717000,
+          "score": 35
+        },
+        {
+          "timestamp": 1770744084000,
+          "score": 35
+        },
+        {
+          "timestamp": 1770772231000,
+          "score": 33.12
+        },
+        {
+          "timestamp": 1770772233000,
+          "score": 22.72
+        },
+        {
+          "timestamp": 1770772235000,
+          "score": 11.12
+        },
+        {
+          "timestamp": 1770772237000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770773119000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770777049000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770777049000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 1.89
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 11.35
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 19.06
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 19.46
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 19.46
+        },
+        {
+          "timestamp": 1770778977000,
+          "score": 19.46
+        },
+        {
+          "timestamp": 1770780717000,
+          "score": 11.5
+        },
+        {
+          "timestamp": 1770781619000,
+          "score": 11.52
+        },
+        {
+          "timestamp": 1770781619000,
+          "score": 11.52
+        },
+        {
+          "timestamp": 1770781619000,
+          "score": 11.52
+        },
+        {
+          "timestamp": 1770781826000,
+          "score": 11.53
+        },
+        {
+          "timestamp": 1770786736000,
+          "score": 3.64
+        },
+        {
+          "timestamp": 1770791073000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770791767000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770804790000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770854747000,
+          "score": 2.69
+        },
+        {
+          "timestamp": 1770859843000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770859843000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770859843000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770868539000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770868547000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770871533000,
+          "score": 0
+        },
+        {
+          "timestamp": 1770871533000,
+          "score": 4.07
+        },
+        {
+          "timestamp": 1770871533000,
+          "score": 4.07
+        },
+        {
+          "timestamp": 1770871533000,
+          "score": 4.07
+        },
+        {
+          "timestamp": 1770871533000,
+          "score": 4.07
+        },
+        {
+          "timestamp": 1770871533000,
+          "score": 4.07
+        },
+        {
+          "timestamp": 1770873141000,
+          "score": 4.12
+        },
+        {
+          "timestamp": 1770873169000,
+          "score": 4.12
+        },
+        {
+          "timestamp": 1770878525000,
+          "score": 4.29
+        },
+        {
+          "timestamp": 1770878525000,
+          "score": 4.29
+        },
+        {
+          "timestamp": 1770878525000,
+          "score": 4.29
+        },
+        {
+          "timestamp": 1770879656000,
+          "score": 4.32
+        },
+        {
+          "timestamp": 1770928583000,
+          "score": 5.8
+        },
+        {
+          "timestamp": 1770928583000,
+          "score": 5.8
+        },
+        {
+          "timestamp": 1770975625000,
+          "score": 12.85
+        },
+        {
+          "timestamp": 1770975626000,
+          "score": 23.28
+        },
+        {
+          "timestamp": 1771046598000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771046599000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771051968000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771052091000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771052436000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771052806000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771084077000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771086016000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771086202000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771086252000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771089036000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771089092000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771090687000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771091274000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771094011000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771094216000,
+          "score": 35
+        },
+        {
+          "timestamp": 1771101870000,
+          "score": 26.1
+        }
+      ],
+      "warnings": [
+        "Daily cap hit on 2026-02-09: PR #53 capped from 6.06 to 0.05",
+        "Daily cap hit on 2026-02-09: PR #63 capped from 7.81 to 0",
+        "Daily cap hit on 2026-02-10: PR #94 capped from 5.63 to 4.25",
+        "Daily cap hit on 2026-02-10: PR #85 capped from 6.04 to 0",
+        "Daily cap hit on 2026-02-11: PR #131 capped from 7.68 to 2.34",
+        "Daily cap hit on 2026-02-11: PR #130 capped from 8.08 to 0",
+        "Daily cap hit on 2026-02-11: PR #120 capped from 10.6 to 0",
+        "Daily cap hit on 2026-02-11: PR #124 capped from 7.04 to 0",
+        "Daily cap hit on 2026-02-11: PR #122 capped from 7.58 to 0",
+        "Daily cap hit on 2026-02-11: PR #110 capped from 4.36 to 0",
+        "Daily cap hit on 2026-02-11: PR #137 capped from 8.63 to 0",
+        "Daily cap hit on 2026-02-11: PR #140 capped from 5.35 to 0",
+        "Daily cap hit on 2026-02-11: PR #141 capped from 7.5 to 0",
+        "Daily cap hit on 2026-02-12: PR #187 capped from 7 to 1.14",
+        "Daily cap hit on 2026-02-12: PR #184 capped from 7.4 to 0",
+        "Daily cap hit on 2026-02-12: PR #183 capped from 10.14 to 0",
+        "Daily cap hit on 2026-02-12: PR #180 capped from 7.89 to 0",
+        "Daily cap hit on 2026-02-12: PR #192 capped from 3.15 to 0",
+        "Daily cap hit on 2026-02-12: PR #191 capped from 10.2 to 0",
+        "Daily cap hit on 2026-02-12: PR #197 capped from 10.19 to 0",
+        "Daily cap hit on 2026-02-12: PR #195 capped from 10.16 to 0",
+        "Daily cap hit on 2026-02-12: PR #194 capped from 10.14 to 0",
+        "Daily cap hit on 2026-02-12: PR #199 capped from 10.12 to 0",
+        "Daily cap hit on 2026-02-12: PR #203 capped from 10.18 to 0",
+        "Daily cap hit on 2026-02-12: PR #202 capped from 10.16 to 0",
+        "Daily cap hit on 2026-02-14: PR #232 capped from 5.5 to 2.56",
+        "Daily cap hit on 2026-02-14: PR #230 capped from 16.67 to 0",
+        "Daily cap hit on 2026-02-14: PR #240 capped from 7.88 to 0",
+        "Daily cap hit on 2026-02-14: PR #241 capped from 5.51 to 0",
+        "Daily cap hit on 2026-02-14: PR #246 capped from 2.1 to 0",
+        "Daily cap hit on 2026-02-14: PR #247 capped from 7.34 to 0",
+        "Daily cap hit on 2026-02-14: PR #249 capped from 4.24 to 0",
+        "Daily cap hit on 2026-02-14: PR #250 capped from 2.59 to 0",
+        "VELOCITY HARD CAP: 91 PRs in 7 days (limit: 25)"
+      ]
+    },
+    {
+      "username": "0xSolace",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/257989456?v=4",
+      "trustScore": 24.75,
+      "tier": "untested",
+      "tierInfo": {
+        "minScore": 15,
+        "label": "untested",
+        "description": "New or low-activity contributor"
+      },
+      "breakdown": {
+        "rawPoints": 0,
+        "diminishingFactor": 0,
+        "recencyWeightedPoints": -10.2547,
+        "streakMultiplier": 1,
+        "velocityPenalty": 0.9,
+        "inactivityDecay": 0,
+        "manualAdjustment": 0,
+        "eventDetails": [
+          {
+            "prNumber": 45,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9189,
+            "daysSinceEvent": 5.5,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.3515,
+            "finalPoints": -7.3515
+          },
+          {
+            "prNumber": 50,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9231,
+            "daysSinceEvent": 5.2,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -8.4924,
+            "finalPoints": -8.4924
+          },
+          {
+            "prNumber": 60,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9281,
+            "daysSinceEvent": 4.8,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.3,
+            "severityMultiplier": 1,
+            "weightedPoints": -9.6518,
+            "finalPoints": -9.6518
+          },
+          {
+            "prNumber": 74,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9281,
+            "daysSinceEvent": 4.8,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 13.3642,
+            "finalPoints": 13.3642
+          },
+          {
+            "prNumber": 77,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9281,
+            "daysSinceEvent": 4.8,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.4251,
+            "finalPoints": -7.4251
+          },
+          {
+            "prNumber": 78,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8782,
+            "recencyWeight": 0.9307,
+            "daysSinceEvent": 4.7,
+            "complexityMultiplier": 1.2,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.4167,
+            "finalPoints": 9.4167
+          },
+          {
+            "prNumber": 105,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9441,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.5527,
+            "finalPoints": -7.5527
+          },
+          {
+            "prNumber": 106,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.8199,
+            "recencyWeight": 0.9445,
+            "daysSinceEvent": 3.7,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 5.2036,
+            "finalPoints": 5.2036
+          },
+          {
+            "prNumber": 102,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7829,
+            "recencyWeight": 0.948,
+            "daysSinceEvent": 3.5,
+            "complexityMultiplier": 1.5,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.543,
+            "finalPoints": 11.543
+          },
+          {
+            "prNumber": 101,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7565,
+            "recencyWeight": 0.948,
+            "daysSinceEvent": 3.5,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 10.3822,
+            "finalPoints": 10.3822
+          },
+          {
+            "prNumber": 220,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7362,
+            "recencyWeight": 0.9898,
+            "daysSinceEvent": 0.7,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 11.276,
+            "finalPoints": 11.276
+          },
+          {
+            "prNumber": 221,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9904,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.9229,
+            "finalPoints": -7.9229
+          },
+          {
+            "prNumber": 222,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9904,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -9.1114,
+            "finalPoints": -9.1114
+          },
+          {
+            "prNumber": 223,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9904,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.3,
+            "severityMultiplier": 1,
+            "weightedPoints": -10.2998,
+            "finalPoints": -10.2998
+          },
+          {
+            "prNumber": 226,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7198,
+            "recencyWeight": 0.9904,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": 4.791,
+            "finalPoints": 4.791
+          },
+          {
+            "prNumber": 224,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.7063,
+            "recencyWeight": 0.9904,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.08,
+            "severityMultiplier": 1,
+            "weightedPoints": 9.4283,
+            "finalPoints": 9.4283
+          },
+          {
+            "prNumber": 225,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6947,
+            "recencyWeight": 0.9904,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1.3,
+            "categoryMultiplier": 0.6,
+            "streakMultiplier": 1.16,
+            "severityMultiplier": 1,
+            "weightedPoints": 7.4707,
+            "finalPoints": 7.4707
+          },
+          {
+            "prNumber": 227,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6847,
+            "recencyWeight": 0.9905,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.24,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.2292,
+            "finalPoints": 2.0339,
+            "cappedBy": 1.1953
+          },
+          {
+            "prNumber": 228,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.6759,
+            "recencyWeight": 0.9905,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.4,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.32,
+            "severityMultiplier": 1,
+            "weightedPoints": 3.3933,
+            "finalPoints": 0,
+            "cappedBy": 3.3933
+          },
+          {
+            "prNumber": 229,
+            "type": "approve",
+            "basePoints": 12,
+            "diminishingMultiplier": 0.668,
+            "recencyWeight": 0.9906,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.4,
+            "severityMultiplier": 1,
+            "weightedPoints": 8.894,
+            "finalPoints": 0,
+            "cappedBy": 8.894
+          },
+          {
+            "prNumber": 231,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9909,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1,
+            "severityMultiplier": 1,
+            "weightedPoints": -7.9273,
+            "finalPoints": -7.9273
+          },
+          {
+            "prNumber": 233,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9909,
+            "daysSinceEvent": 0.6,
+            "complexityMultiplier": 0.7,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.15,
+            "severityMultiplier": 1,
+            "weightedPoints": -9.1166,
+            "finalPoints": -9.1166
+          },
+          {
+            "prNumber": 237,
+            "type": "close",
+            "basePoints": -10,
+            "diminishingMultiplier": 1,
+            "recencyWeight": 0.9916,
+            "daysSinceEvent": 0.5,
+            "complexityMultiplier": 1,
+            "categoryMultiplier": 0.8,
+            "streakMultiplier": 1.3,
+            "severityMultiplier": 1,
+            "weightedPoints": -10.3128,
+            "finalPoints": -10.3128
+          }
+        ]
+      },
+      "currentStreak": {
+        "type": "negative",
+        "length": 3
+      },
+      "totalApprovals": 12,
+      "totalRejections": 0,
+      "totalCloses": 11,
+      "totalSelfCloses": 0,
+      "lastEventAt": "2026-02-14T07:39:58.000Z",
+      "firstSeenAt": "2026-02-09T09:03:26.000Z",
+      "events": [
+        {
+          "type": "close",
+          "timestamp": 1770627806000,
+          "linesChanged": 881,
+          "labels": [],
+          "prNumber": 45
+        },
+        {
+          "type": "close",
+          "timestamp": 1770653087000,
+          "linesChanged": 384,
+          "labels": [],
+          "prNumber": 50
+        },
+        {
+          "type": "close",
+          "timestamp": 1770683241000,
+          "linesChanged": 658,
+          "labels": [],
+          "prNumber": 60
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770683294000,
+          "linesChanged": 941,
+          "labels": [],
+          "prNumber": 74
+        },
+        {
+          "type": "close",
+          "timestamp": 1770683705000,
+          "linesChanged": 550,
+          "labels": [],
+          "prNumber": 77
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770699437000,
+          "linesChanged": 2263,
+          "labels": [],
+          "prNumber": 78
+        },
+        {
+          "type": "close",
+          "timestamp": 1770779281000,
+          "linesChanged": 41,
+          "labels": [],
+          "prNumber": 105
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770781619000,
+          "linesChanged": 13,
+          "labels": [],
+          "prNumber": 106
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770802515000,
+          "linesChanged": 818,
+          "labels": [],
+          "prNumber": 102
+        },
+        {
+          "type": "approve",
+          "timestamp": 1770802515000,
+          "linesChanged": 344,
+          "labels": [],
+          "prNumber": 101
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771044324000,
+          "linesChanged": 328,
+          "labels": [],
+          "prNumber": 220
+        },
+        {
+          "type": "close",
+          "timestamp": 1771047731000,
+          "linesChanged": 233,
+          "labels": [],
+          "prNumber": 221
+        },
+        {
+          "type": "close",
+          "timestamp": 1771047733000,
+          "linesChanged": 251,
+          "labels": [],
+          "prNumber": 222
+        },
+        {
+          "type": "close",
+          "timestamp": 1771047735000,
+          "linesChanged": 29,
+          "labels": [],
+          "prNumber": 223
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771048041000,
+          "linesChanged": 33,
+          "labels": [],
+          "prNumber": 226
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771048076000,
+          "linesChanged": 233,
+          "labels": [],
+          "prNumber": 224
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771048085000,
+          "linesChanged": 251,
+          "labels": [
+            "ci",
+            "docs"
+          ],
+          "prNumber": 225
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771048392000,
+          "linesChanged": 7,
+          "labels": [
+            "ci"
+          ],
+          "prNumber": 227
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771048527000,
+          "linesChanged": 5,
+          "labels": [
+            "ci"
+          ],
+          "prNumber": 228
+        },
+        {
+          "type": "approve",
+          "timestamp": 1771049230000,
+          "linesChanged": 134,
+          "labels": [
+            "ci"
+          ],
+          "prNumber": 229
+        },
+        {
+          "type": "close",
+          "timestamp": 1771050838000,
+          "linesChanged": 147,
+          "labels": [
+            "ci"
+          ],
+          "prNumber": 231
+        },
+        {
+          "type": "close",
+          "timestamp": 1771050942000,
+          "linesChanged": 25,
+          "labels": [],
+          "prNumber": 233
+        },
+        {
+          "type": "close",
+          "timestamp": 1771054798000,
+          "linesChanged": 72,
+          "labels": [
+            "ui"
+          ],
+          "prNumber": 237
+        }
+      ],
+      "scoreHistory": [
+        {
+          "timestamp": 1770627806000,
+          "score": 27
+        },
+        {
+          "timestamp": 1770653087000,
+          "score": 17.84
+        },
+        {
+          "timestamp": 1770683241000,
+          "score": 7.53
+        },
+        {
+          "timestamp": 1770683294000,
+          "score": 21.93
+        },
+        {
+          "timestamp": 1770683705000,
+          "score": 13.93
+        },
+        {
+          "timestamp": 1770699437000,
+          "score": 24.11
+        },
+        {
+          "timestamp": 1770779281000,
+          "score": 16.26
+        },
+        {
+          "timestamp": 1770781619000,
+          "score": 21.78
+        },
+        {
+          "timestamp": 1770802515000,
+          "score": 34
+        },
+        {
+          "timestamp": 1770802515000,
+          "score": 44.95
+        },
+        {
+          "timestamp": 1771044324000,
+          "score": 52.79
+        },
+        {
+          "timestamp": 1771047731000,
+          "score": 44.04
+        },
+        {
+          "timestamp": 1771047733000,
+          "score": 37.04
+        },
+        {
+          "timestamp": 1771047735000,
+          "score": 28.31
+        },
+        {
+          "timestamp": 1771048041000,
+          "score": 33.15
+        },
+        {
+          "timestamp": 1771048076000,
+          "score": 35.77
+        },
+        {
+          "timestamp": 1771048085000,
+          "score": 36.52
+        },
+        {
+          "timestamp": 1771048392000,
+          "score": 36.69
+        },
+        {
+          "timestamp": 1771048527000,
+          "score": 36.69
+        },
+        {
+          "timestamp": 1771049230000,
+          "score": 36.69
+        },
+        {
+          "timestamp": 1771050838000,
+          "score": 35.89
+        },
+        {
+          "timestamp": 1771050942000,
+          "score": 34.74
+        },
+        {
+          "timestamp": 1771054798000,
+          "score": 24.36
+        }
+      ],
+      "warnings": [
+        "Daily cap hit on 2026-02-14: PR #227 capped from 3.23 to 2.03",
+        "Daily cap hit on 2026-02-14: PR #228 capped from 3.39 to 0",
+        "Daily cap hit on 2026-02-14: PR #229 capped from 8.89 to 0",
+        "Velocity warning: 23 PRs in 7 days (soft cap: 10)"
+      ]
+    }
+  ],
+  "stats": {
+    "totalContributors": 17,
+    "totalEvents": 192,
+    "tierDistribution": {
+      "legendary": 0,
+      "trusted": 1,
+      "established": 1,
+      "contributing": 8,
+      "probationary": 4,
+      "untested": 3,
+      "restricted": 0
+    },
+    "avgScore": 46.49
+  }
+}

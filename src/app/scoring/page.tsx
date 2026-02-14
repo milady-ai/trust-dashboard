@@ -1,9 +1,167 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import { TIERS } from "@/lib/trust-scoring";
 import { TierBadge } from "@/components/tier-badge";
 
+const DIM_WIDTH = 680;
+const DIM_HEIGHT = 220;
+const PAD_X = 48;
+const PAD_Y = 20;
+
+function diminishingMultiplier(x: number): number {
+  return 1 / (1 + 0.2 * Math.log(1 + x));
+}
+
+function recencyWeight(days: number): number {
+  return 0.5 ** (days / 45);
+}
+
+function ScoringCard({ title, formula, description }: { title: string; formula: string; description: string }) {
+  return (
+    <div className="rounded-lg border border-border bg-card p-4">
+      <h4 className="font-medium text-sm mb-1">{title}</h4>
+      <code className="text-xs text-accent bg-muted px-2 py-1 rounded block mb-2 font-mono">{formula}</code>
+      <p className="text-sm text-muted-foreground">{description}</p>
+    </div>
+  );
+}
+
+function DiminishingCurve() {
+  const [prior, setPrior] = useState(10);
+
+  const points = useMemo(() => {
+    return Array.from({ length: 51 }, (_, x) => {
+      const y = diminishingMultiplier(x);
+      const px = PAD_X + (x / 50) * (DIM_WIDTH - PAD_X * 2);
+      const py = PAD_Y + (1 - y) * (DIM_HEIGHT - PAD_Y * 2);
+      return { x, y, px, py };
+    });
+  }, []);
+
+  const path = points.map((p, idx) => `${idx === 0 ? "M" : "L"}${p.px},${p.py}`).join(" ");
+  const selected = points[Math.max(0, Math.min(50, prior))];
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+      <h4 className="font-semibold">Diminishing Returns Curve</h4>
+      <p className="text-xs text-muted-foreground">multiplier = 1 / (1 + 0.2 × ln(1 + priorApprovals))</p>
+
+      <svg
+        viewBox={`0 0 ${DIM_WIDTH} ${DIM_HEIGHT}`}
+        className="w-full"
+        onMouseMove={(e) => {
+          const bounds = (e.currentTarget as SVGSVGElement).getBoundingClientRect();
+          const ratio = Math.max(0, Math.min(1, (e.clientX - bounds.left - PAD_X) / (bounds.width - PAD_X * 2)));
+          setPrior(Math.round(ratio * 50));
+        }}
+      >
+        <line x1={PAD_X} y1={DIM_HEIGHT - PAD_Y} x2={DIM_WIDTH - PAD_X} y2={DIM_HEIGHT - PAD_Y} stroke="currentColor" opacity="0.35" />
+        <line x1={PAD_X} y1={PAD_Y} x2={PAD_X} y2={DIM_HEIGHT - PAD_Y} stroke="currentColor" opacity="0.35" />
+        <path d={path} fill="none" stroke="#C084FC" strokeWidth="3" />
+        <circle cx={selected.px} cy={selected.py} r="5" fill="#A855F7" />
+        <text x={selected.px + 10} y={selected.py - 8} fill="currentColor" fontSize="11">
+          {selected.x} approvals → {(selected.y * 100).toFixed(1)}%
+        </text>
+        <text x={PAD_X} y={DIM_HEIGHT - 4} fill="currentColor" fontSize="11">0</text>
+        <text x={DIM_WIDTH - PAD_X - 16} y={DIM_HEIGHT - 4} fill="currentColor" fontSize="11">50</text>
+        <text x={PAD_X - 28} y={PAD_Y + 10} fill="currentColor" fontSize="11">1.0</text>
+        <text x={PAD_X - 28} y={DIM_HEIGHT - PAD_Y} fill="currentColor" fontSize="11">0</text>
+      </svg>
+
+      <div className="grid gap-2 text-xs sm:grid-cols-3 text-muted-foreground">
+        <p>Your 1st approval: 100%</p>
+        <p>Your 10th: 65%</p>
+        <p>Your 50th: 49%</p>
+      </div>
+    </div>
+  );
+}
+
+function RecencyCurve() {
+  const points = useMemo(() => {
+    return Array.from({ length: 181 }, (_, days) => {
+      const y = recencyWeight(days);
+      const px = PAD_X + (days / 180) * (DIM_WIDTH - PAD_X * 2);
+      const py = PAD_Y + (1 - y) * (DIM_HEIGHT - PAD_Y * 2);
+      return { days, y, px, py };
+    });
+  }, []);
+
+  const path = points.map((p, idx) => `${idx === 0 ? "M" : "L"}${p.px},${p.py}`).join(" ");
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+      <h4 className="font-semibold">Recency Decay Curve</h4>
+      <p className="text-xs text-muted-foreground">weight = 0.5 ^ (daysSinceEvent / 45)</p>
+      <svg viewBox={`0 0 ${DIM_WIDTH} ${DIM_HEIGHT}`} className="w-full">
+        <line x1={PAD_X} y1={DIM_HEIGHT - PAD_Y} x2={DIM_WIDTH - PAD_X} y2={DIM_HEIGHT - PAD_Y} stroke="currentColor" opacity="0.35" />
+        <line x1={PAD_X} y1={PAD_Y} x2={PAD_X} y2={DIM_HEIGHT - PAD_Y} stroke="currentColor" opacity="0.35" />
+        <path d={path} fill="none" stroke="#06B6D4" strokeWidth="3" />
+
+        {[45, 90, 135].map((marker) => {
+          const x = PAD_X + (marker / 180) * (DIM_WIDTH - PAD_X * 2);
+          const y = PAD_Y + (1 - recencyWeight(marker)) * (DIM_HEIGHT - PAD_Y * 2);
+          return (
+            <g key={marker}>
+              <line x1={x} y1={PAD_Y} x2={x} y2={DIM_HEIGHT - PAD_Y} stroke="#94A3B8" strokeDasharray="4 4" opacity="0.65" />
+              <circle cx={x} cy={y} r="4" fill="#06B6D4" />
+              <text x={x - 14} y={PAD_Y + 12} fill="currentColor" fontSize="11">{marker}d</text>
+            </g>
+          );
+        })}
+      </svg>
+      <p className="text-xs text-muted-foreground">Half-life checkpoints: 45d → 50%, 90d → 25%, 135d → 12.5%</p>
+    </div>
+  );
+}
+
+function ComplexityBars() {
+  const buckets = [
+    { label: "trivial ≤10", multiplier: 0.4 },
+    { label: "small ≤50", multiplier: 0.7 },
+    { label: "medium ≤150", multiplier: 1.0 },
+    { label: "large ≤500", multiplier: 1.3, sweetSpot: true },
+    { label: "xlarge ≤1500", multiplier: 1.5 },
+    { label: "massive >1500", multiplier: 1.2 },
+  ];
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+      <h4 className="font-semibold">Complexity Buckets</h4>
+      <svg viewBox="0 0 700 220" className="w-full">
+        <line x1="50" y1="190" x2="670" y2="190" stroke="currentColor" opacity="0.35" />
+        {buckets.map((bucket, idx) => {
+          const width = 86;
+          const gap = 16;
+          const x = 56 + idx * (width + gap);
+          const height = bucket.multiplier / 1.6 * 140;
+          const y = 190 - height;
+          return (
+            <g key={bucket.label}>
+              <rect
+                x={x}
+                y={y}
+                width={width}
+                height={height}
+                rx="6"
+                fill={bucket.sweetSpot ? "#A855F7" : "#334155"}
+                opacity={bucket.sweetSpot ? 0.85 : 0.8}
+              />
+              <text x={x + 22} y={205} fill="currentColor" fontSize="10">{bucket.label.split(" ")[0]}</text>
+              <text x={x + 20} y={y - 6} fill="currentColor" fontSize="10">{bucket.multiplier.toFixed(1)}x</text>
+            </g>
+          );
+        })}
+      </svg>
+      <p className="text-xs text-muted-foreground">Sweet spot highlighted: 150-500 LOC (large bucket) balances impact and reviewability.</p>
+    </div>
+  );
+}
+
 export default function ScoringPage() {
   return (
-    <div className="space-y-8 max-w-3xl">
+    <div className="space-y-8 max-w-5xl">
       <div>
         <h2 className="text-2xl font-bold mb-1">Trust Scoring Algorithm</h2>
         <p className="text-sm text-muted-foreground">
@@ -11,7 +169,6 @@ export default function ScoringPage() {
         </p>
       </div>
 
-      {/* Tiers */}
       <section>
         <h3 className="text-lg font-semibold mb-3">Trust Tiers</h3>
         <div className="space-y-2">
@@ -30,7 +187,6 @@ export default function ScoringPage() {
         </div>
       </section>
 
-      {/* Scoring Components */}
       <section>
         <h3 className="text-lg font-semibold mb-3">8 Scoring Components</h3>
         <div className="grid gap-3">
@@ -77,7 +233,13 @@ export default function ScoringPage() {
         </div>
       </section>
 
-      {/* Event Types */}
+      <section className="space-y-4">
+        <h3 className="text-lg font-semibold">Mechanism Visualizations</h3>
+        <DiminishingCurve />
+        <RecencyCurve />
+        <ComplexityBars />
+      </section>
+
       <section>
         <h3 className="text-lg font-semibold mb-3">Event Types</h3>
         <div className="rounded-lg border border-border overflow-hidden">
@@ -114,18 +276,6 @@ export default function ScoringPage() {
           </table>
         </div>
       </section>
-    </div>
-  );
-}
-
-function ScoringCard({ title, formula, description }: { title: string; formula: string; description: string }) {
-  return (
-    <div className="rounded-lg border border-border bg-card p-4">
-      <h4 className="font-medium text-sm mb-1">{title}</h4>
-      <code className="text-xs text-accent bg-muted px-2 py-1 rounded block mb-2 font-mono">
-        {formula}
-      </code>
-      <p className="text-sm text-muted-foreground">{description}</p>
     </div>
   );
 }
