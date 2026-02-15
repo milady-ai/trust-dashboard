@@ -20,13 +20,20 @@ export function ActivityFeed({ contributors }: ActivityFeedProps) {
 
   const events = useMemo(() => {
     return contributors
-      .flatMap((contributor) =>
-        contributor.events.map((event) => ({
+      .flatMap((contributor) => {
+        // Build lookup from breakdown.eventDetails for scored points
+        const detailsByPr = new Map<number, number>();
+        contributor.breakdown?.eventDetails?.forEach((d) => {
+          detailsByPr.set(d.prNumber, d.finalPoints);
+        });
+
+        return contributor.events.map((event) => ({
           ...event,
           username: contributor.username,
           avatar: `https://github.com/${contributor.username}.png`,
-        })),
-      )
+          finalPoints: detailsByPr.get(event.prNumber) ?? 0,
+        }));
+      })
       .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       .slice(0, 15);
   }, [contributors]);
