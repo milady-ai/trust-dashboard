@@ -48,6 +48,8 @@ function normalizeContributors(raw: RawContributor[]): ContributorData[] {
       velocityPenalty: 0,
       inactivityDecay: 0,
       manualAdjustment: 0,
+      approveRateBonus: 0,
+      volumeBonus: 0,
       eventDetails: [],
     };
 
