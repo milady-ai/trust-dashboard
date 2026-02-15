@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-15T07:44:06.599Z",
+  "generatedAt": "2026-02-15T07:46:02.084Z",
   "repoFullName": "milady-ai/milaidy",
   "contributors": [
     {
@@ -15,12 +15,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 55.2671,
+        "recencyWeightedPoints": 55.2662,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 28.3872,
+        "approveRateBonus": 28.3867,
         "volumeBonus": 4.7434,
         "eventDetails": [
           {
@@ -34,8 +34,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 6.1752,
-            "finalPoints": 6.1752
+            "weightedPoints": 6.1751,
+            "finalPoints": 6.1751
           },
           {
             "prNumber": 11,
@@ -48,8 +48,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 3.6108,
-            "finalPoints": 3.6108
+            "weightedPoints": 3.6107,
+            "finalPoints": 3.6107
           },
           {
             "prNumber": 12,
@@ -76,15 +76,15 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 4.026,
-            "finalPoints": 4.026
+            "weightedPoints": 4.0259,
+            "finalPoints": 4.0259
           },
           {
             "prNumber": 82,
             "type": "close",
             "basePoints": -2,
             "diminishingMultiplier": 1,
-            "recencyWeight": 0.9421,
+            "recencyWeight": 0.942,
             "daysSinceEvent": 5.2,
             "complexityMultiplier": 0.7,
             "categoryMultiplier": 0.8,
@@ -104,8 +104,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 8.1026,
-            "finalPoints": 8.1026
+            "weightedPoints": 8.1025,
+            "finalPoints": 8.1025
           },
           {
             "prNumber": 117,
@@ -118,8 +118,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 6.0474,
-            "finalPoints": 6.0474
+            "weightedPoints": 6.0473,
+            "finalPoints": 6.0473
           },
           {
             "prNumber": 114,
@@ -146,22 +146,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 6.8063,
-            "finalPoints": 6.8063
+            "weightedPoints": 6.8062,
+            "finalPoints": 6.8062
           },
           {
             "prNumber": 209,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.8505,
-            "recencyWeight": 0.9779,
+            "recencyWeight": 0.9778,
             "daysSinceEvent": 1.9,
             "complexityMultiplier": 0.7,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.32,
             "severityMultiplier": 1,
-            "weightedPoints": 7.3772,
-            "finalPoints": 7.3772
+            "weightedPoints": 7.3771,
+            "finalPoints": 7.3771
           },
           {
             "prNumber": 211,
@@ -174,8 +174,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.4,
             "severityMultiplier": 1,
-            "weightedPoints": 4.4402,
-            "finalPoints": 4.4402
+            "weightedPoints": 4.4401,
+            "finalPoints": 4.4401
           }
         ]
       },
@@ -329,12 +329,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 402.4769,
+        "recencyWeightedPoints": 402.4744,
         "streakMultiplier": 1,
         "velocityPenalty": 0.54,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 40.698,
+        "approveRateBonus": 40.6977,
         "volumeBonus": 10,
         "eventDetails": [
           {
@@ -362,8 +362,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 6.2268,
-            "finalPoints": 6.2268
+            "weightedPoints": 6.2267,
+            "finalPoints": 6.2267
           },
           {
             "prNumber": 21,
@@ -376,8 +376,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 6.3717,
-            "finalPoints": 6.3717
+            "weightedPoints": 6.3716,
+            "finalPoints": 6.3716
           },
           {
             "prNumber": 25,
@@ -404,8 +404,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 5.724,
-            "finalPoints": 5.724
+            "weightedPoints": 5.7239,
+            "finalPoints": 5.7239
           },
           {
             "prNumber": 39,
@@ -418,8 +418,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 6.0981,
-            "finalPoints": 6.0981
+            "weightedPoints": 6.098,
+            "finalPoints": 6.098
           },
           {
             "prNumber": 40,
@@ -432,8 +432,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 6.4462,
-            "finalPoints": 6.4462
+            "weightedPoints": 6.4461,
+            "finalPoints": 6.4461
           },
           {
             "prNumber": 41,
@@ -446,8 +446,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 9.7185,
-            "finalPoints": 9.7185
+            "weightedPoints": 9.7183,
+            "finalPoints": 9.7183
           },
           {
             "prNumber": 42,
@@ -460,36 +460,36 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -1.3729,
-            "finalPoints": -1.3729
+            "weightedPoints": -1.3728,
+            "finalPoints": -1.3728
           },
           {
             "prNumber": 43,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.8653,
-            "recencyWeight": 0.9335,
+            "recencyWeight": 0.9334,
             "daysSinceEvent": 6,
             "complexityMultiplier": 0.7,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 5.4278,
-            "finalPoints": 5.4278
+            "weightedPoints": 5.4277,
+            "finalPoints": 5.4277
           },
           {
             "prNumber": 44,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.8574,
-            "recencyWeight": 0.9335,
+            "recencyWeight": 0.9334,
             "daysSinceEvent": 6,
             "complexityMultiplier": 0.7,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 5.8084,
-            "finalPoints": 5.8084
+            "weightedPoints": 5.8083,
+            "finalPoints": 5.8083
           },
           {
             "prNumber": 46,
@@ -502,8 +502,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 8.841,
-            "finalPoints": 8.841
+            "weightedPoints": 8.8409,
+            "finalPoints": 8.8409
           },
           {
             "prNumber": 52,
@@ -544,8 +544,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 7.5879,
-            "finalPoints": 7.5879
+            "weightedPoints": 7.5878,
+            "finalPoints": 7.5878
           },
           {
             "prNumber": 58,
@@ -572,8 +572,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 9.8355,
-            "finalPoints": 9.8355
+            "weightedPoints": 9.8354,
+            "finalPoints": 9.8354
           },
           {
             "prNumber": 73,
@@ -586,8 +586,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 8.1347,
-            "finalPoints": 8.1347
+            "weightedPoints": 8.1346,
+            "finalPoints": 8.1346
           },
           {
             "prNumber": 75,
@@ -600,8 +600,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 6.0836,
-            "finalPoints": 6.0836
+            "weightedPoints": 6.0835,
+            "finalPoints": 6.0835
           },
           {
             "prNumber": 76,
@@ -614,8 +614,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 6.4714,
-            "finalPoints": 6.4714
+            "weightedPoints": 6.4713,
+            "finalPoints": 6.4713
           },
           {
             "prNumber": 79,
@@ -628,36 +628,36 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.32,
             "severityMultiplier": 1,
-            "weightedPoints": 6.8676,
-            "finalPoints": 6.8676
+            "weightedPoints": 6.8675,
+            "finalPoints": 6.8675
           },
           {
             "prNumber": 81,
             "type": "close",
             "basePoints": -2,
             "diminishingMultiplier": 0.8653,
-            "recencyWeight": 0.9421,
+            "recencyWeight": 0.942,
             "daysSinceEvent": 5.2,
             "complexityMultiplier": 1,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -1.3043,
-            "finalPoints": -1.3043
+            "weightedPoints": -1.3042,
+            "finalPoints": -1.3042
           },
           {
             "prNumber": 83,
             "type": "close",
             "basePoints": -2,
             "diminishingMultiplier": 0.8574,
-            "recencyWeight": 0.9421,
+            "recencyWeight": 0.942,
             "daysSinceEvent": 5.2,
             "complexityMultiplier": 0.7,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.15,
             "severityMultiplier": 1,
-            "weightedPoints": -1.4862,
-            "finalPoints": -1.4862
+            "weightedPoints": -1.4861,
+            "finalPoints": -1.4861
           },
           {
             "prNumber": 91,
@@ -726,8 +726,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 7.333,
-            "finalPoints": 7.333
+            "weightedPoints": 7.3329,
+            "finalPoints": 7.3329
           },
           {
             "prNumber": 85,
@@ -740,15 +740,15 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 7.8934,
-            "finalPoints": 7.8934
+            "weightedPoints": 7.8933,
+            "finalPoints": 7.8933
           },
           {
             "prNumber": 115,
             "type": "close",
             "basePoints": -2,
             "diminishingMultiplier": 0.8444,
-            "recencyWeight": 0.9483,
+            "recencyWeight": 0.9482,
             "daysSinceEvent": 4.6,
             "complexityMultiplier": 0.4,
             "categoryMultiplier": 0.8,
@@ -796,8 +796,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.45,
             "severityMultiplier": 1,
-            "weightedPoints": -1.8323,
-            "finalPoints": -1.8323
+            "weightedPoints": -1.8322,
+            "finalPoints": -1.8322
           },
           {
             "prNumber": 133,
@@ -838,8 +838,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 5.1469,
-            "finalPoints": 5.1469
+            "weightedPoints": 5.1468,
+            "finalPoints": 5.1468
           },
           {
             "prNumber": 128,
@@ -852,8 +852,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 7.9172,
-            "finalPoints": 7.9172
+            "weightedPoints": 7.917,
+            "finalPoints": 7.917
           },
           {
             "prNumber": 135,
@@ -866,8 +866,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 8.4816,
-            "finalPoints": 8.4816
+            "weightedPoints": 8.4815,
+            "finalPoints": 8.4815
           },
           {
             "prNumber": 134,
@@ -880,8 +880,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 11.7545,
-            "finalPoints": 11.7545
+            "weightedPoints": 11.7544,
+            "finalPoints": 11.7544
           },
           {
             "prNumber": 132,
@@ -894,8 +894,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.32,
             "severityMultiplier": 1,
-            "weightedPoints": 9.6003,
-            "finalPoints": 9.6003
+            "weightedPoints": 9.6002,
+            "finalPoints": 9.6002
           },
           {
             "prNumber": 131,
@@ -908,8 +908,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.4,
             "severityMultiplier": 1,
-            "weightedPoints": 10.1568,
-            "finalPoints": 10.1568
+            "weightedPoints": 10.1567,
+            "finalPoints": 10.1567
           },
           {
             "prNumber": 130,
@@ -922,8 +922,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.48,
             "severityMultiplier": 1,
-            "weightedPoints": 10.7115,
-            "finalPoints": 10.7115
+            "weightedPoints": 10.7114,
+            "finalPoints": 10.7114
           },
           {
             "prNumber": 120,
@@ -936,8 +936,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 14.0808,
-            "finalPoints": 14.0808
+            "weightedPoints": 14.0805,
+            "finalPoints": 14.0805
           },
           {
             "prNumber": 136,
@@ -964,9 +964,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 9.3697,
-            "finalPoints": 2.1504,
-            "cappedBy": 7.2193
+            "weightedPoints": 9.3696,
+            "finalPoints": 2.1516,
+            "cappedBy": 7.218
           },
           {
             "prNumber": 122,
@@ -979,9 +979,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 10.0977,
+            "weightedPoints": 10.0976,
             "finalPoints": 0,
-            "cappedBy": 10.0977
+            "cappedBy": 10.0976
           },
           {
             "prNumber": 110,
@@ -994,24 +994,24 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 5.828,
+            "weightedPoints": 5.8279,
             "finalPoints": 0,
-            "cappedBy": 5.828
+            "cappedBy": 5.8279
           },
           {
             "prNumber": 137,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7829,
-            "recencyWeight": 0.9531,
+            "recencyWeight": 0.953,
             "daysSinceEvent": 4.2,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 11.5471,
+            "weightedPoints": 11.547,
             "finalPoints": 0,
-            "cappedBy": 11.5471
+            "cappedBy": 11.547
           },
           {
             "prNumber": 138,
@@ -1052,9 +1052,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 7.159,
+            "weightedPoints": 7.1589,
             "finalPoints": 0,
-            "cappedBy": 7.159
+            "cappedBy": 7.1589
           },
           {
             "prNumber": 141,
@@ -1067,9 +1067,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 10.05,
+            "weightedPoints": 10.0498,
             "finalPoints": 0,
-            "cappedBy": 10.05
+            "cappedBy": 10.0498
           },
           {
             "prNumber": 171,
@@ -1082,8 +1082,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 8.3439,
-            "finalPoints": 8.3439
+            "weightedPoints": 8.3438,
+            "finalPoints": 8.3438
           },
           {
             "prNumber": 177,
@@ -1138,8 +1138,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 9.3518,
-            "finalPoints": 9.3518
+            "weightedPoints": 9.3517,
+            "finalPoints": 9.3517
           },
           {
             "prNumber": 185,
@@ -1152,168 +1152,168 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 5.4292,
-            "finalPoints": 5.4292
+            "weightedPoints": 5.4291,
+            "finalPoints": 5.4291
           },
           {
             "prNumber": 188,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7746,
-            "recencyWeight": 0.9646,
+            "recencyWeight": 0.9645,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 10.8161,
-            "finalPoints": 10.8161
+            "weightedPoints": 10.8159,
+            "finalPoints": 10.8159
           },
           {
             "prNumber": 189,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7733,
-            "recencyWeight": 0.9646,
+            "recencyWeight": 0.9645,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 11.5434,
-            "finalPoints": 11.5434
+            "weightedPoints": 11.5433,
+            "finalPoints": 11.5433
           },
           {
             "prNumber": 187,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7721,
-            "recencyWeight": 0.9646,
+            "recencyWeight": 0.9645,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.32,
             "severityMultiplier": 1,
-            "weightedPoints": 9.4377,
-            "finalPoints": 9.4377
+            "weightedPoints": 9.4375,
+            "finalPoints": 9.4375
           },
           {
             "prNumber": 184,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.771,
-            "recencyWeight": 0.9646,
+            "recencyWeight": 0.9645,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.4,
             "severityMultiplier": 1,
-            "weightedPoints": 9.9944,
-            "finalPoints": 9.9944
+            "weightedPoints": 9.9943,
+            "finalPoints": 9.9943
           },
           {
             "prNumber": 183,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7698,
-            "recencyWeight": 0.9646,
+            "recencyWeight": 0.9645,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.48,
             "severityMultiplier": 1,
-            "weightedPoints": 13.7148,
-            "finalPoints": 13.7148
+            "weightedPoints": 13.7146,
+            "finalPoints": 13.7146
           },
           {
             "prNumber": 180,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7687,
-            "recencyWeight": 0.9646,
+            "recencyWeight": 0.9645,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 10.6769,
-            "finalPoints": 1.3686,
-            "cappedBy": 9.3083
+            "weightedPoints": 10.6768,
+            "finalPoints": 1.3699,
+            "cappedBy": 9.3069
           },
           {
             "prNumber": 192,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7676,
-            "recencyWeight": 0.9648,
+            "recencyWeight": 0.9647,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 0.4,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 4.2657,
+            "weightedPoints": 4.2656,
             "finalPoints": 0,
-            "cappedBy": 4.2657
+            "cappedBy": 4.2656
           },
           {
             "prNumber": 191,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7666,
-            "recencyWeight": 0.9648,
+            "recencyWeight": 0.9647,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.8443,
+            "weightedPoints": 13.8441,
             "finalPoints": 0,
-            "cappedBy": 13.8443
+            "cappedBy": 13.8441
           },
           {
             "prNumber": 197,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7655,
-            "recencyWeight": 0.9655,
+            "recencyWeight": 0.9654,
             "daysSinceEvent": 3,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.8356,
+            "weightedPoints": 13.8354,
             "finalPoints": 0,
-            "cappedBy": 13.8356
+            "cappedBy": 13.8354
           },
           {
             "prNumber": 195,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7645,
-            "recencyWeight": 0.9655,
+            "recencyWeight": 0.9654,
             "daysSinceEvent": 3,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.8174,
+            "weightedPoints": 13.8172,
             "finalPoints": 0,
-            "cappedBy": 13.8174
+            "cappedBy": 13.8172
           },
           {
             "prNumber": 194,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7635,
-            "recencyWeight": 0.9655,
+            "recencyWeight": 0.9654,
             "daysSinceEvent": 3,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.7996,
+            "weightedPoints": 13.7994,
             "finalPoints": 0,
-            "cappedBy": 13.7996
+            "cappedBy": 13.7994
           },
           {
             "prNumber": 199,
@@ -1326,9 +1326,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.7844,
+            "weightedPoints": 13.7842,
             "finalPoints": 0,
-            "cappedBy": 13.7844
+            "cappedBy": 13.7842
           },
           {
             "prNumber": 203,
@@ -1341,9 +1341,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.8578,
+            "weightedPoints": 13.8575,
             "finalPoints": 0,
-            "cappedBy": 13.8578
+            "cappedBy": 13.8575
           },
           {
             "prNumber": 202,
@@ -1356,9 +1356,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.8411,
+            "weightedPoints": 13.8408,
             "finalPoints": 0,
-            "cappedBy": 13.8411
+            "cappedBy": 13.8408
           },
           {
             "prNumber": 214,
@@ -1371,8 +1371,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 7.4911,
-            "finalPoints": 7.4911
+            "weightedPoints": 7.4909,
+            "finalPoints": 7.4909
           },
           {
             "prNumber": 212,
@@ -1385,8 +1385,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.8959,
-            "finalPoints": 13.8959
+            "weightedPoints": 13.8956,
+            "finalPoints": 13.8956
           },
           {
             "prNumber": 219,
@@ -1399,8 +1399,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 14.0125,
-            "finalPoints": 14.0125
+            "weightedPoints": 14.0122,
+            "finalPoints": 14.0122
           },
           {
             "prNumber": 218,
@@ -1413,8 +1413,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.9969,
-            "finalPoints": 13.9969
+            "weightedPoints": 13.9967,
+            "finalPoints": 13.9967
           },
           {
             "prNumber": 234,
@@ -1427,8 +1427,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 7.534,
-            "finalPoints": 7.534
+            "weightedPoints": 7.5339,
+            "finalPoints": 7.5339
           },
           {
             "prNumber": 235,
@@ -1441,8 +1441,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 4.3006,
-            "finalPoints": 4.3006
+            "weightedPoints": 4.3005,
+            "finalPoints": 4.3005
           },
           {
             "prNumber": 236,
@@ -1455,8 +1455,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 4.2963,
-            "finalPoints": 4.2963
+            "weightedPoints": 4.2962,
+            "finalPoints": 4.2962
           },
           {
             "prNumber": 232,
@@ -1469,22 +1469,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 7.5111,
-            "finalPoints": 7.5111
+            "weightedPoints": 7.511,
+            "finalPoints": 7.511
           },
           {
             "prNumber": 230,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.7533,
-            "recencyWeight": 0.9924,
+            "recencyWeight": 0.9923,
             "daysSinceEvent": 0.7,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 1.3,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 22.7393,
-            "finalPoints": 22.7393
+            "weightedPoints": 22.739,
+            "finalPoints": 22.739
           },
           {
             "prNumber": 240,
@@ -1497,9 +1497,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 10.7563,
-            "finalPoints": 5.6094,
-            "cappedBy": 5.1469
+            "weightedPoints": 10.7561,
+            "finalPoints": 5.6106,
+            "cappedBy": 5.1455
           },
           {
             "prNumber": 241,
@@ -1512,9 +1512,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 7.5222,
+            "weightedPoints": 7.5221,
             "finalPoints": 0,
-            "cappedBy": 7.5222
+            "cappedBy": 7.5221
           },
           {
             "prNumber": 239,
@@ -1527,8 +1527,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -1.2734,
-            "finalPoints": -1.2734
+            "weightedPoints": -1.2733,
+            "finalPoints": -1.2733
           },
           {
             "prNumber": 246,
@@ -1556,9 +1556,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 10.043,
+            "weightedPoints": 10.0428,
             "finalPoints": 0,
-            "cappedBy": 10.043
+            "cappedBy": 10.0428
           },
           {
             "prNumber": 249,
@@ -1571,9 +1571,9 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 5.8042,
+            "weightedPoints": 5.8041,
             "finalPoints": 0,
-            "cappedBy": 5.8042
+            "cappedBy": 5.8041
           },
           {
             "prNumber": 250,
@@ -1596,13 +1596,13 @@
             "basePoints": -2,
             "diminishingMultiplier": 0.7995,
             "recencyWeight": 0.9937,
-            "daysSinceEvent": 0.5,
+            "daysSinceEvent": 0.6,
             "complexityMultiplier": 0.4,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -1.2711,
-            "finalPoints": -1.2711
+            "weightedPoints": -1.271,
+            "finalPoints": -1.271
           },
           {
             "prNumber": 252,
@@ -1643,8 +1643,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.45,
             "severityMultiplier": 1,
-            "weightedPoints": -1.8316,
-            "finalPoints": -1.8316
+            "weightedPoints": -1.8315,
+            "finalPoints": -1.8315
           },
           {
             "prNumber": 258,
@@ -1657,8 +1657,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 9.3106,
-            "finalPoints": 9.3106
+            "weightedPoints": 9.3104,
+            "finalPoints": 9.3104
           },
           {
             "prNumber": 262,
@@ -1685,8 +1685,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 5.0152,
-            "finalPoints": 5.0152
+            "weightedPoints": 5.0151,
+            "finalPoints": 5.0151
           },
           {
             "prNumber": 265,
@@ -1699,8 +1699,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 10.0513,
-            "finalPoints": 10.0513
+            "weightedPoints": 10.0511,
+            "finalPoints": 10.0511
           },
           {
             "prNumber": 266,
@@ -1713,8 +1713,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 5.8088,
-            "finalPoints": 5.8088
+            "weightedPoints": 5.8087,
+            "finalPoints": 5.8087
           },
           {
             "prNumber": 267,
@@ -1727,8 +1727,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 11.5252,
-            "finalPoints": 11.5252
+            "weightedPoints": 11.525,
+            "finalPoints": 11.525
           },
           {
             "prNumber": 269,
@@ -1741,8 +1741,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.32,
             "severityMultiplier": 1,
-            "weightedPoints": 6.606,
-            "finalPoints": 6.606
+            "weightedPoints": 6.6059,
+            "finalPoints": 6.6059
           }
         ]
       },
@@ -2948,12 +2948,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 185.0069,
+        "recencyWeightedPoints": 185.0041,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 93.2682,
+        "approveRateBonus": 93.2668,
         "volumeBonus": 6.7082,
         "eventDetails": [
           {
@@ -2967,8 +2967,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 10.6746,
-            "finalPoints": 10.6746
+            "weightedPoints": 10.6744,
+            "finalPoints": 10.6744
           },
           {
             "prNumber": 17,
@@ -2981,8 +2981,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 10.9228,
-            "finalPoints": 10.9228
+            "weightedPoints": 10.9227,
+            "finalPoints": 10.9227
           },
           {
             "prNumber": 20,
@@ -2995,8 +2995,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 11.3822,
-            "finalPoints": 11.3822
+            "weightedPoints": 11.382,
+            "finalPoints": 11.382
           },
           {
             "prNumber": 57,
@@ -3009,8 +3009,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 10.0307,
-            "finalPoints": 10.0307
+            "weightedPoints": 10.0306,
+            "finalPoints": 10.0306
           },
           {
             "prNumber": 51,
@@ -3023,22 +3023,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.32,
             "severityMultiplier": 1,
-            "weightedPoints": 12.6111,
-            "finalPoints": 12.6111
+            "weightedPoints": 12.6109,
+            "finalPoints": 12.6109
           },
           {
             "prNumber": 84,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.8746,
-            "recencyWeight": 0.9421,
+            "recencyWeight": 0.942,
             "daysSinceEvent": 5.2,
             "complexityMultiplier": 1,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.4,
             "severityMultiplier": 1,
-            "weightedPoints": 11.0739,
-            "finalPoints": 11.0739
+            "weightedPoints": 11.0738,
+            "finalPoints": 11.0738
           },
           {
             "prNumber": 72,
@@ -3051,8 +3051,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.48,
             "severityMultiplier": 1,
-            "weightedPoints": 13.923,
-            "finalPoints": 13.923
+            "weightedPoints": 13.9228,
+            "finalPoints": 13.9228
           },
           {
             "prNumber": 95,
@@ -3065,8 +3065,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 8.1569,
-            "finalPoints": 8.1569
+            "weightedPoints": 8.1568,
+            "finalPoints": 8.1568
           },
           {
             "prNumber": 164,
@@ -3079,8 +3079,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -1.5296,
-            "finalPoints": -1.5296
+            "weightedPoints": -1.5295,
+            "finalPoints": -1.5295
           },
           {
             "prNumber": 166,
@@ -3093,8 +3093,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 10.1473,
-            "finalPoints": 10.1473
+            "weightedPoints": 10.1472,
+            "finalPoints": 10.1472
           },
           {
             "prNumber": 165,
@@ -3121,8 +3121,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 10.7895,
-            "finalPoints": 10.7895
+            "weightedPoints": 10.7894,
+            "finalPoints": 10.7894
           },
           {
             "prNumber": 179,
@@ -3135,8 +3135,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 9.5563,
-            "finalPoints": 9.5563
+            "weightedPoints": 9.5561,
+            "finalPoints": 9.5561
           },
           {
             "prNumber": 181,
@@ -3149,8 +3149,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.32,
             "severityMultiplier": 1,
-            "weightedPoints": 4.0492,
-            "finalPoints": 4.0492
+            "weightedPoints": 4.0491,
+            "finalPoints": 4.0491
           },
           {
             "prNumber": 182,
@@ -3163,8 +3163,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.4,
             "severityMultiplier": 1,
-            "weightedPoints": 4.2742,
-            "finalPoints": 4.2742
+            "weightedPoints": 4.2741,
+            "finalPoints": 4.2741
           },
           {
             "prNumber": 178,
@@ -3177,22 +3177,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.48,
             "severityMultiplier": 1,
-            "weightedPoints": 13.5118,
-            "finalPoints": 13.5118
+            "weightedPoints": 13.5115,
+            "finalPoints": 13.5115
           },
           {
             "prNumber": 204,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.8185,
-            "recencyWeight": 0.9709,
+            "recencyWeight": 0.9708,
             "daysSinceEvent": 2.6,
             "complexityMultiplier": 1.2,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 13.7308,
-            "finalPoints": 13.7308
+            "weightedPoints": 13.7306,
+            "finalPoints": 13.7306
           },
           {
             "prNumber": 206,
@@ -3205,8 +3205,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 7.9795,
-            "finalPoints": 7.9795
+            "weightedPoints": 7.9794,
+            "finalPoints": 7.9794
           },
           {
             "prNumber": 205,
@@ -3219,8 +3219,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 7.9499,
-            "finalPoints": 7.9499
+            "weightedPoints": 7.9497,
+            "finalPoints": 7.9497
           },
           {
             "prNumber": 207,
@@ -3233,8 +3233,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 4.5273,
-            "finalPoints": 4.5273
+            "weightedPoints": 4.5272,
+            "finalPoints": 4.5272
           },
           {
             "prNumber": 208,
@@ -3247,8 +3247,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.5,
             "severityMultiplier": 1,
-            "weightedPoints": 7.8974,
-            "finalPoints": 7.8974
+            "weightedPoints": 7.8972,
+            "finalPoints": 7.8972
           }
         ]
       },
@@ -3512,12 +3512,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 47.6791,
+        "recencyWeightedPoints": 47.6784,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 23.8395,
+        "approveRateBonus": 23.8393,
         "volumeBonus": 3,
         "eventDetails": [
           {
@@ -3531,8 +3531,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 11.5645,
-            "finalPoints": 11.5645
+            "weightedPoints": 11.5644,
+            "finalPoints": 11.5644
           },
           {
             "prNumber": 24,
@@ -3545,8 +3545,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 10.9237,
-            "finalPoints": 10.9237
+            "weightedPoints": 10.9236,
+            "finalPoints": 10.9236
           },
           {
             "prNumber": 158,
@@ -3559,22 +3559,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 11.7418,
-            "finalPoints": 11.7418
+            "weightedPoints": 11.7416,
+            "finalPoints": 11.7416
           },
           {
             "prNumber": 198,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.9002,
-            "recencyWeight": 0.9655,
+            "recencyWeight": 0.9654,
             "daysSinceEvent": 3,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 13.4491,
-            "finalPoints": 13.4491
+            "weightedPoints": 13.4489,
+            "finalPoints": 13.4489
           }
         ]
       },
@@ -3651,7 +3651,7 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 72.4303,
+        "recencyWeightedPoints": 72.4292,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
@@ -3664,14 +3664,14 @@
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 1,
-            "recencyWeight": 0.9268,
+            "recencyWeight": 0.9267,
             "daysSinceEvent": 6.6,
             "complexityMultiplier": 1.2,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 10.6763,
-            "finalPoints": 10.6763
+            "weightedPoints": 10.6762,
+            "finalPoints": 10.6762
           },
           {
             "prNumber": 49,
@@ -3698,8 +3698,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.15,
             "severityMultiplier": 1,
-            "weightedPoints": -1.6504,
-            "finalPoints": -1.6504
+            "weightedPoints": -1.6503,
+            "finalPoints": -1.6503
           },
           {
             "prNumber": 100,
@@ -3740,8 +3740,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 12.9943,
-            "finalPoints": 12.9943
+            "weightedPoints": 12.9941,
+            "finalPoints": 12.9941
           },
           {
             "prNumber": 109,
@@ -3754,8 +3754,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 11.8075,
-            "finalPoints": 11.8075
+            "weightedPoints": 11.8073,
+            "finalPoints": 11.8073
           },
           {
             "prNumber": 107,
@@ -3776,14 +3776,14 @@
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.9002,
-            "recencyWeight": 0.9534,
+            "recencyWeight": 0.9533,
             "daysSinceEvent": 4.1,
             "complexityMultiplier": 1.2,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 9.8862,
-            "finalPoints": 9.8862
+            "weightedPoints": 9.8861,
+            "finalPoints": 9.8861
           },
           {
             "prNumber": 173,
@@ -3796,8 +3796,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 10.6079,
-            "finalPoints": 10.6079
+            "weightedPoints": 10.6077,
+            "finalPoints": 10.6077
           },
           {
             "prNumber": 172,
@@ -3810,22 +3810,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 14.0604,
-            "finalPoints": 14.0604
+            "weightedPoints": 14.0601,
+            "finalPoints": 14.0601
           },
           {
             "prNumber": 196,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.8653,
-            "recencyWeight": 0.9655,
+            "recencyWeight": 0.9654,
             "daysSinceEvent": 3,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 12.9281,
-            "finalPoints": 12.9281
+            "weightedPoints": 12.9279,
+            "finalPoints": 12.9279
           }
         ]
       },
@@ -3990,7 +3990,7 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 90.3796,
+        "recencyWeightedPoints": 90.3782,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
@@ -4051,8 +4051,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 13.5443,
-            "finalPoints": 13.5443
+            "weightedPoints": 13.5441,
+            "finalPoints": 13.5441
           },
           {
             "prNumber": 77,
@@ -4065,8 +4065,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -1.3548,
-            "finalPoints": -1.3548
+            "weightedPoints": -1.3547,
+            "finalPoints": -1.3547
           },
           {
             "prNumber": 78,
@@ -4079,8 +4079,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 10.2884,
-            "finalPoints": 10.2884
+            "weightedPoints": 10.2882,
+            "finalPoints": 10.2882
           },
           {
             "prNumber": 105,
@@ -4121,8 +4121,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 13.3791,
-            "finalPoints": 13.3791
+            "weightedPoints": 13.3789,
+            "finalPoints": 13.3789
           },
           {
             "prNumber": 101,
@@ -4135,8 +4135,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 12.2572,
-            "finalPoints": 12.2572
+            "weightedPoints": 12.257,
+            "finalPoints": 12.257
           },
           {
             "prNumber": 220,
@@ -4149,8 +4149,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 13.3604,
-            "finalPoints": 13.3604
+            "weightedPoints": 13.3602,
+            "finalPoints": 13.3602
           },
           {
             "prNumber": 221,
@@ -4205,8 +4205,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 5.7426,
-            "finalPoints": 5.7426
+            "weightedPoints": 5.7425,
+            "finalPoints": 5.7425
           },
           {
             "prNumber": 224,
@@ -4219,8 +4219,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 11.4126,
-            "finalPoints": 11.4126
+            "weightedPoints": 11.4124,
+            "finalPoints": 11.4124
           },
           {
             "prNumber": 225,
@@ -4233,8 +4233,8 @@
             "categoryMultiplier": 0.6,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 9.1198,
-            "finalPoints": 9.1198
+            "weightedPoints": 9.1197,
+            "finalPoints": 9.1197
           },
           {
             "prNumber": 227,
@@ -4247,15 +4247,15 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.24,
             "severityMultiplier": 1,
-            "weightedPoints": 3.9712,
-            "finalPoints": 3.9712
+            "weightedPoints": 3.9711,
+            "finalPoints": 3.9711
           },
           {
             "prNumber": 228,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.839,
-            "recencyWeight": 0.9877,
+            "recencyWeight": 0.9876,
             "daysSinceEvent": 1.1,
             "complexityMultiplier": 0.4,
             "categoryMultiplier": 0.8,
@@ -4275,16 +4275,16 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.4,
             "severityMultiplier": 1,
-            "weightedPoints": 11.0739,
-            "finalPoints": 11.0739
+            "weightedPoints": 11.0737,
+            "finalPoints": 11.0737
           },
           {
             "prNumber": 231,
             "type": "close",
             "basePoints": -5,
             "diminishingMultiplier": 0.8505,
-            "recencyWeight": 0.988,
-            "daysSinceEvent": 1,
+            "recencyWeight": 0.9879,
+            "daysSinceEvent": 1.1,
             "complexityMultiplier": 1,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
@@ -4317,8 +4317,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.3,
             "severityMultiplier": 1,
-            "weightedPoints": -4.3128,
-            "finalPoints": -4.3128
+            "weightedPoints": -4.3127,
+            "finalPoints": -4.3127
           }
         ]
       },
@@ -4617,7 +4617,7 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 47.592,
+        "recencyWeightedPoints": 47.5913,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
@@ -4636,8 +4636,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 8.8962,
-            "finalPoints": 8.8962
+            "weightedPoints": 8.8961,
+            "finalPoints": 8.8961
           },
           {
             "prNumber": 29,
@@ -4650,8 +4650,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 9.1031,
-            "finalPoints": 9.1031
+            "weightedPoints": 9.103,
+            "finalPoints": 9.103
           },
           {
             "prNumber": 27,
@@ -4664,8 +4664,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 14.2297,
-            "finalPoints": 14.2297
+            "weightedPoints": 14.2294,
+            "finalPoints": 14.2294
           },
           {
             "prNumber": 59,
@@ -4706,8 +4706,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 5.765,
-            "finalPoints": 5.765
+            "weightedPoints": 5.7649,
+            "finalPoints": 5.7649
           },
           {
             "prNumber": 167,
@@ -4720,8 +4720,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -1.4098,
-            "finalPoints": -1.4098
+            "weightedPoints": -1.4097,
+            "finalPoints": -1.4097
           },
           {
             "prNumber": 168,
@@ -4734,22 +4734,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.15,
             "severityMultiplier": 1,
-            "weightedPoints": -1.5948,
-            "finalPoints": -1.5948
+            "weightedPoints": -1.5947,
+            "finalPoints": -1.5947
           },
           {
             "prNumber": 186,
             "type": "approve",
             "basePoints": 12,
             "diminishingMultiplier": 0.8859,
-            "recencyWeight": 0.9646,
+            "recencyWeight": 0.9645,
             "daysSinceEvent": 3.1,
             "complexityMultiplier": 1.3,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 10.6645,
-            "finalPoints": 10.6645
+            "weightedPoints": 10.6644,
+            "finalPoints": 10.6644
           },
           {
             "prNumber": 213,
@@ -4762,8 +4762,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 13.304,
-            "finalPoints": 13.304
+            "weightedPoints": 13.3038,
+            "finalPoints": 13.3038
           },
           {
             "prNumber": 244,
@@ -4933,12 +4933,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 26.7553,
+        "recencyWeightedPoints": 26.7549,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 13.3776,
+        "approveRateBonus": 13.3775,
         "volumeBonus": 2.5981,
         "eventDetails": [
           {
@@ -4966,8 +4966,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 13.6752,
-            "finalPoints": 13.6752
+            "weightedPoints": 13.675,
+            "finalPoints": 13.675
           },
           {
             "prNumber": 38,
@@ -4980,8 +4980,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.16,
             "severityMultiplier": 1,
-            "weightedPoints": 9.5174,
-            "finalPoints": 9.5174
+            "weightedPoints": 9.5173,
+            "finalPoints": 9.5173
           }
         ]
       },
@@ -5047,12 +5047,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 18.7393,
+        "recencyWeightedPoints": 18.739,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 9.3697,
+        "approveRateBonus": 9.3695,
         "volumeBonus": 2.1213,
         "eventDetails": [
           {
@@ -5066,8 +5066,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 6.4493,
-            "finalPoints": 6.4493
+            "weightedPoints": 6.4492,
+            "finalPoints": 6.4492
           },
           {
             "prNumber": 170,
@@ -5080,8 +5080,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 12.29,
-            "finalPoints": 12.29
+            "weightedPoints": 12.2898,
+            "finalPoints": 12.2898
           }
         ]
       },
@@ -5136,12 +5136,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 16.9926,
+        "recencyWeightedPoints": 16.9923,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 8.4963,
+        "approveRateBonus": 8.4962,
         "volumeBonus": 2.1213,
         "eventDetails": [
           {
@@ -5155,8 +5155,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 13.3498,
-            "finalPoints": 13.3498
+            "weightedPoints": 13.3496,
+            "finalPoints": 13.3496
           },
           {
             "prNumber": 18,
@@ -5169,8 +5169,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1.08,
             "severityMultiplier": 1,
-            "weightedPoints": 3.6428,
-            "finalPoints": 3.6428
+            "weightedPoints": 3.6427,
+            "finalPoints": 3.6427
           }
         ]
       },
@@ -5225,12 +5225,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 13.9959,
+        "recencyWeightedPoints": 13.9957,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 6.998,
+        "approveRateBonus": 6.9979,
         "volumeBonus": 1.5,
         "eventDetails": [
           {
@@ -5244,8 +5244,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 13.9959,
-            "finalPoints": 13.9959
+            "weightedPoints": 13.9957,
+            "finalPoints": 13.9957
           }
         ]
       },
@@ -5289,12 +5289,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 13.4443,
+        "recencyWeightedPoints": 13.4441,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 6.7222,
+        "approveRateBonus": 6.7221,
         "volumeBonus": 1.5,
         "eventDetails": [
           {
@@ -5308,8 +5308,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 13.4443,
-            "finalPoints": 13.4443
+            "weightedPoints": 13.4441,
+            "finalPoints": 13.4441
           }
         ]
       },
@@ -5353,7 +5353,7 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 12.8641,
+        "recencyWeightedPoints": 12.8639,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
@@ -5386,8 +5386,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 6.4929,
-            "finalPoints": 6.4929
+            "weightedPoints": 6.4928,
+            "finalPoints": 6.4928
           },
           {
             "prNumber": 216,
@@ -5414,8 +5414,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 11.6785,
-            "finalPoints": 11.6785
+            "weightedPoints": 11.6783,
+            "finalPoints": 11.6783
           }
         ]
       },
@@ -5492,12 +5492,12 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 8.828,
+        "recencyWeightedPoints": 8.8278,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
         "manualAdjustment": 0,
-        "approveRateBonus": 4.414,
+        "approveRateBonus": 4.4139,
         "volumeBonus": 1.5,
         "eventDetails": [
           {
@@ -5511,8 +5511,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 8.828,
-            "finalPoints": 8.828
+            "weightedPoints": 8.8278,
+            "finalPoints": 8.8278
           }
         ]
       },
@@ -5556,7 +5556,7 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 7.5186,
+        "recencyWeightedPoints": 7.5185,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
@@ -5589,8 +5589,8 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 9.0162,
-            "finalPoints": 9.0162
+            "weightedPoints": 9.0161,
+            "finalPoints": 9.0161
           }
         ]
       },
@@ -5645,7 +5645,7 @@
       "breakdown": {
         "rawPoints": 0,
         "diminishingFactor": 0,
-        "recencyWeightedPoints": 5.1207,
+        "recencyWeightedPoints": 5.1206,
         "streakMultiplier": 1,
         "velocityPenalty": 0,
         "inactivityDecay": 0,
@@ -5664,22 +5664,22 @@
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": 8.8958,
-            "finalPoints": 8.8958
+            "weightedPoints": 8.8956,
+            "finalPoints": 8.8956
           },
           {
             "prNumber": 93,
             "type": "close",
             "basePoints": -5,
             "diminishingMultiplier": 1,
-            "recencyWeight": 0.9438,
+            "recencyWeight": 0.9437,
             "daysSinceEvent": 5,
             "complexityMultiplier": 0.4,
             "categoryMultiplier": 0.8,
             "streakMultiplier": 1,
             "severityMultiplier": 1,
-            "weightedPoints": -3.7751,
-            "finalPoints": -3.7751
+            "weightedPoints": -3.775,
+            "finalPoints": -3.775
           }
         ]
       },
