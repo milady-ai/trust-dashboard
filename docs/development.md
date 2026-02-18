@@ -3,6 +3,7 @@
 ## Prereqs
 
 - Bun (recommended)
+- On Apple Silicon: use an **arm64** Node install if you run `next build`/`next lint` (check with `node -p process.arch`).
 
 ## Install
 
@@ -31,4 +32,3 @@ bun run check
 - `tsc --noEmit`
 - `next lint`
 - scoring parity check (`bun run verify:scoring`)
-
