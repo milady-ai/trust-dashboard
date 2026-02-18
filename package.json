@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check": "tsc --noEmit && next lint"
+    "test:once": "bun run verify:scoring",
+    "verify:scoring": "bun run scripts/verify-scoring-sync.ts",
+    "check": "tsc --noEmit && next lint && bun run verify:scoring"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",

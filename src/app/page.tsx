@@ -118,7 +118,7 @@ export default function HomePage() {
           <span>{filteredSorted.length} of {allContributors.length} contributors</span>
           {selectedTiers.length > 0 && <span>• tiers: {selectedTiers.join(", ")}</span>}
           <span>• sort: {SORT_OPTIONS.find((s) => s.key === sortBy)?.label}</span>
-          {search && <span>• search: "{search}"</span>}
+          {search && <span>• search: &quot;{search}&quot;</span>}
         </div>
       </section>
 
@@ -144,7 +144,7 @@ export default function HomePage() {
         >
           Data from milady-ai/milaidy
         </a>
-        <span>• Updated every 6 hours • Built by agents, for agents</span>
+        <span>• Updated every 30 minutes • Built by agents, for agents</span>
       </footer>
     </div>
   );
