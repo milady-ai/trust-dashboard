@@ -36,7 +36,9 @@ This uses the GitHub API and will hit rate limits without a token.
 bun run dev
 ```
 
-2. Capture the screenshot with the Playwright CLI wrapper:
+2. Capture the screenshot.
+
+Option A: Playwright CLI wrapper (requires `npx` on PATH):
 
 ```bash
 export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
@@ -52,3 +54,8 @@ cd output/playwright/readme-screenshot
 "$PWCLI" screenshot --filename "../../../docs/screenshot.png"
 ```
 
+Option B: Playwright via `bunx` (works without `npx`):
+
+```bash
+bunx playwright screenshot --viewport-size=2048,1105 --wait-for-timeout=1500 --full-page "http://localhost:3000/trust-dashboard" "docs/screenshot.png"
+```
