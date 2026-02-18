@@ -71,8 +71,8 @@ function DiminishingCurve() {
 
       <div className="grid gap-2 text-xs sm:grid-cols-3 text-muted-foreground">
         <p>Your 1st approval: 100%</p>
-        <p>Your 10th: 65%</p>
-        <p>Your 50th: 49%</p>
+        <p>Your 10th: 68%</p>
+        <p>Your 50th: 56%</p>
       </div>
     </div>
   );
@@ -193,7 +193,7 @@ export default function ScoringPage() {
           <ScoringCard
             title="1. Diminishing Returns"
             formula="multiplier = 1 / (1 + 0.2 × ln(1 + priorApprovals))"
-            description="Each subsequent approval is worth less. Your 50th approval earns ~49% of your 1st. Prevents grinding."
+            description="Each subsequent approval is worth less. Your 50th approval earns ~56% of your 1st. Prevents grinding."
           />
           <ScoringCard
             title="2. Recency Weighting"
