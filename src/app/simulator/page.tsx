@@ -222,6 +222,7 @@ export default function SimulatorPage() {
         </p>
       </header>
 
+      {/* Score overview */}
       <section className="rounded-xl border border-border bg-card p-4 md:p-5 space-y-4">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
@@ -295,12 +296,13 @@ export default function SimulatorPage() {
         )}
       </section>
 
+      {/* Events */}
       <section className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h3 className="text-lg font-semibold">Events</h3>
           <button
             type="button"
-            className="rounded-lg border border-border bg-card px-3 py-2 text-sm hover:bg-muted transition-colors"
+            className="rounded-lg border border-accent/30 bg-accent/10 text-accent px-3 py-2 text-sm hover:bg-accent/20 transition-colors"
             onClick={addEvent}
           >
             + Add event
@@ -317,7 +319,7 @@ export default function SimulatorPage() {
               const cappedBy = detail?.cappedBy;
 
               return (
-                <div key={ev.id} className="rounded-xl border border-border bg-card p-4 space-y-4">
+                <div key={ev.id} className="rounded-xl border border-border bg-card p-4 space-y-4 card-hover">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-3">
                       <span className="font-mono text-sm text-muted-foreground">PR #{ev.prNumber}</span>
@@ -430,7 +432,7 @@ export default function SimulatorPage() {
                             onClick={() => toggleLabel(ev.id, label)}
                             className={`rounded-full border px-2 py-1 text-xs font-mono transition-colors ${
                               selected
-                                ? "border-foreground/20 bg-muted text-foreground"
+                                ? "border-accent/40 bg-accent/20 text-accent"
                                 : "border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted"
                             }`}
                             title={`${weight.toFixed(1)}x`}
@@ -441,7 +443,7 @@ export default function SimulatorPage() {
                       })}
                       {ev.labels.length === 0 && (
                         <span className="text-xs text-muted-foreground px-1 py-1">
-                          none selected -&gt; default {DEFAULT_CONFIG.defaultCategoryWeight.toFixed(1)}x
+                          none selected &rarr; default {DEFAULT_CONFIG.defaultCategoryWeight.toFixed(1)}x
                         </span>
                       )}
                     </div>
@@ -461,6 +463,7 @@ export default function SimulatorPage() {
         </div>
       </section>
 
+      {/* Breakdown table */}
       <details className="rounded-xl border border-border bg-card p-4 md:p-5">
         <summary className="cursor-pointer select-none text-sm font-medium">View per-event breakdown</summary>
 
@@ -523,4 +526,3 @@ function MiniStat({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
-

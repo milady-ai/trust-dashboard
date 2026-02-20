@@ -7,10 +7,12 @@ import { StatsBar } from "@/components/stats-bar";
 import { getGeneratedAt, loadContributors, loadStats } from "@/lib/data-loader";
 import { TIERS, TrustTier, getApprovalRate, getTotalPRs } from "@/lib/trust-scoring";
 
-type SortKey = "trustScore" | "recent" | "streak" | "approvalRate" | "prCount" | "username";
+type SortKey = "trustScore" | "recent" | "streak" | "approvalRate" | "prCount" | "username" | "level" | "xp";
 
 const SORT_OPTIONS: Array<{ key: SortKey; label: string }> = [
   { key: "trustScore", label: "Trust Score" },
+  { key: "level", label: "Total Level" },
+  { key: "xp", label: "Total XP" },
   { key: "recent", label: "Recent Activity" },
   { key: "streak", label: "Streak Length" },
   { key: "approvalRate", label: "Approval Rate" },
@@ -26,6 +28,7 @@ export default function HomePage() {
   const [search, setSearch] = useState("");
   const [selectedTiers, setSelectedTiers] = useState<TrustTier[]>([]);
   const [sortBy, setSortBy] = useState<SortKey>("trustScore");
+  const [showHumansOnly, setShowHumansOnly] = useState(false);
 
   const filteredSorted = useMemo(() => {
     const searchLower = search.trim().toLowerCase();
@@ -33,11 +36,16 @@ export default function HomePage() {
     const filtered = allContributors.filter((contributor) => {
       const tierPass = selectedTiers.length === 0 || selectedTiers.includes(contributor.tier.label);
       const searchPass = searchLower.length === 0 || contributor.username.toLowerCase().includes(searchLower);
-      return tierPass && searchPass;
+      const agentPass = !showHumansOnly || !contributor.isAgent;
+      return tierPass && searchPass && agentPass;
     });
 
     return filtered.sort((a, b) => {
       switch (sortBy) {
+        case "level":
+          return b.totalLevel - a.totalLevel;
+        case "xp":
+          return b.totalXp - a.totalXp;
         case "recent":
           return new Date(b.lastEventAt || 0).getTime() - new Date(a.lastEventAt || 0).getTime();
         case "streak":
@@ -53,7 +61,7 @@ export default function HomePage() {
           return b.trustScore - a.trustScore;
       }
     });
-  }, [search, selectedTiers, sortBy]);
+  }, [search, selectedTiers, sortBy, showHumansOnly]);
 
   const toggleTier = (tier: TrustTier) => {
     setSelectedTiers((prev) => (prev.includes(tier) ? prev.filter((t) => t !== tier) : [...prev, tier]));
@@ -64,23 +72,23 @@ export default function HomePage() {
       <div>
         <h2 className="text-2xl font-bold mb-1">Contributor Leaderboard</h2>
         <p className="text-sm text-muted-foreground">
-          Trust scores for milady-ai/milaidy contributors. Score range 0-100, earned through consistent quality contributions.
+          Trust scores, badges, and XP levels for milady-ai/milaidy contributors.
         </p>
       </div>
 
       <StatsBar contributors={allContributors} stats={stats} generatedAt={generatedAt} />
 
       <section className="rounded-lg border border-border bg-card p-4 space-y-3">
-        <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="grid gap-3 md:grid-cols-[1fr_auto_auto] md:items-center">
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search username..."
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent transition-colors"
           />
           <div className="flex items-center gap-2">
-            <label htmlFor="sortBy" className="text-xs text-muted-foreground">Sort by</label>
+            <label htmlFor="sortBy" className="text-xs text-muted-foreground">Sort</label>
             <select
               id="sortBy"
               value={sortBy}
@@ -92,6 +100,17 @@ export default function HomePage() {
               ))}
             </select>
           </div>
+          <button
+            type="button"
+            onClick={() => setShowHumansOnly((v) => !v)}
+            className={`rounded-md border px-3 py-2 text-xs transition-colors ${
+              showHumansOnly
+                ? "border-accent bg-accent/20 text-accent"
+                : "border-border bg-muted/30 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {showHumansOnly ? "Humans only" : "All contributors"}
+          </button>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -119,6 +138,7 @@ export default function HomePage() {
           {selectedTiers.length > 0 && <span>• tiers: {selectedTiers.join(", ")}</span>}
           <span>• sort: {SORT_OPTIONS.find((s) => s.key === sortBy)?.label}</span>
           {search && <span>• search: &quot;{search}&quot;</span>}
+          {showHumansOnly && <span>• humans only</span>}
         </div>
       </section>
 

@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { ContributorData, getApprovalRate, getPointsToNextTier, getTotalPRs } from "@/lib/trust-scoring";
+import { ContributorData, getApprovalRate } from "@/lib/trust-scoring";
 import { daysSince, formatRelativeTime } from "@/lib/utils";
 import { TierBadge } from "./tier-badge";
 import { ScoreBar } from "./score-bar";
 import { StreakIndicator } from "./streak-indicator";
+import { CharacterClassBadge } from "./character-class";
+import { BadgeDisplay } from "./badge-display";
 
 interface LeaderboardProps {
   contributors: ContributorData[];
@@ -13,13 +15,14 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
   return (
     <>
       <div className="hidden md:block overflow-hidden rounded-lg border border-border">
-        <div className="grid grid-cols-[3rem_1fr_auto_11rem_6rem_7rem_7rem] items-center gap-2 border-b border-border bg-muted/50 px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        <div className="grid grid-cols-[3rem_1fr_auto_auto_10rem_5rem_5rem_6rem] items-center gap-2 border-b border-border bg-muted/50 px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
           <span>#</span>
           <span>Contributor</span>
+          <span>Class</span>
           <span>Tier</span>
           <span>Trust Score</span>
+          <span className="text-center">Level</span>
           <span className="text-center">Streak</span>
-          <span className="text-center">PRs</span>
           <span className="text-right">Last Active</span>
         </div>
 
@@ -40,16 +43,13 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
 }
 
 function DesktopRow({ contributor, rank }: { contributor: ContributorData; rank: number }) {
-  const pointsToNext = getPointsToNextTier(contributor.trustScore);
-  const totalPRs = getTotalPRs(contributor);
-  const approvalRate = Math.round(getApprovalRate(contributor));
   const joinedDays = daysSince(contributor.firstSeenAt);
   const isNew = joinedDays <= 30;
 
   return (
     <Link
       href={`/contributor/${contributor.username}`}
-      className="grid grid-cols-[3rem_1fr_auto_11rem_6rem_7rem_7rem] items-center gap-2 px-4 py-3 hover:bg-muted/30 transition-colors"
+      className="grid grid-cols-[3rem_1fr_auto_auto_10rem_5rem_5rem_6rem] items-center gap-2 px-4 py-3 card-hover transition-colors"
     >
       <span className="text-sm font-mono text-muted-foreground">
         {rank <= 3 ? ["🥇", "🥈", "🥉"][rank - 1] : rank}
@@ -64,29 +64,34 @@ function DesktopRow({ contributor, rank }: { contributor: ContributorData; rank:
           loading="lazy"
         />
         <div className="min-w-0">
-          <div className="font-medium text-sm truncate">{contributor.username}</div>
-          <div className="text-xs text-muted-foreground">
-            {pointsToNext !== null ? `${pointsToNext} pts to next tier` : "Top tier"}
-            {isNew ? ` • joined ${joinedDays}d ago` : ""}
+          <div className="font-medium text-sm truncate flex items-center gap-1.5">
+            {contributor.username}
+            {contributor.isAgent && <span className="text-xs text-muted-foreground">🤖</span>}
+          </div>
+          <div className="text-xs text-muted-foreground flex items-center gap-1.5">
+            <BadgeDisplay badges={contributor.badges} compact />
+            {isNew && <span className="text-accent">new</span>}
           </div>
         </div>
       </div>
 
+      <CharacterClassBadge characterClass={contributor.characterClass} size="sm" />
+
       <TierBadge tier={contributor.tier} size="sm" />
 
       <div
-        title={`Approvals: ${contributor.totalApprovals}, Rejections: ${contributor.totalRejections}, Closes: ${contributor.totalCloses}, Self-closes: ${contributor.totalSelfCloses}`}
+        title={`Approvals: ${contributor.totalApprovals}, Rejections: ${contributor.totalRejections}, Closes: ${contributor.totalCloses}`}
       >
         <ScoreBar score={contributor.trustScore} tier={contributor.tier} />
       </div>
 
       <div className="text-center">
-        <StreakIndicator type={contributor.currentStreak.type} length={contributor.currentStreak.length} />
+        <div className="text-sm font-mono font-bold">{contributor.totalLevel}</div>
+        <div className="text-xs text-muted-foreground">{contributor.totalXp.toLocaleString()} XP</div>
       </div>
 
-      <div className="text-center text-sm">
-        <span className="font-mono">{totalPRs}</span>
-        {totalPRs > 0 && <span className="text-xs text-muted-foreground ml-0.5">({approvalRate}%)</span>}
+      <div className="text-center">
+        <StreakIndicator type={contributor.currentStreak.type} length={contributor.currentStreak.length} />
       </div>
 
       <div className="text-right text-xs text-muted-foreground">{formatRelativeTime(contributor.lastEventAt)}</div>
@@ -100,7 +105,7 @@ function MobileCard({ contributor, rank }: { contributor: ContributorData; rank:
   return (
     <Link
       href={`/contributor/${contributor.username}`}
-      className="rounded-lg border border-border bg-card p-3 hover:bg-muted/30 transition-colors"
+      className="rounded-lg border border-border bg-card p-3 card-hover transition-colors block"
     >
       <div className="flex items-center justify-between gap-2 mb-2">
         <div className="flex items-center gap-2 min-w-0">
@@ -112,17 +117,32 @@ function MobileCard({ contributor, rank }: { contributor: ContributorData; rank:
             loading="lazy"
           />
           <div className="min-w-0">
-            <div className="font-medium text-sm truncate">{rank}. {contributor.username}</div>
-            <div className="text-xs text-muted-foreground">{formatRelativeTime(contributor.lastEventAt)}</div>
+            <div className="font-medium text-sm truncate flex items-center gap-1.5">
+              {rank}. {contributor.username}
+              {contributor.isAgent && <span className="text-xs">🤖</span>}
+            </div>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <CharacterClassBadge characterClass={contributor.characterClass} size="sm" />
+            </div>
           </div>
         </div>
         <TierBadge tier={contributor.tier} size="sm" />
       </div>
 
-      <div className="grid grid-cols-3 gap-2 text-xs">
+      <div className="flex items-center gap-1 mb-2">
+        <BadgeDisplay badges={contributor.badges} compact />
+      </div>
+
+      <div className="grid grid-cols-4 gap-2 text-xs">
         <div>
           <div className="text-muted-foreground">Score</div>
-          <div className="font-mono font-semibold">{contributor.trustScore.toFixed(1)}</div>
+          <div className="font-mono font-semibold" style={{ color: contributor.tier.color }}>
+            {contributor.trustScore.toFixed(1)}
+          </div>
+        </div>
+        <div>
+          <div className="text-muted-foreground">Level</div>
+          <div className="font-mono font-semibold">{contributor.totalLevel}</div>
         </div>
         <div>
           <div className="text-muted-foreground">Streak</div>
@@ -133,6 +153,8 @@ function MobileCard({ contributor, rank }: { contributor: ContributorData; rank:
           <div className="font-mono font-semibold">{approvalRate}%</div>
         </div>
       </div>
+
+      <div className="text-right text-xs text-muted-foreground mt-2">{formatRelativeTime(contributor.lastEventAt)}</div>
     </Link>
   );
 }

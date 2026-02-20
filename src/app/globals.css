@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #0A0A0F;
-  --color-foreground: #F8FAFC;
-  --color-card: #111118;
-  --color-card-foreground: #F8FAFC;
-  --color-muted: #1A1A25;
-  --color-muted-foreground: #94A3B8;
-  --color-border: #1E293B;
+  --color-background: #09090B;
+  --color-foreground: #FAFAFA;
+  --color-card: #0F0F14;
+  --color-card-foreground: #FAFAFA;
+  --color-muted: #18181F;
+  --color-muted-foreground: #A1A1AA;
+  --color-border: #27272A;
   --color-accent: #C084FC;
-  --color-accent-foreground: #F8FAFC;
+  --color-accent-foreground: #FAFAFA;
   --color-primary: #A855F7;
   --color-primary-foreground: #FFFFFF;
 
@@ -22,11 +22,44 @@
   --color-tier-untested: #6B7280;
   --color-tier-restricted: #EF4444;
 
+  /* Badge tier colors */
+  --color-badge-acolyte: #D97706;
+  --color-badge-priestess: #A1A1AA;
+  --color-badge-remilia: #FACC15;
+
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Modern card hover effect */
+.card-hover {
+  transition: all 0.2s ease;
+}
+.card-hover:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 5%, transparent);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect */
+.glass {
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--color-card) 80%, transparent);
 }

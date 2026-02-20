@@ -4,7 +4,12 @@ import { EventTimeline } from "@/components/contributor/event-timeline";
 import { ScoreBreakdownViz } from "@/components/contributor/score-breakdown";
 import { ScoreSparkline } from "@/components/contributor/score-sparkline";
 import { VelocityGauge } from "@/components/contributor/velocity-gauge";
+import { BadgeDisplay } from "@/components/badge-display";
+import { TagDisplay } from "@/components/tag-display";
+import { CharacterClassBadge } from "@/components/character-class";
 import type { ContributorProfile, TrustScoresDataFile } from "@/lib/contributor-types";
+import type { EarnedBadge } from "@/lib/badges";
+import type { CharacterClass, TagScore } from "@/lib/levels";
 import { TIERS, getNextTier, getPointsToNextTier, getTierForScore } from "@/lib/trust-scoring";
 
 function normalizeData(input: unknown): ContributorProfile[] {
@@ -16,6 +21,21 @@ function normalizeData(input: unknown): ContributorProfile[] {
   }
 
   return [];
+}
+
+/** Safely access new fields that may not exist in older JSON data */
+function safeProfile(p: ContributorProfile) {
+  return {
+    totalReviews: p.totalReviews ?? 0,
+    totalIssues: p.totalIssues ?? 0,
+    totalComments: p.totalComments ?? 0,
+    isAgent: p.isAgent ?? false,
+    characterClass: (p.characterClass ?? "anon") as CharacterClass,
+    badges: (p.badges ?? []) as EarnedBadge[],
+    tags: (p.tags ?? []) as TagScore[],
+    totalLevel: p.totalLevel ?? 0,
+    totalXp: p.totalXp ?? 0,
+  };
 }
 
 function normalizeTimestamp(ts: number): number {
@@ -68,11 +88,12 @@ export default async function ContributorDetailPage({
         <p className="text-sm text-muted-foreground">Leaderboard &gt; {username}</p>
         <h2 className="mt-2 text-2xl font-bold">Contributor not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">We couldn&apos;t find a contributor with that username.</p>
-        <Link href="/" className="mt-4 inline-block text-accent hover:underline">← Back to Leaderboard</Link>
+        <Link href="/" className="mt-4 inline-block text-accent hover:underline">&larr; Back to Leaderboard</Link>
       </div>
     );
   }
 
+  const safe = safeProfile(profile);
   const tier = getTierForScore(profile.trustScore);
   const rank = sorted.findIndex((entry) => entry.username === profile.username) + 1;
   const total = sorted.length;
@@ -96,21 +117,28 @@ export default async function ContributorDetailPage({
   return (
     <div className="space-y-5 md:space-y-6">
       <div className="space-y-2">
-        <Link href="/" className="inline-block text-sm text-accent hover:underline">← Back to Leaderboard</Link>
+        <Link href="/" className="inline-block text-sm text-accent hover:underline">&larr; Back to Leaderboard</Link>
         <div className="text-xs text-muted-foreground">Leaderboard &gt; {profile.username}</div>
       </div>
 
+      {/* Hero section */}
       <section className="rounded-xl border border-border bg-card p-4 md:p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={profile.avatarUrl} alt={profile.username} className="h-16 w-16 rounded-full border border-border bg-muted" />
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold">@{profile.username}</h1>
-              <p className="text-sm text-muted-foreground">Rank #{rank} of {total}</p>
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl md:text-3xl font-bold">@{profile.username}</h1>
+                {safe.isAgent && <span className="text-lg" title="Agent/Bot">🤖</span>}
+              </div>
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-sm text-muted-foreground">Rank #{rank} of {total}</p>
+                <CharacterClassBadge characterClass={safe.characterClass} size="sm" />
+              </div>
               {profile.autoMergeEligible && (
                 <span className="mt-2 inline-flex rounded-full border border-tier-legendary/40 px-2.5 py-1 text-xs text-tier-legendary">
-                  ⚡ Auto-merge eligible
+                  Auto-merge eligible
                 </span>
               )}
             </div>
@@ -126,17 +154,40 @@ export default async function ContributorDetailPage({
             <div className="mt-2 text-4xl font-bold font-mono" style={{ color: tier.color }}>
               {profile.trustScore.toFixed(1)}
             </div>
-            <div className="text-xs text-muted-foreground">Trust score (0–100)</div>
+            <div className="text-xs text-muted-foreground">Trust score (0-100)</div>
           </div>
         </div>
       </section>
 
-      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      {/* Stats cards */}
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
         <InfoCard label="Current Score" value={profile.trustScore.toFixed(1)} subtitle={`${tier.label} tier`} accent={tier.color} />
+        <InfoCard label="Total Level" value={String(safe.totalLevel)} subtitle={`${safe.totalXp.toLocaleString()} XP`} />
         <InfoCard label="Approval Rate" value={formatPct(approvalRate)} subtitle={`${profile.totalApprovals}/${totalPRs || 0} approvals`} />
         <InfoCard label="Current Streak" value={streakText} subtitle={profile.currentStreakType ? `${profile.currentStreakType} streak` : "No streak"} />
         <InfoCard label="Weekly Velocity" value={`${weeklyVelocity}/10`} subtitle="soft cap per week" />
       </section>
+
+      {/* Badges */}
+      <section className="rounded-xl border border-border bg-card p-4 md:p-5">
+        <h3 className="text-lg font-semibold mb-3">Badges</h3>
+        <BadgeDisplay badges={safe.badges} />
+      </section>
+
+      {/* Tags & Levels */}
+      <section className="rounded-xl border border-border bg-card p-4 md:p-5">
+        <h3 className="text-lg font-semibold mb-3">Tags & Levels</h3>
+        <TagDisplay tags={safe.tags} />
+      </section>
+
+      {/* Activity stats */}
+      {(safe.totalReviews > 0 || safe.totalIssues > 0 || safe.totalComments > 0) && (
+        <section className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <InfoCard label="Reviews Given" value={String(safe.totalReviews)} subtitle="PR reviews" />
+          <InfoCard label="Issues" value={String(safe.totalIssues)} subtitle="issues created/closed" />
+          <InfoCard label="Comments" value={String(safe.totalComments)} subtitle="issue & PR comments" />
+        </section>
+      )}
 
       <ScoreBreakdownViz breakdown={profile.breakdown} />
 
@@ -145,12 +196,13 @@ export default async function ContributorDetailPage({
         <VelocityGauge weeklyCount={weeklyVelocity} softCap={10} hardCap={25} />
       </div>
 
+      {/* Next Tier Progress */}
       <section className="rounded-xl border border-border bg-card p-4 md:p-5">
         <h3 className="text-lg font-semibold mb-3">Next Tier Progress</h3>
         {nextTier && pointsToNext !== null ? (
           <>
             <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-              <span className="text-muted-foreground capitalize">{tier.label} → {nextTier.label}</span>
+              <span className="text-muted-foreground capitalize">{tier.label} &rarr; {nextTier.label}</span>
               <span className="font-mono">{pointsToNext.toFixed(1)} points needed</span>
             </div>
             <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">

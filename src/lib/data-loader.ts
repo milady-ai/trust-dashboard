@@ -21,6 +21,15 @@ interface RawContributor {
   totalRejections?: number;
   totalCloses?: number;
   totalSelfCloses?: number;
+  totalReviews?: number;
+  totalIssues?: number;
+  totalComments?: number;
+  isAgent?: boolean;
+  characterClass?: string;
+  badges?: ContributorData["badges"];
+  tags?: ContributorData["tags"];
+  totalLevel?: number;
+  totalXp?: number;
   lastEventAt?: string | null;
   firstSeenAt?: string;
   walletAddress?: string | null;
@@ -65,6 +74,15 @@ function normalizeContributors(raw: RawContributor[]): ContributorData[] {
       totalRejections: contributor.totalRejections ?? 0,
       totalCloses: contributor.totalCloses ?? 0,
       totalSelfCloses: contributor.totalSelfCloses ?? 0,
+      totalReviews: contributor.totalReviews ?? 0,
+      totalIssues: contributor.totalIssues ?? 0,
+      totalComments: contributor.totalComments ?? 0,
+      isAgent: contributor.isAgent ?? false,
+      characterClass: (contributor.characterClass as ContributorData["characterClass"]) ?? "anon",
+      badges: contributor.badges ?? [],
+      tags: contributor.tags ?? [],
+      totalLevel: contributor.totalLevel ?? 0,
+      totalXp: contributor.totalXp ?? 0,
       lastEventAt: contributor.lastEventAt ?? null,
       firstSeenAt: contributor.firstSeenAt ?? new Date().toISOString(),
       walletAddress: contributor.walletAddress ?? null,
