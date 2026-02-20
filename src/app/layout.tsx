@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 
 const siteTitle = "Milaidy Contributor Dashboard";
@@ -38,9 +39,9 @@ export default function RootLayout({
               </h1>
             </div>
             <nav className="flex items-center gap-4 text-sm text-muted-foreground">
-              <a href="/" className="hover:text-foreground transition-colors">Leaderboard</a>
-              <a href="/scoring" className="hover:text-foreground transition-colors">Scoring</a>
-              <a href="/simulator" className="hover:text-foreground transition-colors">Simulator</a>
+              <Link href="/" className="hover:text-foreground transition-colors">Leaderboard</Link>
+              <Link href="/scoring" className="hover:text-foreground transition-colors">Scoring</Link>
+              <Link href="/simulator" className="hover:text-foreground transition-colors">Simulator</Link>
               <a
                 href="https://github.com/milady-ai/milaidy"
                 target="_blank"
