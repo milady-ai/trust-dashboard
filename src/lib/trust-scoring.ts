@@ -1,3 +1,5 @@
+import type { EarnedBadge } from "./badges";
+import type { CharacterClass, TagScore } from "./levels";
 import {
   DEFAULT_CONFIG,
   getTier,
@@ -57,6 +59,15 @@ export interface ContributorData {
   totalRejections: number;
   totalCloses: number;
   totalSelfCloses: number;
+  totalReviews: number;
+  totalIssues: number;
+  totalComments: number;
+  isAgent: boolean;
+  characterClass: CharacterClass;
+  badges: EarnedBadge[];
+  tags: TagScore[];
+  totalLevel: number;
+  totalXp: number;
   lastEventAt: string | null;
   firstSeenAt: string;
   walletAddress: string | null;

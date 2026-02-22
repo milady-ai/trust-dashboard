@@ -1,3 +1,6 @@
+import type { EarnedBadge } from "./badges";
+import type { CharacterClass, TagScore } from "./levels";
+
 export interface EventDetail {
   prNumber: number;
   type: string;
@@ -48,10 +51,20 @@ export interface ContributorProfile {
   totalApprovals: number;
   totalRejections: number;
   totalCloses: number;
+  totalSelfCloses: number;
+  totalReviews: number;
+  totalIssues: number;
+  totalComments: number;
   lastEventAt: string | null;
   firstSeenAt: string;
   walletAddress: string | null;
   autoMergeEligible: boolean;
+  isAgent: boolean;
+  characterClass: CharacterClass;
+  badges: EarnedBadge[];
+  tags: TagScore[];
+  totalLevel: number;
+  totalXp: number;
   breakdown: ScoreBreakdown;
   scoreHistory: ScoreHistoryPoint[];
   events: ContributorEvent[];
