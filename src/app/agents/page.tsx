@@ -44,7 +44,7 @@ export default function AgentsPage() {
 
   const metrics = useMemo(() => {
     if (agents.length === 0) {
-      return { avgTrust: 0, trustedPlus: 0, events30d: 0, totalReviews: 0 };
+      return { avgTrust: 0, trustedPlus: 0, events30d: 0, totalReviews: 0, coauthored: 0 };
     }
 
     const avgTrust = agents.reduce((sum, agent) => sum + agent.trustScore, 0) / agents.length;
@@ -55,8 +55,9 @@ export default function AgentsPage() {
       0,
     );
     const totalReviews = agents.reduce((sum, agent) => sum + (agent.totalReviews ?? 0), 0);
+    const coauthored = agents.reduce((sum, agent) => sum + agent.coAuthorStats.totalCoauthoredCommits, 0);
 
-    return { avgTrust, trustedPlus, events30d, totalReviews };
+    return { avgTrust, trustedPlus, events30d, totalReviews, coauthored };
   }, [agents]);
 
   return (
@@ -106,6 +107,8 @@ export default function AgentsPage() {
           <span>•</span>
           <span>{metrics.totalReviews.toLocaleString()} reviews</span>
           <span>•</span>
+          <span>{metrics.coauthored.toLocaleString()} co-auth commits</span>
+          <span>•</span>
           <span>Top trust: {agents[0]?.trustScore.toFixed(1) ?? "—"}</span>
         </div>
       </section>
@@ -150,7 +153,18 @@ export default function AgentsPage() {
                     <span>{agent.totalXp.toLocaleString()} XP</span>
                     <span>•</span>
                     <span>{agent.events.length.toLocaleString()} events</span>
+                    {agent.coAuthorStats.totalCoauthoredCommits > 0 ? (
+                      <>
+                        <span>•</span>
+                        <span>{agent.coAuthorStats.totalCoauthoredCommits.toLocaleString()} co-authored</span>
+                      </>
+                    ) : null}
                   </div>
+                  {agent.coAuthorStats.uses[0] ? (
+                    <div className="mt-1 text-[11px] text-muted-foreground">
+                      Uses {agent.coAuthorStats.uses[0].username} x{agent.coAuthorStats.uses[0].count}
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="shrink-0 text-right">

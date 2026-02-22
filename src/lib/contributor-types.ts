@@ -1,4 +1,5 @@
 import type { EarnedBadge } from "./badges";
+import type { CoAuthorStats } from "./coauthor-network";
 import type { CharacterClass, TagScore } from "./levels";
 
 export interface EventDetail {
@@ -65,9 +66,17 @@ export interface ContributorProfile {
   tags: TagScore[];
   totalLevel: number;
   totalXp: number;
+  coAuthorStats: CoAuthorStats;
   breakdown: ScoreBreakdown;
   scoreHistory: ScoreHistoryPoint[];
   events: ContributorEvent[];
+  crossNetwork?: {
+    elizaScore?: number;
+    elizaRank?: number;
+    elizaPercentile?: number;
+    elizaEffectScore?: number;
+    ecosystemFactor?: number;
+  };
 }
 
 export interface TrustScoresDataFile {

@@ -9,15 +9,19 @@ import { TagDisplay } from "@/components/tag-display";
 import { CharacterClassBadge } from "@/components/character-class";
 import type { ContributorProfile, TrustScoresDataFile } from "@/lib/contributor-types";
 import type { EarnedBadge } from "@/lib/badges";
-import type { CharacterClass, TagScore } from "@/lib/levels";
+import { emptyCoAuthorStats, isLikelyGitHubUsername, normalizeCoAuthorStats } from "@/lib/coauthor-network";
+import { isAgent as detectAgentUsername, type CharacterClass, type TagScore } from "@/lib/levels";
 import { TIERS, getNextTier, getPointsToNextTier, getTierForScore } from "@/lib/trust-scoring";
 
 function normalizeData(input: unknown): ContributorProfile[] {
-  if (Array.isArray(input)) return input as ContributorProfile[];
+  const filterValid = (entries: ContributorProfile[]) =>
+    entries.filter((entry) => isLikelyGitHubUsername(entry.username));
+
+  if (Array.isArray(input)) return filterValid(input as ContributorProfile[]);
 
   const maybeDataFile = input as Partial<TrustScoresDataFile>;
   if (maybeDataFile && Array.isArray(maybeDataFile.contributors)) {
-    return maybeDataFile.contributors;
+    return filterValid(maybeDataFile.contributors);
   }
 
   return [];
@@ -35,6 +39,8 @@ function safeProfile(p: ContributorProfile) {
     tags: (p.tags ?? []) as TagScore[],
     totalLevel: p.totalLevel ?? 0,
     totalXp: p.totalXp ?? 0,
+    coAuthorStats: normalizeCoAuthorStats(p.coAuthorStats ?? emptyCoAuthorStats(), detectAgentUsername),
+    crossNetwork: p.crossNetwork ?? undefined,
   };
 }
 
@@ -107,6 +113,7 @@ export default async function ContributorDetailPage({
   const contributors = normalizeData(trustScoresData);
 
   const sorted = [...contributors].sort((a, b) => b.trustScore - a.trustScore);
+  const usernameSet = new Set(sorted.map((entry) => entry.username.toLowerCase()));
   const profile = contributors.find((entry) => entry.username.toLowerCase() === username.toLowerCase());
 
   if (!profile) {
@@ -139,6 +146,8 @@ export default async function ContributorDetailPage({
   const positiveEvents = profile.events.filter((event) => event.type === "approve").length;
   const negativeEvents = profile.events.filter((event) => event.type === "reject" || event.type === "close").length;
   const topTags = safe.tags.slice(0, 4);
+  const coAuthor = safe.coAuthorStats;
+  const crossNetwork = safe.crossNetwork;
 
   const nextTier = getNextTier(profile.trustScore);
   const pointsToNext = getPointsToNextTier(profile.trustScore);
@@ -262,6 +271,96 @@ export default async function ContributorDetailPage({
         </div>
       </section>
 
+      {crossNetwork && crossNetwork.elizaScore !== undefined ? (
+        <section className="rounded-2xl border border-border bg-card p-4 md:p-5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-lg font-semibold">Cross-Network Scores</h3>
+            <div className="flex flex-wrap items-center gap-2 text-xs">
+              <a
+                href={`https://elizaos.github.io/profile/${profile.username}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-border px-2 py-1 text-muted-foreground hover:text-foreground"
+              >
+                Eliza Profile ↗
+              </a>
+              <a
+                href={githubProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-border px-2 py-1 text-muted-foreground hover:text-foreground"
+              >
+                GitHub Profile ↗
+              </a>
+            </div>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-5">
+            <InfoCard
+              label="Eliza Score"
+              value={(crossNetwork.elizaScore ?? 0).toFixed(2)}
+              subtitle={crossNetwork.elizaRank ? `rank #${crossNetwork.elizaRank}` : "lifetime score"}
+            />
+            <InfoCard
+              label="Eliza Percentile"
+              value={`${((crossNetwork.elizaPercentile ?? 0) * 100).toFixed(2)}%`}
+              subtitle="lifetime percentile"
+            />
+            <InfoCard
+              label="Milady Score"
+              value={profile.trustScore.toFixed(2)}
+              subtitle="trust score"
+            />
+            <InfoCard
+              label="Eliza Effect"
+              value={(crossNetwork.elizaEffectScore ?? 0).toFixed(2)}
+              subtitle="45/35/20 composite"
+            />
+            <InfoCard
+              label="Ecosystem Factor"
+              value={`${((crossNetwork.ecosystemFactor ?? 0) * 100).toFixed(1)}%`}
+              subtitle="tracked-repo proxy"
+            />
+          </div>
+        </section>
+      ) : null}
+
+      <section className="rounded-2xl border border-border bg-card p-4 md:p-5">
+        <h3 className="text-lg font-semibold mb-3">Co-Author Network</h3>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 mb-4">
+          <InfoCard
+            label="Co-Authored Commits"
+            value={String(coAuthor.totalCoauthoredCommits)}
+            subtitle="commits with at least one co-author"
+          />
+          <InfoCard
+            label="Unique Partners"
+            value={String(coAuthor.totalCoauthorPartners)}
+            subtitle="distinct co-author collaborators"
+          />
+          <InfoCard
+            label="Primary Pattern"
+            value={coAuthor.uses[0] ? `uses @${coAuthor.uses[0].username}` : "none"}
+            subtitle={coAuthor.uses[0] ? `${coAuthor.uses[0].count} commits` : "no co-author commits"}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <CoAuthorList
+            title="Uses"
+            description="Primary author + co-author footers"
+            items={coAuthor.uses}
+            usernameSet={usernameSet}
+          />
+          <CoAuthorList
+            title="Used By"
+            description="Appears in others' co-author footers"
+            items={coAuthor.usedBy}
+            usernameSet={usernameSet}
+          />
+        </div>
+      </section>
+
       {/* Badges */}
       <section className="rounded-2xl border border-border bg-card p-4 md:p-5">
         <h3 className="text-lg font-semibold mb-3">Badges</h3>
@@ -358,6 +457,50 @@ function StatPill({
     <div className={`rounded-xl border px-3 py-2 ${toneClass}`}>
       <div className="text-xs opacity-80">{label}</div>
       <div className="text-lg font-semibold font-mono">{value}</div>
+    </div>
+  );
+}
+
+function CoAuthorList({
+  title,
+  description,
+  items,
+  usernameSet,
+}: {
+  title: string;
+  description: string;
+  items: Array<{ username: string; count: number; isAgent: boolean }>;
+  usernameSet: Set<string>;
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-muted/20 p-3">
+      <div className="text-sm font-semibold">{title}</div>
+      <div className="text-xs text-muted-foreground mb-2">{description}</div>
+
+      {items.length === 0 ? (
+        <div className="text-xs text-muted-foreground">No data yet.</div>
+      ) : (
+        <div className="space-y-1.5">
+          {items.slice(0, 8).map((item) => (
+            <div key={`${title}-${item.username}`} className="flex items-center justify-between gap-2 text-xs">
+              <div className="min-w-0 truncate">
+                {usernameSet.has(item.username.toLowerCase()) ? (
+                  <Link
+                    href={`/contributor/${item.username}`}
+                    className="hover:underline"
+                  >
+                    @{item.username}
+                  </Link>
+                ) : (
+                  <span>@{item.username}</span>
+                )}
+                {item.isAgent ? <span className="ml-1 text-muted-foreground">🤖</span> : null}
+              </div>
+              <div className="font-mono text-muted-foreground">x{item.count}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

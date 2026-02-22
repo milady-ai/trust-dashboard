@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 import { mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import {
   DEFAULT_CONFIG,
   computeScoreHistory,
@@ -11,7 +11,20 @@ import {
 } from "../src/lib/scoring-engine";
 import { buildContributorHistories, fetchClosedPRs, mapPRToTrustEvent } from "../src/lib/github-data";
 import { computeBadges, type BadgeInput } from "../src/lib/badges";
+import {
+  buildCoAuthorStats,
+  deriveLoginFromEmail,
+  emptyCoAuthorStats,
+  extractCoAuthorsFromCommitMessage,
+  isLikelyGitHubUsername,
+  type CoAuthorSeed,
+  type CoAuthorStats,
+} from "../src/lib/coauthor-network";
 import { computeLevelStats, computeTagXp, determineCharacterClass, isAgent } from "../src/lib/levels";
+import ecosystemRepoConfig from "../src/config/ecosystem-repos.json";
+import type { TrackedRepoConfig } from "../src/lib/ecosystem-types";
+import { buildApiArtifacts, buildCombinedLeaderboardData, buildOpenApiSpec, mergeCrossNetworkIntoMilady } from "../src/lib/eliza-effect-scoring";
+import { emptyElizaSnapshot, fetchElizaSnapshot } from "../src/lib/eliza-ingestion";
 
 const OWNER = "milady-ai";
 const REPO = "milaidy";
@@ -77,21 +90,119 @@ interface GitHubIssue {
   closed_at: string | null;
 }
 
-interface GitHubReview {
-  user: { login: string };
-  state: string;
-  submitted_at: string;
-  pull_request_url: string;
-}
-
 interface GitHubComment {
   user: { login: string };
   created_at: string;
   issue_url?: string;
 }
 
+interface GitHubPullCommit {
+  author: { login: string } | null;
+  commit: {
+    message: string;
+    author: {
+      name: string;
+      email: string;
+    };
+  };
+}
+
+interface EcosystemRepoConfigFile {
+  version?: string;
+  trackedRepos?: TrackedRepoConfig[];
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function writeJsonFile(path: string, value: unknown): Promise<void> {
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+function normalizeTrackedRepos(input: unknown): TrackedRepoConfig[] {
+  const config = input as EcosystemRepoConfigFile;
+  const repos = Array.isArray(config?.trackedRepos) ? config.trackedRepos : [];
+
+  return repos
+    .map((repo) => ({
+      owner: String(repo.owner ?? "").trim(),
+      repo: String(repo.repo ?? "").trim(),
+      label: String(repo.label ?? `${repo.owner}/${repo.repo}`).trim(),
+      includeInEcosystemFactor: Boolean(repo.includeInEcosystemFactor),
+    }))
+    .filter((repo) => repo.owner.length > 0 && repo.repo.length > 0);
+}
+
+function normalizeLogin(login: string): string | null {
+  const trimmed = login.trim();
+  if (!trimmed || !isLikelyGitHubUsername(trimmed)) return null;
+  return trimmed;
+}
+
+function canonicalizeLogin(
+  login: string,
+  canonicalByLower: Map<string, string>,
+): string | null {
+  const normalized = normalizeLogin(login);
+  if (!normalized) return null;
+  const lower = normalized.toLowerCase();
+  const existing = canonicalByLower.get(lower);
+  if (existing) return existing;
+  canonicalByLower.set(lower, normalized);
+  return normalized;
+}
+
+function resolveIdentityLogin(
+  name: string | null | undefined,
+  email: string | null | undefined,
+  loginByEmail: Map<string, string>,
+  loginByName: Map<string, string>,
+  canonicalByLower: Map<string, string>,
+): string | null {
+  const normalizedEmail = email?.trim().toLowerCase();
+  if (normalizedEmail) {
+    const fromEmailMap = loginByEmail.get(normalizedEmail);
+    if (fromEmailMap) return fromEmailMap;
+
+    const fromEmailDerived = deriveLoginFromEmail(normalizedEmail);
+    if (fromEmailDerived) return canonicalizeLogin(fromEmailDerived, canonicalByLower);
+  }
+
+  const normalizedName = name?.trim().toLowerCase();
+  if (normalizedName) {
+    const fromNameMap = loginByName.get(normalizedName);
+    if (fromNameMap) return fromNameMap;
+
+    const fromName = canonicalizeLogin(name!, canonicalByLower);
+    if (fromName) return fromName;
+  }
+
+  return null;
+}
+
+function bindIdentity(
+  login: string,
+  name: string | null | undefined,
+  email: string | null | undefined,
+  loginByEmail: Map<string, string>,
+  loginByName: Map<string, string>,
+  canonicalByLower: Map<string, string>,
+): void {
+  const canonical = canonicalizeLogin(login, canonicalByLower);
+  if (!canonical) return;
+
+  const normalizedEmail = email?.trim().toLowerCase();
+  const normalizedName = name?.trim().toLowerCase();
+
+  if (normalizedEmail) loginByEmail.set(normalizedEmail, canonical);
+  if (normalizedName) loginByName.set(normalizedName, canonical);
+}
+
 async function fetchIssues(token?: string): Promise<GitHubIssue[]> {
   const all: GitHubIssue[] = [];
+  const delayMs = token ? 0 : 100;
   let page = 1;
   while (true) {
     const url = `${GITHUB_API}/repos/${OWNER}/${REPO}/issues?state=all&per_page=100&page=${page}`;
@@ -101,35 +212,16 @@ async function fetchIssues(token?: string): Promise<GitHubIssue[]> {
     all.push(...items.filter((i) => !i.pull_request));
     if (items.length < 100) break;
     page++;
-    await new Promise((r) => setTimeout(r, 100));
+    if (delayMs > 0) {
+      await sleep(delayMs);
+    }
   }
   return all;
 }
 
-async function fetchAllReviews(prNumbers: number[], token?: string): Promise<Map<string, GitHubReview[]>> {
-  const byUser = new Map<string, GitHubReview[]>();
-
-  for (const prNum of prNumbers) {
-    try {
-      const url = `${GITHUB_API}/repos/${OWNER}/${REPO}/pulls/${prNum}/reviews?per_page=100`;
-      const reviews = await fetchJson<GitHubReview[]>(url, token);
-      for (const review of reviews) {
-        const login = review.user?.login;
-        if (!login) continue;
-        if (!byUser.has(login)) byUser.set(login, []);
-        byUser.get(login)!.push(review);
-      }
-    } catch {
-      // PR may have been deleted
-    }
-    await new Promise((r) => setTimeout(r, 50));
-  }
-
-  return byUser;
-}
-
 async function fetchIssueComments(token?: string): Promise<Map<string, number>> {
   const commentCounts = new Map<string, number>();
+  const delayMs = token ? 0 : 100;
   let page = 1;
   while (true) {
     const url = `${GITHUB_API}/repos/${OWNER}/${REPO}/issues/comments?per_page=100&page=${page}`;
@@ -142,9 +234,117 @@ async function fetchIssueComments(token?: string): Promise<Map<string, number>> 
     }
     if (comments.length < 100) break;
     page++;
-    await new Promise((r) => setTimeout(r, 100));
+    if (delayMs > 0) {
+      await sleep(delayMs);
+    }
   }
   return commentCounts;
+}
+
+function buildReviewCountsByUser(
+  prs: Array<{
+    reviews: Array<{ user?: { login?: string } | null }>;
+  }>,
+): Map<string, number> {
+  const reviewCounts = new Map<string, number>();
+  for (const pr of prs) {
+    for (const review of pr.reviews) {
+      const login = review.user?.login;
+      if (!login) continue;
+      reviewCounts.set(login, (reviewCounts.get(login) ?? 0) + 1);
+    }
+  }
+  return reviewCounts;
+}
+
+async function fetchPullCommits(prNumber: number, token?: string): Promise<GitHubPullCommit[]> {
+  const commits: GitHubPullCommit[] = [];
+  let page = 1;
+
+  while (true) {
+    const url = `${GITHUB_API}/repos/${OWNER}/${REPO}/pulls/${prNumber}/commits?per_page=100&page=${page}`;
+    const pageCommits = await fetchJson<GitHubPullCommit[]>(url, token);
+    if (pageCommits.length === 0) break;
+    commits.push(...pageCommits);
+    if (pageCommits.length < 100) break;
+    page++;
+  }
+
+  return commits;
+}
+
+async function fetchCoAuthorSeeds(prNumbers: number[], token?: string): Promise<CoAuthorSeed[]> {
+  const seeds: CoAuthorSeed[] = [];
+  const loginByEmail = new Map<string, string>();
+  const loginByName = new Map<string, string>();
+  const canonicalByLower = new Map<string, string>();
+  const delayMs = token ? 0 : 80;
+
+  for (const prNum of prNumbers) {
+    let commits: GitHubPullCommit[] = [];
+    try {
+      commits = await fetchPullCommits(prNum, token);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`Skipping co-author parsing for PR #${prNum}: ${message}`);
+      await sleep(50);
+      continue;
+    }
+
+    for (const commit of commits) {
+      const commitAuthor = commit.author?.login
+        ? canonicalizeLogin(commit.author.login, canonicalByLower)
+        : resolveIdentityLogin(
+          commit.commit.author?.name,
+          commit.commit.author?.email,
+          loginByEmail,
+          loginByName,
+          canonicalByLower,
+        );
+
+      if (!commitAuthor) continue;
+
+      bindIdentity(
+        commitAuthor,
+        commit.commit.author?.name,
+        commit.commit.author?.email,
+        loginByEmail,
+        loginByName,
+        canonicalByLower,
+      );
+
+      const coAuthors = extractCoAuthorsFromCommitMessage(commit.commit.message);
+      if (coAuthors.length === 0) continue;
+
+      const partners = new Set<string>();
+      for (const coAuthor of coAuthors) {
+        const partner = resolveIdentityLogin(
+          coAuthor.name,
+          coAuthor.email,
+          loginByEmail,
+          loginByName,
+          canonicalByLower,
+        );
+        if (!partner || partner.toLowerCase() === commitAuthor.toLowerCase()) continue;
+
+        bindIdentity(partner, coAuthor.name, coAuthor.email, loginByEmail, loginByName, canonicalByLower);
+        partners.add(partner);
+      }
+
+      if (partners.size > 0) {
+        seeds.push({
+          primary: commitAuthor,
+          partners: [...partners],
+        });
+      }
+    }
+
+    if (delayMs > 0) {
+      await sleep(delayMs);
+    }
+  }
+
+  return seeds;
 }
 
 function computeLongestStreak(events: Array<{ timestamp: number }>): number {
@@ -190,16 +390,24 @@ async function main() {
   const issues = await fetchIssues(token);
   console.log(`Fetched ${issues.length} issues`);
 
-  // Fetch reviews (across all closed PRs)
-  console.log("Fetching PR reviews...");
+  // Reuse review data already fetched with each PR.
   const prNumbers = prs.map((p) => p.number);
-  const reviewsByUser = await fetchAllReviews(prNumbers, token);
-  console.log(`Fetched reviews for ${reviewsByUser.size} reviewers`);
+  const reviewCountsByUser = buildReviewCountsByUser(prs);
+  console.log(`Counted ${[...reviewCountsByUser.values()].reduce((sum, count) => sum + count, 0)} reviews across ${reviewCountsByUser.size} reviewers`);
 
   // Fetch comments
   console.log("Fetching issue/PR comments...");
   const commentCounts = await fetchIssueComments(token);
   console.log(`Fetched comment data for ${commentCounts.size} users`);
+
+  // Fetch co-author relationships from commit metadata
+  if (!token) {
+    console.warn("GITHUB_TOKEN is not set; co-author parsing may be incomplete due to API rate limits.");
+  }
+  console.log("Fetching commit co-author graph...");
+  const coAuthorSeeds = await fetchCoAuthorSeeds(prNumbers, token);
+  const coAuthorStatsByUser = buildCoAuthorStats(coAuthorSeeds, isAgent);
+  console.log(`Parsed ${coAuthorSeeds.length} co-author commit relations across ${coAuthorStatsByUser.size} contributors`);
 
   // Build contributor events from PRs
   const events = prs
@@ -222,8 +430,9 @@ async function main() {
   const allUsernames = new Set<string>([
     ...Object.keys(histories),
     ...issuesByUser.keys(),
-    ...reviewsByUser.keys(),
+    ...reviewCountsByUser.keys(),
     ...commentCounts.keys(),
+    ...coAuthorStatsByUser.keys(),
   ]);
 
   const contributors = [...allUsernames]
@@ -240,8 +449,9 @@ async function main() {
       const totalCloses = userEvents.filter((e) => e.type === "close").length;
       const totalSelfCloses = userEvents.filter((e) => e.type === "selfClose").length;
       const userIssues = issuesByUser.get(username) ?? [];
-      const userReviews = reviewsByUser.get(username) ?? [];
+      const userReviewCount = reviewCountsByUser.get(username) ?? 0;
       const totalComments = commentCounts.get(username) ?? 0;
+      const coAuthorStats: CoAuthorStats = coAuthorStatsByUser.get(username) ?? emptyCoAuthorStats();
 
       const firstSeenAt = userEvents[0]
         ? new Date(userEvents[0].timestamp).toISOString()
@@ -278,7 +488,7 @@ async function main() {
       const badgeInput: BadgeInput = {
         mergedPRs: totalApprovals,
         bugsClosed,
-        reviewsGiven: userReviews.length,
+        reviewsGiven: userReviewCount,
         longestStreak,
         totalLevel: levelStats.totalLevel,
       };
@@ -296,11 +506,13 @@ async function main() {
         tierInfo,
         breakdown: result.breakdown,
         currentStreak,
+        currentStreakType: currentStreak.type === "approve" ? "approve" : currentStreak.type ? "negative" : null,
+        currentStreakLength: currentStreak.length,
         totalApprovals,
         totalRejections,
         totalCloses,
         totalSelfCloses,
-        totalReviews: userReviews.length,
+        totalReviews: userReviewCount,
         totalIssues: userIssues.length,
         totalComments,
         isAgent: agentFlag,
@@ -309,8 +521,11 @@ async function main() {
         tags: levelStats.tags,
         totalLevel: levelStats.totalLevel,
         totalXp: levelStats.totalXp,
+        coAuthorStats,
         lastEventAt,
         firstSeenAt,
+        walletAddress: null,
+        autoMergeEligible: tierInfo.label === "legendary",
         events: userEvents,
         scoreHistory,
         warnings: result.warnings,
@@ -328,27 +543,88 @@ async function main() {
       ? Number((contributors.reduce((sum, c) => sum + c.trustScore, 0) / contributors.length).toFixed(2))
       : 0;
 
-  const payload = {
-    generatedAt: new Date(now).toISOString(),
-    repoFullName: `${OWNER}/${REPO}`,
+  const totalCoauthoredCommits = contributors.reduce(
+    (sum, contributor) => sum + contributor.coAuthorStats.totalCoauthoredCommits,
+    0,
+  );
+  const totalCoauthorPairs = contributors.reduce(
+    (sum, contributor) => sum + contributor.coAuthorStats.totalCoauthorPartners,
+    0,
+  );
+
+  const generatedAt = new Date(now).toISOString();
+  const trackedRepos = normalizeTrackedRepos(ecosystemRepoConfig);
+
+  console.log("Fetching Eliza leaderboard snapshots...");
+  let elizaSnapshot = emptyElizaSnapshot(new Date(now));
+  try {
+    elizaSnapshot = await fetchElizaSnapshot({
+      trackedRepos,
+      now: new Date(now),
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    elizaSnapshot.status.warnings.push(`Eliza snapshot fetch failed: ${message}`);
+  }
+
+  const combined = buildCombinedLeaderboardData({
     contributors,
+    snapshot: elizaSnapshot,
+    trackedRepos,
+    generatedAt,
+  });
+  const contributorsWithCrossNetwork = mergeCrossNetworkIntoMilady(contributors, combined);
+
+  const payload = {
+    generatedAt,
+    repoFullName: `${OWNER}/${REPO}`,
+    contributors: contributorsWithCrossNetwork,
     stats: {
-      totalContributors: contributors.length,
+      totalContributors: contributorsWithCrossNetwork.length,
       totalEvents: events.length,
       totalIssues: issues.length,
-      totalReviews: [...reviewsByUser.values()].reduce((sum, r) => sum + r.length, 0),
+      totalReviews: [...reviewCountsByUser.values()].reduce((sum, count) => sum + count, 0),
+      totalCoauthoredCommits,
+      totalCoauthorPairs,
       tierDistribution,
       avgScore,
     },
   };
 
   const outDir = join(process.cwd(), "src", "data");
-  await mkdir(outDir, { recursive: true });
-  const outFile = join(outDir, "trust-scores.json");
-  await writeFile(outFile, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  const publicApiDir = join(process.cwd(), "public", "api");
 
-  console.log(`Wrote ${contributors.length} contributors to ${outFile}`);
-  console.log(`  - ${issues.length} issues, ${reviewsByUser.size} reviewers, ${commentCounts.size} commenters`);
+  const outFile = join(outDir, "trust-scores.json");
+  const outElizaSnapshot = join(outDir, "eliza-snapshot.json");
+  const outCombined = join(outDir, "combined-leaderboard.json");
+
+  await writeJsonFile(outFile, payload);
+  await writeJsonFile(outElizaSnapshot, elizaSnapshot);
+  await writeJsonFile(outCombined, combined);
+
+  const artifacts = buildApiArtifacts(combined);
+  await writeJsonFile(join(publicApiDir, "index.json"), artifacts.index);
+  await writeJsonFile(join(publicApiDir, "leaderboards", "milady", "lifetime.json"), artifacts.miladyLifetime);
+  await writeJsonFile(join(publicApiDir, "leaderboards", "eliza", "lifetime.json"), artifacts.elizaLifetime);
+  await writeJsonFile(join(publicApiDir, "leaderboards", "eliza", "weekly.json"), artifacts.elizaWeekly);
+  await writeJsonFile(join(publicApiDir, "leaderboards", "eliza", "monthly.json"), artifacts.elizaMonthly);
+  await writeJsonFile(join(publicApiDir, "leaderboards", "eliza-effect", "lifetime.json"), artifacts.elizaEffectLifetime);
+  await writeJsonFile(join(publicApiDir, "repos", "index.json"), artifacts.repos);
+
+  for (const [username, profile] of Object.entries(artifacts.profiles)) {
+    await writeJsonFile(join(publicApiDir, "contributors", username, "profile.json"), profile);
+  }
+
+  const openApiSpec = buildOpenApiSpec(generatedAt);
+  await writeJsonFile(join(process.cwd(), "public", "openapi.json"), openApiSpec);
+
+  console.log(`Wrote ${contributorsWithCrossNetwork.length} contributors to ${outFile}`);
+  console.log(
+    `  - ${issues.length} issues, ${reviewCountsByUser.size} reviewers, ${commentCounts.size} commenters, ${coAuthorSeeds.length} co-authored commits`,
+  );
+  console.log(`Wrote Eliza snapshot to ${outElizaSnapshot}`);
+  console.log(`Wrote combined leaderboard to ${outCombined}`);
+  console.log(`Wrote static API artifacts to ${publicApiDir}`);
 }
 
 main().catch((error) => {

@@ -98,6 +98,10 @@ export default function HomePage() {
     const reviews = allContributors.reduce((sum, contributor) => sum + (contributor.totalReviews ?? 0), 0);
     const issues = allContributors.reduce((sum, contributor) => sum + (contributor.totalIssues ?? 0), 0);
     const comments = allContributors.reduce((sum, contributor) => sum + (contributor.totalComments ?? 0), 0);
+    const coauthored = allContributors.reduce(
+      (sum, contributor) => sum + contributor.coAuthorStats.totalCoauthoredCommits,
+      0,
+    );
     const events24h = allContributors.reduce(
       (sum, contributor) =>
         sum +
@@ -105,7 +109,7 @@ export default function HomePage() {
       0,
     );
 
-    return { avgScore, trustedPlus, autoMerge, agentCount, reviews, issues, comments, events24h };
+    return { avgScore, trustedPlus, autoMerge, agentCount, reviews, issues, comments, coauthored, events24h };
   }, [allContributors]);
 
   const spotlight = useMemo(() => {
@@ -173,11 +177,12 @@ export default function HomePage() {
 
         {!isLoading ? (
           <section className="rounded-2xl border border-zinc-200/80 bg-white/90 px-3 py-2.5 dark:border-zinc-800 dark:bg-zinc-900/80">
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
               <MiniMetric label="Agents" value={metrics.agentCount.toLocaleString()} />
               <MiniMetric label="24h Events" value={metrics.events24h.toLocaleString()} />
               <MiniMetric label="Reviews" value={metrics.reviews.toLocaleString()} />
               <MiniMetric label="Comments" value={(metrics.comments + metrics.issues).toLocaleString()} />
+              <MiniMetric label="Co-Authored" value={metrics.coauthored.toLocaleString()} />
             </div>
           </section>
         ) : null}

@@ -13,14 +13,18 @@ export function StatsBar({ contributors, stats, generatedAt }: StatsBarProps) {
   const totalContributors = stats.totalContributors || contributors.length;
   const avgScore = stats.avgScore || 0;
   const autoMergeCount = contributors.filter(isAutoMergeEligible).length;
+  const totalCoauthoredCommits = stats.totalCoauthoredCommits ?? 0;
+  const totalCoauthorPairs = stats.totalCoauthorPairs ?? 0;
 
   return (
     <div className="space-y-3">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
         <StatCard label="Total Contributors" value={totalContributors.toString()} />
         <StatCard label="Average Score" value={avgScore.toFixed(1)} />
         <StatCard label="Auto-Merge Eligible" value={autoMergeCount.toString()} />
         <StatCard label="Total Events" value={stats.totalEvents.toString()} />
+        <StatCard label="Co-Auth Commits" value={totalCoauthoredCommits.toString()} />
+        <StatCard label="Co-Auth Partners" value={totalCoauthorPairs.toString()} />
       </div>
 
       <div className="rounded-2xl border border-border bg-card p-4 space-y-3">

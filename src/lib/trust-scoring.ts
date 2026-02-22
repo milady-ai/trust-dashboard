@@ -1,4 +1,5 @@
 import type { EarnedBadge } from "./badges";
+import type { CoAuthorStats } from "./coauthor-network";
 import type { CharacterClass, TagScore } from "./levels";
 import {
   DEFAULT_CONFIG,
@@ -68,6 +69,7 @@ export interface ContributorData {
   tags: TagScore[];
   totalLevel: number;
   totalXp: number;
+  coAuthorStats: CoAuthorStats;
   lastEventAt: string | null;
   firstSeenAt: string;
   walletAddress: string | null;
@@ -75,11 +77,20 @@ export interface ContributorData {
   events: TrustEvent[];
   scoreHistory: { timestamp: number; score: number }[];
   warnings: string[];
+  crossNetwork?: {
+    elizaScore?: number;
+    elizaRank?: number;
+    elizaPercentile?: number;
+    elizaEffectScore?: number;
+    ecosystemFactor?: number;
+  };
 }
 
 export interface TrustStats {
   totalContributors: number;
   totalEvents: number;
+  totalCoauthoredCommits: number;
+  totalCoauthorPairs: number;
   tierDistribution: Record<TrustTier, number>;
   avgScore: number;
 }

@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { getTrustDataSnapshot, normalizeTrustData, type TrustDataSnapshot } from "./data-loader";
+import { withBasePath } from "./base-path";
 
 const REFRESH_INTERVAL_MS = 60_000;
 const REFRESH_INTERVAL_SECONDS = REFRESH_INTERVAL_MS / 1000;
 const LIVE_SCORES_URL =
   process.env.NEXT_PUBLIC_LIVE_SCORES_URL ??
   "https://raw.githubusercontent.com/milady-ai/trust-dashboard/main/src/data/trust-scores.json";
+const RESOLVED_LIVE_SCORES_URL = LIVE_SCORES_URL.startsWith("/") ? withBasePath(LIVE_SCORES_URL) : LIVE_SCORES_URL;
 
 const INITIAL_SNAPSHOT = getTrustDataSnapshot();
 
@@ -31,7 +33,7 @@ export function useLiveTrustData(): LiveTrustData {
     setIsRefreshing(true);
 
     try {
-      const response = await fetch(LIVE_SCORES_URL, { cache: "no-store" });
+      const response = await fetch(RESOLVED_LIVE_SCORES_URL, { cache: "no-store" });
       if (!response.ok) {
         throw new Error(`Live ranking fetch failed (${response.status})`);
       }
