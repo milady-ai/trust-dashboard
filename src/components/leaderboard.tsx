@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ContributorData } from "@/lib/trust-scoring";
+import { ContributorData, getApprovalRate } from "@/lib/trust-scoring";
 
 interface LeaderboardProps {
   contributors: ContributorData[];
@@ -71,13 +71,17 @@ function LeaderboardRow({ contributor, rank }: { contributor: ContributorData; r
   const lastActivity = formatLastActivityDate(contributor.lastEventAt);
   const topThree = rank <= 3;
   const totalEvents = contributor.events.length;
+  const approvalRate = Math.round(getApprovalRate(contributor));
+  const streakLabel = contributor.currentStreak.length > 0
+    ? `${contributor.currentStreak.type === "approve" ? "🔥" : "⚠️"} ${contributor.currentStreak.length}`
+    : "—";
 
   return (
     <Link
       href={`/contributor/${contributor.username}`}
       className={`group block rounded-2xl px-4 py-3 card-hover ${
         topThree
-          ? "bg-card border border-violet-200/70 dark:border-violet-800/60"
+          ? "bg-card border border-violet-300/80 shadow-[0_1px_0_rgba(109,40,217,0.08)] dark:border-violet-700/70"
           : "bg-card border border-zinc-200/80 dark:border-zinc-800 hover:border-violet-200/70 dark:hover:border-violet-800/70"
       }`}
     >
@@ -128,6 +132,14 @@ function LeaderboardRow({ contributor, rank }: { contributor: ContributorData; r
             <span>•</span>
             <span>Last activity: {lastActivity}</span>
           </div>
+
+          <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-zinc-500 dark:text-zinc-400">
+            <span>Lv {contributor.totalLevel}</span>
+            <span>•</span>
+            <span>{contributor.totalXp.toLocaleString()} XP</span>
+            <span>•</span>
+            <span>{approvalRate}% approval</span>
+          </div>
         </div>
 
         <div className="shrink-0 text-right">
@@ -136,6 +148,9 @@ function LeaderboardRow({ contributor, rank }: { contributor: ContributorData; r
           </div>
           <div className="text-[11px] text-zinc-500 dark:text-zinc-400">
             {totalEvents.toLocaleString()} events
+          </div>
+          <div className="text-[11px] text-zinc-500 dark:text-zinc-400">
+            {streakLabel} streak
           </div>
         </div>
       </div>

@@ -28,6 +28,10 @@ function isActiveInLast30Days(lastEventAt: string | null): boolean {
   return Date.now() - ts <= 30 * 24 * 60 * 60 * 1000;
 }
 
+function normalizeTimestamp(ts: number): number {
+  return ts < 1_000_000_000_000 ? ts * 1000 : ts;
+}
+
 export default function HomePage() {
   const [search, setSearch] = useState("");
   const [selectedTiers, setSelectedTiers] = useState<TrustTier[]>([]);
@@ -82,6 +86,28 @@ export default function HomePage() {
     [allContributors],
   );
 
+  const metrics = useMemo(() => {
+    const avgScore = allContributors.length
+      ? allContributors.reduce((sum, contributor) => sum + contributor.trustScore, 0) / allContributors.length
+      : 0;
+    const trustedPlus = allContributors.filter(
+      (contributor) => contributor.tier.label === "trusted" || contributor.tier.label === "legendary",
+    ).length;
+    const autoMerge = allContributors.filter((contributor) => contributor.autoMergeEligible).length;
+    const agentCount = allContributors.filter((contributor) => contributor.isAgent).length;
+    const reviews = allContributors.reduce((sum, contributor) => sum + (contributor.totalReviews ?? 0), 0);
+    const issues = allContributors.reduce((sum, contributor) => sum + (contributor.totalIssues ?? 0), 0);
+    const comments = allContributors.reduce((sum, contributor) => sum + (contributor.totalComments ?? 0), 0);
+    const events24h = allContributors.reduce(
+      (sum, contributor) =>
+        sum +
+        contributor.events.filter((event) => Date.now() - normalizeTimestamp(event.timestamp) <= 24 * 60 * 60 * 1000).length,
+      0,
+    );
+
+    return { avgScore, trustedPlus, autoMerge, agentCount, reviews, issues, comments, events24h };
+  }, [allContributors]);
+
   const liveStatusLabel = isLoading
     ? "Live · Loading rankings..."
     : isRefreshing
@@ -115,10 +141,24 @@ export default function HomePage() {
         </header>
 
         {!isLoading ? (
-          <section className="grid grid-cols-3 gap-3">
+          <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             <StatTile label="Contributors" value={allContributors.length.toLocaleString()} />
             <StatTile label="Total Events" value={stats.totalEvents.toLocaleString()} />
             <StatTile label="Active (30d)" value={activeContributors.toLocaleString()} />
+            <StatTile label="Avg Trust" value={metrics.avgScore.toFixed(1)} />
+            <StatTile label="Trusted+" value={metrics.trustedPlus.toLocaleString()} />
+            <StatTile label="Auto-Merge" value={metrics.autoMerge.toLocaleString()} />
+          </section>
+        ) : null}
+
+        {!isLoading ? (
+          <section className="rounded-2xl border border-zinc-200/80 bg-white/90 px-3 py-2.5 dark:border-zinc-800 dark:bg-zinc-900/80">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <MiniMetric label="Agents" value={metrics.agentCount.toLocaleString()} />
+              <MiniMetric label="24h Events" value={metrics.events24h.toLocaleString()} />
+              <MiniMetric label="Reviews" value={metrics.reviews.toLocaleString()} />
+              <MiniMetric label="Comments" value={(metrics.comments + metrics.issues).toLocaleString()} />
+            </div>
           </section>
         ) : null}
 
@@ -221,9 +261,18 @@ export default function HomePage() {
 
 function StatTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-zinc-100 bg-white px-4 py-3 text-center dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="rounded-2xl border border-zinc-200/80 bg-white/95 px-4 py-3 text-center shadow-[0_1px_0_rgba(15,23,42,0.04)] dark:border-zinc-800 dark:bg-zinc-900">
       <div className="text-2xl font-bold tabular-nums text-zinc-900 dark:text-zinc-100">{value}</div>
       <div className="mt-0.5 text-xs text-zinc-400 dark:text-zinc-500">{label}</div>
+    </div>
+  );
+}
+
+function MiniMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-zinc-200/70 bg-zinc-50/80 px-3 py-2 text-center dark:border-zinc-800 dark:bg-zinc-950/60">
+      <div className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">{value}</div>
+      <div className="text-[11px] text-zinc-500 dark:text-zinc-400">{label}</div>
     </div>
   );
 }
