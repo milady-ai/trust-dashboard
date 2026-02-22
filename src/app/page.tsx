@@ -83,9 +83,9 @@ export default function HomePage() {
   );
 
   const liveStatusLabel = isLoading
-    ? "Loading live rankings..."
+    ? "Live · Loading rankings..."
     : isRefreshing
-      ? "Refreshing rankings..."
+      ? "Live · Refreshing rankings..."
       : "Live · Refreshes every 60s";
 
   const toggleTier = (tier: TrustTier) => {
@@ -93,7 +93,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-violet-50/30 dark:from-zinc-950 dark:via-zinc-900 dark:to-violet-950/20">
+    <div className="min-h-screen bg-zinc-50/70 dark:bg-zinc-950/40">
       <div className="mx-auto max-w-2xl space-y-6 px-4 py-12">
         <header className="mb-2 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-violet-100 px-3 py-1.5 text-xs font-medium text-violet-600 dark:bg-violet-900/40 dark:text-violet-400">
@@ -110,7 +110,7 @@ export default function HomePage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sm text-zinc-500 transition-colors hover:text-violet-600 dark:text-zinc-400 dark:hover:text-violet-400"
           >
-            View repo on GitHub ↗
+            milady-ai/milaidy ↗
           </a>
         </header>
 
