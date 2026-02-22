@@ -108,6 +108,26 @@ export default function HomePage() {
     return { avgScore, trustedPlus, autoMerge, agentCount, reviews, issues, comments, events24h };
   }, [allContributors]);
 
+  const spotlight = useMemo(() => {
+    if (allContributors.length === 0) {
+      return {
+        topMonthly: null as typeof allContributors[number] | null,
+        topStreak: null as typeof allContributors[number] | null,
+        topTrust: null as typeof allContributors[number] | null,
+      };
+    }
+
+    const byMonthly = [...allContributors].sort((a, b) => {
+      const aCount = a.events.filter((event) => Date.now() - normalizeTimestamp(event.timestamp) <= 30 * 24 * 60 * 60 * 1000).length;
+      const bCount = b.events.filter((event) => Date.now() - normalizeTimestamp(event.timestamp) <= 30 * 24 * 60 * 60 * 1000).length;
+      return bCount - aCount;
+    });
+    const byStreak = [...allContributors].sort((a, b) => b.currentStreak.length - a.currentStreak.length);
+    const byTrust = [...allContributors].sort((a, b) => b.trustScore - a.trustScore);
+
+    return { topMonthly: byMonthly[0], topStreak: byStreak[0], topTrust: byTrust[0] };
+  }, [allContributors]);
+
   const liveStatusLabel = isLoading
     ? "Live · Loading rankings..."
     : isRefreshing
@@ -159,6 +179,30 @@ export default function HomePage() {
               <MiniMetric label="Reviews" value={metrics.reviews.toLocaleString()} />
               <MiniMetric label="Comments" value={(metrics.comments + metrics.issues).toLocaleString()} />
             </div>
+          </section>
+        ) : null}
+
+        {!isLoading ? (
+          <section className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <InsightCard
+              title="Top 30d Activity"
+              value={spotlight.topMonthly ? `@${spotlight.topMonthly.username}` : "—"}
+              subtitle={spotlight.topMonthly ? `${spotlight.topMonthly.events.length} total events` : "No contributor data"}
+            />
+            <InsightCard
+              title="Longest Streak"
+              value={spotlight.topStreak ? `@${spotlight.topStreak.username}` : "—"}
+              subtitle={
+                spotlight.topStreak
+                  ? `${spotlight.topStreak.currentStreak.length} ${spotlight.topStreak.currentStreak.type ?? "event"} streak`
+                  : "No contributor data"
+              }
+            />
+            <InsightCard
+              title="Highest Trust"
+              value={spotlight.topTrust ? `@${spotlight.topTrust.username}` : "—"}
+              subtitle={spotlight.topTrust ? `${spotlight.topTrust.trustScore.toFixed(1)} score` : "No contributor data"}
+            />
           </section>
         ) : null}
 
@@ -273,6 +317,16 @@ function MiniMetric({ label, value }: { label: string; value: string }) {
     <div className="rounded-xl border border-zinc-200/70 bg-zinc-50/80 px-3 py-2 text-center dark:border-zinc-800 dark:bg-zinc-950/60">
       <div className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">{value}</div>
       <div className="text-[11px] text-zinc-500 dark:text-zinc-400">{label}</div>
+    </div>
+  );
+}
+
+function InsightCard({ title, value, subtitle }: { title: string; value: string; subtitle: string }) {
+  return (
+    <div className="rounded-2xl border border-zinc-200/80 bg-white/95 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="text-[11px] uppercase tracking-wide text-zinc-500 dark:text-zinc-400">{title}</div>
+      <div className="mt-1 text-base font-semibold text-zinc-900 dark:text-zinc-100">{value}</div>
+      <div className="text-xs text-zinc-500 dark:text-zinc-400">{subtitle}</div>
     </div>
   );
 }

@@ -46,6 +46,26 @@ function formatPct(value: number): string {
   return `${Math.max(0, value).toFixed(1)}%`;
 }
 
+function formatAbsoluteDate(value: string | null): string {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
+function scoreAtOrBefore(profile: ContributorProfile, timestamp: number): number {
+  const sorted = [...profile.scoreHistory].sort((a, b) => a.timestamp - b.timestamp);
+  let pointScore: number | null = null;
+  for (const item of sorted) {
+    if (normalizeTimestamp(item.timestamp) <= timestamp) {
+      pointScore = item.score;
+    } else {
+      break;
+    }
+  }
+  return pointScore ?? sorted[0]?.score ?? profile.trustScore;
+}
+
 function estimateDaysToNextTier(profile: ContributorProfile): string {
   const pointsNeeded = getPointsToNextTier(profile.trustScore);
   if (!pointsNeeded || profile.scoreHistory.length < 2) return "At top tier";
@@ -62,6 +82,13 @@ function estimateDaysToNextTier(profile: ContributorProfile): string {
   const days = Math.ceil(pointsNeeded / ratePerDay);
   if (days < 1) return "< 1 day at current pace";
   return `${days} days at current pace`;
+}
+
+function momentumDelta(profile: ContributorProfile, days: number): number {
+  const now = Date.now();
+  const past = now - days * 24 * 60 * 60 * 1000;
+  const baseline = scoreAtOrBefore(profile, past);
+  return profile.trustScore - baseline;
 }
 
 export const dynamicParams = false;
@@ -97,11 +124,21 @@ export default async function ContributorDetailPage({
   const tier = getTierForScore(profile.trustScore);
   const rank = sorted.findIndex((entry) => entry.username === profile.username) + 1;
   const total = sorted.length;
+  const prevContributor = rank > 1 ? sorted[rank - 2] : null;
+  const nextContributor = rank < total ? sorted[rank] : null;
   const totalPRs = profile.totalApprovals + profile.totalRejections + profile.totalCloses;
   const approvalRate = totalPRs > 0 ? (profile.totalApprovals / totalPRs) * 100 : 0;
   const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
   const weeklyVelocity = profile.events.filter((event) => normalizeTimestamp(event.timestamp) >= weekAgo).length;
   const githubProfileUrl = `https://github.com/${profile.username}`;
+  const totalEvents = profile.events.length;
+  const lastActive = formatAbsoluteDate(profile.lastEventAt);
+  const firstSeen = formatAbsoluteDate(profile.firstSeenAt);
+  const delta7d = momentumDelta(profile, 7);
+  const delta30d = momentumDelta(profile, 30);
+  const positiveEvents = profile.events.filter((event) => event.type === "approve").length;
+  const negativeEvents = profile.events.filter((event) => event.type === "reject" || event.type === "close").length;
+  const topTags = safe.tags.slice(0, 4);
 
   const nextTier = getNextTier(profile.trustScore);
   const pointsToNext = getPointsToNextTier(profile.trustScore);
@@ -117,9 +154,27 @@ export default async function ContributorDetailPage({
 
   return (
     <div className="mx-auto max-w-5xl space-y-5 md:space-y-6">
-      <div className="space-y-2">
+      <div className="space-y-3">
         <Link href="/" className="inline-block text-sm text-accent hover:underline">&larr; Back to Leaderboard</Link>
         <div className="text-xs text-muted-foreground">Leaderboard &gt; {profile.username}</div>
+        <div className="flex flex-wrap items-center gap-2 text-xs">
+          {prevContributor ? (
+            <Link
+              href={`/contributor/${prevContributor.username}`}
+              className="rounded-full border border-border px-2.5 py-1 text-muted-foreground hover:text-foreground"
+            >
+              ← {prevContributor.username}
+            </Link>
+          ) : null}
+          {nextContributor ? (
+            <Link
+              href={`/contributor/${nextContributor.username}`}
+              className="rounded-full border border-border px-2.5 py-1 text-muted-foreground hover:text-foreground"
+            >
+              {nextContributor.username} →
+            </Link>
+          ) : null}
+        </div>
       </div>
 
       {/* Hero section */}
@@ -137,6 +192,19 @@ export default async function ContributorDetailPage({
                 <p className="text-sm text-muted-foreground">Rank #{rank} of {total}</p>
                 <CharacterClassBadge characterClass={safe.characterClass} size="sm" />
               </div>
+              {topTags.length > 0 && (
+                <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                  {topTags.map((tag) => (
+                    <span
+                      key={tag.tagId}
+                      className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/40 px-2 py-0.5 text-[11px] text-muted-foreground"
+                    >
+                      {tag.tagId}
+                      <span className="font-mono">{tag.level}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
               <a
                 href={githubProfileUrl}
                 target="_blank"
@@ -175,6 +243,23 @@ export default async function ContributorDetailPage({
         <InfoCard label="Approval Rate" value={formatPct(approvalRate)} subtitle={`${profile.totalApprovals}/${totalPRs || 0} approvals`} />
         <InfoCard label="Current Streak" value={streakText} subtitle={profile.currentStreakType ? `${profile.currentStreakType} streak` : "No streak"} />
         <InfoCard label="Weekly Velocity" value={`${weeklyVelocity}/10`} subtitle="soft cap per week" />
+      </section>
+
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <InfoCard label="Total Events" value={totalEvents.toLocaleString()} subtitle="scored trust events" />
+        <InfoCard label="7d Momentum" value={`${delta7d >= 0 ? "+" : ""}${delta7d.toFixed(1)}`} subtitle="score change in 7 days" />
+        <InfoCard label="30d Momentum" value={`${delta30d >= 0 ? "+" : ""}${delta30d.toFixed(1)}`} subtitle="score change in 30 days" />
+        <InfoCard label="Account Age" value={firstSeen} subtitle={`last active ${lastActive}`} />
+      </section>
+
+      <section className="rounded-2xl border border-border bg-card p-4 md:p-5">
+        <h3 className="text-lg font-semibold mb-3">Contribution Snapshot</h3>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <StatPill label="Approvals" value={profile.totalApprovals} tone="positive" />
+          <StatPill label="Rejections" value={profile.totalRejections} tone="warning" />
+          <StatPill label="Closes" value={profile.totalCloses + profile.totalSelfCloses} tone="neutral" />
+          <StatPill label="Pos/Neg" value={`${positiveEvents}/${negativeEvents}`} tone="neutral" />
+        </div>
       </section>
 
       {/* Badges */}
@@ -249,6 +334,30 @@ function InfoCard({
       <div className="text-xs text-muted-foreground uppercase tracking-wide">{label}</div>
       <div className="mt-1 text-xl font-bold font-mono" style={accent ? { color: accent } : undefined}>{value}</div>
       <div className="text-xs text-muted-foreground mt-1">{subtitle}</div>
+    </div>
+  );
+}
+
+function StatPill({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string | number;
+  tone: "positive" | "warning" | "neutral";
+}) {
+  const toneClass =
+    tone === "positive"
+      ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-300"
+      : tone === "warning"
+        ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/60 dark:bg-amber-950/30 dark:text-amber-300"
+        : "border-border bg-muted/40 text-foreground";
+
+  return (
+    <div className={`rounded-xl border px-3 py-2 ${toneClass}`}>
+      <div className="text-xs opacity-80">{label}</div>
+      <div className="text-lg font-semibold font-mono">{value}</div>
     </div>
   );
 }
