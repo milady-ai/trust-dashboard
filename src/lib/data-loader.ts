@@ -1,6 +1,7 @@
 import trustData from "@/data/trust-scores.json";
 import {
   type ContributorData,
+  TIERS,
   type TrustStats,
   getTierConfig,
   getTierForScore,
@@ -37,6 +38,20 @@ interface RawContributor {
   events?: ContributorData["events"];
   scoreHistory?: ContributorData["scoreHistory"];
   warnings?: string[];
+}
+
+interface RawTrustData {
+  generatedAt?: string;
+  repoFullName?: string;
+  contributors?: RawContributor[];
+  stats?: Partial<TrustStats>;
+}
+
+export interface TrustDataSnapshot {
+  generatedAt: string;
+  repoFullName: string;
+  contributors: ContributorData[];
+  stats: TrustStats;
 }
 
 function normalizeContributors(raw: RawContributor[]): ContributorData[] {
@@ -94,17 +109,59 @@ function normalizeContributors(raw: RawContributor[]): ContributorData[] {
   });
 }
 
+function buildStats(contributors: ContributorData[], rawStats?: Partial<TrustStats>): TrustStats {
+  const tierDistribution = TIERS.reduce((acc, tier) => {
+    acc[tier.label] = 0;
+    return acc;
+  }, {} as Record<TrustTier, number>);
+
+  contributors.forEach((contributor) => {
+    tierDistribution[contributor.tier.label] += 1;
+  });
+
+  const avgScore = contributors.length > 0
+    ? contributors.reduce((sum, contributor) => sum + contributor.trustScore, 0) / contributors.length
+    : 0;
+
+  return {
+    totalContributors: rawStats?.totalContributors ?? contributors.length,
+    totalEvents: rawStats?.totalEvents ?? contributors.reduce((sum, contributor) => sum + contributor.events.length, 0),
+    tierDistribution: {
+      ...tierDistribution,
+      ...(rawStats?.tierDistribution ?? {}),
+    } as Record<TrustTier, number>,
+    avgScore: rawStats?.avgScore ?? avgScore,
+  };
+}
+
+export function normalizeTrustData(input: unknown): TrustDataSnapshot {
+  const raw = (typeof input === "object" && input !== null ? input : {}) as RawTrustData;
+  const contributors = normalizeContributors(Array.isArray(raw.contributors) ? raw.contributors : []);
+
+  return {
+    generatedAt: typeof raw.generatedAt === "string" ? raw.generatedAt : new Date().toISOString(),
+    repoFullName: typeof raw.repoFullName === "string" ? raw.repoFullName : "milady-ai/milaidy",
+    contributors,
+    stats: buildStats(contributors, raw.stats),
+  };
+}
+
+const bundledSnapshot = normalizeTrustData(trustData);
+
+export function getTrustDataSnapshot(): TrustDataSnapshot {
+  return bundledSnapshot;
+}
+
 export function getContributors(): ContributorData[] {
-  const raw = (trustData.contributors ?? []) as unknown as RawContributor[];
-  return normalizeContributors(raw);
+  return bundledSnapshot.contributors;
 }
 
 export function getStats(): TrustStats {
-  return trustData.stats as TrustStats;
+  return bundledSnapshot.stats;
 }
 
 export function getGeneratedAt(): string {
-  return trustData.generatedAt;
+  return bundledSnapshot.generatedAt;
 }
 
 // Backward-compatible aliases

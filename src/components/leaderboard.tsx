@@ -1,160 +1,114 @@
 import Link from "next/link";
 import { ContributorData, getApprovalRate } from "@/lib/trust-scoring";
-import { daysSince, formatRelativeTime } from "@/lib/utils";
+import { formatRelativeTime } from "@/lib/utils";
 import { TierBadge } from "./tier-badge";
-import { ScoreBar } from "./score-bar";
-import { StreakIndicator } from "./streak-indicator";
-import { CharacterClassBadge } from "./character-class";
-import { BadgeDisplay } from "./badge-display";
 
 interface LeaderboardProps {
   contributors: ContributorData[];
 }
 
+function rankLabel(rank: number): string {
+  if (rank === 1) return "🥇";
+  if (rank === 2) return "🥈";
+  if (rank === 3) return "🥉";
+  return `#${rank}`;
+}
+
+function isRecentlyActive(lastEventAt: string | null): boolean {
+  if (!lastEventAt) return false;
+  const ts = Date.parse(lastEventAt);
+  if (Number.isNaN(ts)) return false;
+  const days = (Date.now() - ts) / (1000 * 60 * 60 * 24);
+  return days <= 30;
+}
+
 export function Leaderboard({ contributors }: LeaderboardProps) {
+  if (contributors.length === 0) {
+    return (
+      <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center text-sm text-muted-foreground">
+        No contributors match the current filters.
+      </div>
+    );
+  }
+
   return (
-    <>
-      <div className="hidden md:block overflow-hidden rounded-lg border border-border">
-        <div className="grid grid-cols-[3rem_1fr_auto_auto_10rem_5rem_5rem_6rem] items-center gap-2 border-b border-border bg-muted/50 px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-          <span>#</span>
-          <span>Contributor</span>
-          <span>Class</span>
-          <span>Tier</span>
-          <span>Trust Score</span>
-          <span className="text-center">Level</span>
-          <span className="text-center">Streak</span>
-          <span className="text-right">Last Active</span>
-        </div>
-
-        <div className="divide-y divide-border">
-          {contributors.map((contributor, index) => (
-            <DesktopRow key={contributor.username} contributor={contributor} rank={index + 1} />
-          ))}
-        </div>
-      </div>
-
-      <div className="md:hidden grid gap-3">
-        {contributors.map((contributor, index) => (
-          <MobileCard key={contributor.username} contributor={contributor} rank={index + 1} />
-        ))}
-      </div>
-    </>
+    <div className="space-y-2">
+      {contributors.map((contributor, index) => (
+        <LeaderboardRow key={contributor.username} contributor={contributor} rank={index + 1} />
+      ))}
+    </div>
   );
 }
 
-function DesktopRow({ contributor, rank }: { contributor: ContributorData; rank: number }) {
-  const joinedDays = daysSince(contributor.firstSeenAt);
-  const isNew = joinedDays <= 30;
-
-  return (
-    <Link
-      href={`/contributor/${contributor.username}`}
-      className="grid grid-cols-[3rem_1fr_auto_auto_10rem_5rem_5rem_6rem] items-center gap-2 px-4 py-3 card-hover transition-colors"
-    >
-      <span className="text-sm font-mono text-muted-foreground">
-        {rank <= 3 ? ["🥇", "🥈", "🥉"][rank - 1] : rank}
-      </span>
-
-      <div className="flex items-center gap-3 min-w-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`https://github.com/${contributor.username}.png`}
-          alt={contributor.username}
-          className="h-8 w-8 rounded-full bg-muted flex-shrink-0"
-          loading="lazy"
-        />
-        <div className="min-w-0">
-          <div className="font-medium text-sm truncate flex items-center gap-1.5">
-            {contributor.username}
-            {contributor.isAgent && <span className="text-xs text-muted-foreground">🤖</span>}
-          </div>
-          <div className="text-xs text-muted-foreground flex items-center gap-1.5">
-            <BadgeDisplay badges={contributor.badges} compact />
-            {isNew && <span className="text-accent">new</span>}
-          </div>
-        </div>
-      </div>
-
-      <CharacterClassBadge characterClass={contributor.characterClass} size="sm" />
-
-      <TierBadge tier={contributor.tier} size="sm" />
-
-      <div
-        title={`Approvals: ${contributor.totalApprovals}, Rejections: ${contributor.totalRejections}, Closes: ${contributor.totalCloses}`}
-      >
-        <ScoreBar score={contributor.trustScore} tier={contributor.tier} />
-      </div>
-
-      <div className="text-center">
-        <div className="text-sm font-mono font-bold">{contributor.totalLevel}</div>
-        <div className="text-xs text-muted-foreground">{contributor.totalXp.toLocaleString()} XP</div>
-      </div>
-
-      <div className="text-center">
-        <StreakIndicator type={contributor.currentStreak.type} length={contributor.currentStreak.length} />
-      </div>
-
-      <div className="text-right text-xs text-muted-foreground">{formatRelativeTime(contributor.lastEventAt)}</div>
-    </Link>
-  );
-}
-
-function MobileCard({ contributor, rank }: { contributor: ContributorData; rank: number }) {
+function LeaderboardRow({ contributor, rank }: { contributor: ContributorData; rank: number }) {
   const approvalRate = Math.round(getApprovalRate(contributor));
+  const recent = isRecentlyActive(contributor.lastEventAt);
+  const topThree = rank <= 3;
 
   return (
     <Link
       href={`/contributor/${contributor.username}`}
-      className="rounded-lg border border-border bg-card p-3 card-hover transition-colors block"
+      className={`group block rounded-2xl px-5 py-4 card-hover ${
+        topThree
+          ? "bg-gradient-to-r from-violet-50 to-fuchsia-50 border border-violet-200/60 dark:from-violet-950/40 dark:to-fuchsia-950/40 dark:border-violet-800/40"
+          : "bg-card border border-zinc-100 dark:border-zinc-800 hover:border-violet-200 dark:hover:border-violet-800"
+      }`}
     >
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <div className="flex items-center gap-2 min-w-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`https://github.com/${contributor.username}.png`}
-            alt={contributor.username}
-            className="h-9 w-9 rounded-full bg-muted"
-            loading="lazy"
-          />
-          <div className="min-w-0">
-            <div className="font-medium text-sm truncate flex items-center gap-1.5">
-              {rank}. {contributor.username}
-              {contributor.isAgent && <span className="text-xs">🤖</span>}
-            </div>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <CharacterClassBadge characterClass={contributor.characterClass} size="sm" />
-            </div>
+      <div className="flex items-center gap-4">
+        <div className="w-10 shrink-0 text-center font-mono text-sm text-muted-foreground">
+          {rankLabel(rank)}
+        </div>
+
+        <div className="relative shrink-0">
+          <div
+            className={`h-12 w-12 overflow-hidden rounded-full ring-2 transition-all ${
+              topThree
+                ? "ring-violet-400 dark:ring-violet-600"
+                : "ring-zinc-200 dark:ring-zinc-700 group-hover:ring-violet-400"
+            }`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://github.com/${contributor.username}.png`}
+              alt={contributor.username}
+              className="h-12 w-12 object-cover bg-muted"
+              loading="lazy"
+            />
+          </div>
+          {recent ? (
+            <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full border-2 border-card bg-emerald-400" />
+          ) : null}
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            <span className="truncate font-semibold text-zinc-900 dark:text-zinc-100">{contributor.username}</span>
+            {contributor.isAgent ? (
+              <span className="rounded-full border border-border bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">
+                bot
+              </span>
+            ) : null}
+            <TierBadge tier={contributor.tier} size="sm" />
+          </div>
+
+          <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400">
+            <span>Lv {contributor.totalLevel}</span>
+            <span>•</span>
+            <span>{contributor.totalXp.toLocaleString()} XP</span>
+            <span>•</span>
+            <span>Approval {approvalRate}%</span>
           </div>
         </div>
-        <TierBadge tier={contributor.tier} size="sm" />
-      </div>
 
-      <div className="flex items-center gap-1 mb-2">
-        <BadgeDisplay badges={contributor.badges} compact />
-      </div>
-
-      <div className="grid grid-cols-4 gap-2 text-xs">
-        <div>
-          <div className="text-muted-foreground">Score</div>
-          <div className="font-mono font-semibold" style={{ color: contributor.tier.color }}>
+        <div className="shrink-0 text-right">
+          <div className="text-xl font-semibold font-mono tabular-nums" style={{ color: contributor.tier.color }}>
             {contributor.trustScore.toFixed(1)}
           </div>
-        </div>
-        <div>
-          <div className="text-muted-foreground">Level</div>
-          <div className="font-mono font-semibold">{contributor.totalLevel}</div>
-        </div>
-        <div>
-          <div className="text-muted-foreground">Streak</div>
-          <div><StreakIndicator type={contributor.currentStreak.type} length={contributor.currentStreak.length} /></div>
-        </div>
-        <div>
-          <div className="text-muted-foreground">Approval</div>
-          <div className="font-mono font-semibold">{approvalRate}%</div>
+          <div className="text-[11px] text-zinc-500 dark:text-zinc-400">
+            {formatRelativeTime(contributor.lastEventAt)}
+          </div>
         </div>
       </div>
-
-      <div className="text-right text-xs text-muted-foreground mt-2">{formatRelativeTime(contributor.lastEventAt)}</div>
     </Link>
   );
 }

@@ -84,7 +84,7 @@ export default async function ContributorDetailPage({
 
   if (!profile) {
     return (
-      <div className="mx-auto max-w-3xl rounded-xl border border-border bg-card p-8 text-center">
+      <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-card p-8 text-center">
         <p className="text-sm text-muted-foreground">Leaderboard &gt; {username}</p>
         <h2 className="mt-2 text-2xl font-bold">Contributor not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">We couldn&apos;t find a contributor with that username.</p>
@@ -101,6 +101,7 @@ export default async function ContributorDetailPage({
   const approvalRate = totalPRs > 0 ? (profile.totalApprovals / totalPRs) * 100 : 0;
   const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
   const weeklyVelocity = profile.events.filter((event) => normalizeTimestamp(event.timestamp) >= weekAgo).length;
+  const githubProfileUrl = `https://github.com/${profile.username}`;
 
   const nextTier = getNextTier(profile.trustScore);
   const pointsToNext = getPointsToNextTier(profile.trustScore);
@@ -115,14 +116,14 @@ export default async function ContributorDetailPage({
       : "No active streak";
 
   return (
-    <div className="space-y-5 md:space-y-6">
+    <div className="mx-auto max-w-5xl space-y-5 md:space-y-6">
       <div className="space-y-2">
         <Link href="/" className="inline-block text-sm text-accent hover:underline">&larr; Back to Leaderboard</Link>
         <div className="text-xs text-muted-foreground">Leaderboard &gt; {profile.username}</div>
       </div>
 
       {/* Hero section */}
-      <section className="rounded-xl border border-border bg-card p-4 md:p-6">
+      <section className="rounded-2xl border border-border bg-card p-4 md:p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -136,6 +137,14 @@ export default async function ContributorDetailPage({
                 <p className="text-sm text-muted-foreground">Rank #{rank} of {total}</p>
                 <CharacterClassBadge characterClass={safe.characterClass} size="sm" />
               </div>
+              <a
+                href={githubProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-accent transition-colors"
+              >
+                GitHub profile ↗
+              </a>
               {profile.autoMergeEligible && (
                 <span className="mt-2 inline-flex rounded-full border border-tier-legendary/40 px-2.5 py-1 text-xs text-tier-legendary">
                   Auto-merge eligible
@@ -169,13 +178,13 @@ export default async function ContributorDetailPage({
       </section>
 
       {/* Badges */}
-      <section className="rounded-xl border border-border bg-card p-4 md:p-5">
+      <section className="rounded-2xl border border-border bg-card p-4 md:p-5">
         <h3 className="text-lg font-semibold mb-3">Badges</h3>
         <BadgeDisplay badges={safe.badges} />
       </section>
 
       {/* Tags & Levels */}
-      <section className="rounded-xl border border-border bg-card p-4 md:p-5">
+      <section className="rounded-2xl border border-border bg-card p-4 md:p-5">
         <h3 className="text-lg font-semibold mb-3">Tags & Levels</h3>
         <TagDisplay tags={safe.tags} />
       </section>
@@ -197,7 +206,7 @@ export default async function ContributorDetailPage({
       </div>
 
       {/* Next Tier Progress */}
-      <section className="rounded-xl border border-border bg-card p-4 md:p-5">
+      <section className="rounded-2xl border border-border bg-card p-4 md:p-5">
         <h3 className="text-lg font-semibold mb-3">Next Tier Progress</h3>
         {nextTier && pointsToNext !== null ? (
           <>
@@ -236,7 +245,7 @@ function InfoCard({
   accent?: string;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div className="rounded-2xl border border-border bg-card p-4">
       <div className="text-xs text-muted-foreground uppercase tracking-wide">{label}</div>
       <div className="mt-1 text-xl font-bold font-mono" style={accent ? { color: accent } : undefined}>{value}</div>
       <div className="text-xs text-muted-foreground mt-1">{subtitle}</div>

@@ -21,7 +21,7 @@ function recencyWeight(days: number): number {
 
 function ScoringCard({ title, formula, description }: { title: string; formula: string; description: string }) {
   return (
-    <div className="rounded-lg border border-border bg-card p-4 card-hover">
+    <div className="rounded-2xl border border-border bg-card p-4 card-hover">
       <h4 className="font-medium text-sm mb-1">{title}</h4>
       <code className="text-xs text-accent bg-muted px-2 py-1 rounded block mb-2 font-mono">{formula}</code>
       <p className="text-sm text-muted-foreground">{description}</p>
@@ -45,7 +45,7 @@ function DiminishingCurve() {
   const selected = points[Math.max(0, Math.min(50, prior))];
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+    <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
       <h4 className="font-semibold">Diminishing Returns Curve</h4>
       <p className="text-xs text-muted-foreground">multiplier = 1 / (1 + 0.2 x ln(1 + priorApprovals))</p>
 
@@ -93,7 +93,7 @@ function RecencyCurve() {
   const path = points.map((p, idx) => `${idx === 0 ? "M" : "L"}${p.px},${p.py}`).join(" ");
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+    <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
       <h4 className="font-semibold">Recency Decay Curve</h4>
       <p className="text-xs text-muted-foreground">weight = 0.5 ^ (daysSinceEvent / 45)</p>
       <svg viewBox={`0 0 ${DIM_WIDTH} ${DIM_HEIGHT}`} className="w-full">
@@ -129,7 +129,7 @@ function ComplexityBars() {
   ];
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+    <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
       <h4 className="font-semibold">Complexity Buckets</h4>
       <svg viewBox="0 0 700 220" className="w-full">
         <line x1="50" y1="190" x2="670" y2="190" stroke="currentColor" opacity="0.35" />
@@ -166,7 +166,7 @@ export default function ScoringPage() {
   const classEntries = Object.values(CHARACTER_CLASSES);
 
   return (
-    <div className="space-y-8 max-w-5xl">
+    <div className="mx-auto max-w-5xl space-y-8">
       <div>
         <h2 className="text-2xl font-bold mb-1">Trust Scoring Algorithm</h2>
         <p className="text-sm text-muted-foreground">
@@ -179,7 +179,7 @@ export default function ScoringPage() {
         <h3 className="text-lg font-semibold mb-3">Trust Tiers</h3>
         <div className="space-y-2">
           {TIERS.map((tier) => (
-            <div key={tier.label} className="flex items-center gap-4 rounded-lg border border-border bg-card p-3 card-hover">
+            <div key={tier.label} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-3 card-hover">
               <TierBadge tier={tier} size="md" />
               <span className="font-mono text-sm text-muted-foreground">{tier.minScore}+</span>
               <span className="text-sm text-muted-foreground flex-1">{tier.description}</span>
@@ -201,7 +201,7 @@ export default function ScoringPage() {
         </p>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {BADGE_DEFINITIONS.map((badge) => (
-            <div key={badge.type} className="rounded-lg border border-border bg-card p-4 card-hover">
+            <div key={badge.type} className="rounded-2xl border border-border bg-card p-4 card-hover">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xl">{badge.icon}</span>
                 <span className="font-medium text-sm">{badge.name}</span>
@@ -229,7 +229,7 @@ export default function ScoringPage() {
       {/* XP & Level System */}
       <section>
         <h3 className="text-lg font-semibold mb-3">XP & Level System</h3>
-        <div className="rounded-lg border border-border bg-card p-4 space-y-4">
+        <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
           <div>
             <h4 className="font-medium text-sm mb-1">RuneScape XP Formula</h4>
             <code className="text-xs text-accent bg-muted px-2 py-1 rounded block font-mono">
@@ -266,7 +266,7 @@ export default function ScoringPage() {
         </p>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {classEntries.map((cls) => (
-            <div key={cls.id} className="rounded-lg border border-border bg-card p-3 card-hover">
+            <div key={cls.id} className="rounded-2xl border border-border bg-card p-3 card-hover">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg">{cls.icon}</span>
                 <span className="font-medium text-sm">{cls.name}</span>
@@ -335,7 +335,7 @@ export default function ScoringPage() {
       {/* Event Types */}
       <section>
         <h3 className="text-lg font-semibold mb-3">Event Types</h3>
-        <div className="rounded-lg border border-border overflow-hidden">
+        <div className="rounded-2xl border border-border overflow-hidden bg-card">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-muted/50 text-muted-foreground text-left">

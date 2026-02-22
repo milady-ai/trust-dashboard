@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #09090B;
-  --color-foreground: #FAFAFA;
-  --color-card: #0F0F14;
-  --color-card-foreground: #FAFAFA;
-  --color-muted: #18181F;
-  --color-muted-foreground: #A1A1AA;
-  --color-border: #27272A;
-  --color-accent: #C084FC;
-  --color-accent-foreground: #FAFAFA;
-  --color-primary: #A855F7;
-  --color-primary-foreground: #FFFFFF;
+  --color-background: #fafafa;
+  --color-foreground: #18181b;
+  --color-card: #ffffff;
+  --color-card-foreground: #18181b;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-border: #e4e4e7;
+  --color-accent: #7c3aed;
+  --color-accent-foreground: #ffffff;
+  --color-primary: #6d28d9;
+  --color-primary-foreground: #ffffff;
 
   /* Trust tier colors */
   --color-tier-legendary: #F59E0B;
@@ -23,43 +23,59 @@
   --color-tier-restricted: #EF4444;
 
   /* Badge tier colors */
-  --color-badge-acolyte: #D97706;
-  --color-badge-priestess: #A1A1AA;
-  --color-badge-remilia: #FACC15;
+  --color-badge-acolyte: #d97706;
+  --color-badge-priestess: #71717a;
+  --color-badge-remilia: #ca8a04;
 
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #09090b;
+    --color-foreground: #fafafa;
+    --color-card: #111114;
+    --color-card-foreground: #fafafa;
+    --color-muted: #18181f;
+    --color-muted-foreground: #a1a1aa;
+    --color-border: #27272a;
+    --color-accent: #a78bfa;
+    --color-accent-foreground: #fafafa;
+    --color-primary: #8b5cf6;
+    --color-primary-foreground: #ffffff;
+  }
 }
 
-/* Smooth scrolling */
+body {
+  background:
+    radial-gradient(1200px 400px at 90% -20%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent),
+    linear-gradient(135deg, var(--color-background) 0%, color-mix(in srgb, var(--color-card) 92%, white 8%) 55%, color-mix(in srgb, var(--color-accent) 8%, var(--color-card)) 100%);
+  color: var(--color-foreground);
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Modern card hover effect */
 .card-hover {
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
+
 .card-hover:hover {
-  border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
-  box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 5%, transparent);
+  border-color: color-mix(in srgb, var(--color-accent) 22%, var(--color-border));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-accent) 10%, transparent);
+  transform: translateY(-1px);
 }
 
-/* Gradient text utility */
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.card-hover:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 75%, white 25%);
+  outline-offset: 2px;
+  border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent);
 }
 
-/* Glass effect */
 .glass {
-  backdrop-filter: blur(12px);
-  background: color-mix(in srgb, var(--color-card) 80%, transparent);
+  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--color-card) 88%, transparent);
 }

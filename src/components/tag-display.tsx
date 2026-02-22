@@ -19,7 +19,7 @@ export function TagDisplay({ tags, compact = false }: TagDisplayProps) {
           return (
             <span
               key={tag.tagId}
-              className="inline-flex items-center gap-1 rounded-md border border-border/50 bg-muted/30 px-1.5 py-0.5 text-xs"
+              className="inline-flex items-center gap-1 rounded-md border border-border/70 bg-muted/50 px-1.5 py-0.5 text-[11px]"
               title={`${def?.name ?? tag.tagId} · Level ${tag.level} · ${tag.xp} XP`}
             >
               <span>{def?.icon ?? "📦"}</span>
@@ -35,11 +35,11 @@ export function TagDisplay({ tags, compact = false }: TagDisplayProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
       {tags.map((tag) => {
         const def = ALL_TAGS.find((t) => t.id === tag.tagId);
         return (
-          <div key={tag.tagId} className="rounded-lg border border-border bg-muted/20 p-3">
+          <div key={tag.tagId} className="rounded-xl border border-border bg-card p-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-base">{def?.icon ?? "📦"}</span>
@@ -50,7 +50,7 @@ export function TagDisplay({ tags, compact = false }: TagDisplayProps) {
                 <span className="text-xs text-muted-foreground ml-1">({tag.xp.toLocaleString()} XP)</span>
               </div>
             </div>
-            <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+            <div className="mt-2 h-1.5 w-full rounded-full bg-muted/80 overflow-hidden">
               <div
                 className="h-full rounded-full bg-accent transition-all"
                 style={{ width: `${tag.progress * 100}%` }}

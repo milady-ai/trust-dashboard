@@ -25,9 +25,9 @@ export interface EarnedBadge {
 }
 
 export const BADGE_TIER_COLORS: Record<BadgeTier, { color: string; bg: string; border: string }> = {
-  acolyte: { color: "#D97706", bg: "#78350F", border: "#D9770633" },
-  priestess: { color: "#A1A1AA", bg: "#27272A", border: "#A1A1AA33" },
-  remilia: { color: "#FACC15", bg: "#422006", border: "#FACC1533" },
+  acolyte: { color: "#b45309", bg: "#fff7ed", border: "#fdba74" },
+  priestess: { color: "#52525b", bg: "#f4f4f5", border: "#d4d4d8" },
+  remilia: { color: "#a16207", bg: "#fef9c3", border: "#fcd34d" },
 };
 
 export const BADGE_DEFINITIONS: BadgeDefinition[] = [

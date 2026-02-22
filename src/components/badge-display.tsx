@@ -17,7 +17,7 @@ export function BadgeDisplay({ badges, compact = false }: BadgeDisplayProps) {
           return (
             <span
               key={badge.type}
-              className="inline-flex items-center rounded-md px-1.5 py-0.5 text-xs"
+              className="inline-flex items-center rounded-md px-1.5 py-0.5 text-[11px]"
               style={{ backgroundColor: `${colors.bg}`, color: colors.color, border: `1px solid ${colors.border}` }}
               title={`${badge.name} (${badge.tier})`}
             >
@@ -25,7 +25,7 @@ export function BadgeDisplay({ badges, compact = false }: BadgeDisplayProps) {
             </span>
           );
         })}
-        {earned.length === 0 && <span className="text-xs text-muted-foreground">No badges</span>}
+        {earned.length === 0 && <span className="text-[11px] text-muted-foreground">No badges</span>}
       </div>
     );
   }
@@ -57,10 +57,10 @@ function BadgeCard({ badge, earned }: { badge: EarnedBadge; earned: boolean }) {
     <div
       className={`rounded-lg border p-3 transition-all ${
         earned
-          ? "border-l-2 bg-card"
-          : "border-dashed border-border/50 bg-muted/10 opacity-50"
+          ? "bg-card border-border"
+          : "border-dashed border-border/70 bg-muted/35 opacity-75"
       }`}
-      style={earned ? { borderLeftColor: colors.color } : undefined}
+      style={earned ? { boxShadow: "inset 2px 0 0 0 " + colors.color } : undefined}
     >
       <div className="flex items-center gap-2">
         <span className="text-lg">{badge.icon}</span>
