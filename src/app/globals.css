@@ -33,3 +33,34 @@ body {
   color: var(--color-foreground);
   font-family: system-ui, -apple-system, sans-serif;
 }
+
+/* Brand gradient text */
+.brand-gradient {
+  background: linear-gradient(135deg, #C084FC 0%, #A855F7 50%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle glow for accent elements */
+.glow-accent {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 0 60px rgba(168, 85, 247, 0.05);
+}
+
+.glow-gold {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.15), 0 0 60px rgba(245, 158, 11, 0.05);
+}
+
+/* Event type indicators */
+.event-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.event-dot-merged { background: #10B981; }
+.event-dot-rejected { background: #EF4444; }
+.event-dot-closed { background: #6B7280; }
+.event-dot-review { background: #3B82F6; }
+.event-dot-issue { background: #F59E0B; }

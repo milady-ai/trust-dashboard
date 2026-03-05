@@ -67,7 +67,7 @@ export default function HomePage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold mb-1">
-          <span className="text-accent">eliza</span>Effect Leaderboard
+          <span className="brand-gradient">eliza</span>Effect Leaderboard
         </h2>
         <p className="text-sm text-muted-foreground">
           Combined GitHub contribution + social impact scoring for {project.repoFullName}.
@@ -75,7 +75,7 @@ export default function HomePage() {
         </p>
       </div>
 
-      <StatsBar stats={project.stats} generatedAt={generatedAt} topTier={project.contributors[0]?.hierarchy?.tierLabel} />
+      <StatsBar stats={project.stats} generatedAt={generatedAt} />
 
       {/* Legend */}
       <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">

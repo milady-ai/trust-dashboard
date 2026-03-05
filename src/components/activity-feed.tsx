@@ -8,12 +8,20 @@ interface ActivityFeedProps {
   contributors: Contributor[];
 }
 
-const EVENT_ICONS: Record<string, string> = {
-  pr_merged: "✅",
-  pr_rejected: "❌",
-  pr_closed: "⛔",
-  review_given: "👁️",
-  issue_closed: "🔧",
+const EVENT_DOT_CLASS: Record<string, string> = {
+  pr_merged: "event-dot event-dot-merged",
+  pr_rejected: "event-dot event-dot-rejected",
+  pr_closed: "event-dot event-dot-closed",
+  review_given: "event-dot event-dot-review",
+  issue_closed: "event-dot event-dot-issue",
+};
+
+const EVENT_LABEL: Record<string, string> = {
+  pr_merged: "merged",
+  pr_rejected: "rejected",
+  pr_closed: "closed",
+  review_given: "reviewed",
+  issue_closed: "resolved",
 };
 
 export function ActivityFeed({ contributors }: ActivityFeedProps) {
@@ -39,24 +47,23 @@ export function ActivityFeed({ contributors }: ActivityFeedProps) {
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-muted/30 transition-colors"
       >
-        <span className="font-semibold text-sm">Recent Activity ({events.length})</span>
+        <span className="font-semibold text-sm">Recent Activity</span>
         <span className="text-xs text-muted-foreground">{open ? "Hide" : "Show"}</span>
       </button>
 
       {open && (
         <div className="divide-y divide-border">
           {events.map((event, idx) => (
-            <div key={`${event.username}-${idx}`} className="px-4 py-3 flex items-center gap-3 text-sm">
+            <div key={`${event.username}-${idx}`} className="px-4 py-2.5 flex items-center gap-3 text-sm">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={event.avatar} alt={event.username} className="h-8 w-8 rounded-full bg-muted" loading="lazy" />
-              <span className="text-base">{EVENT_ICONS[event.type] ?? "·"}</span>
+              <img src={event.avatar} alt={event.username} className="h-7 w-7 rounded-full bg-muted" loading="lazy" />
+              <span className={EVENT_DOT_CLASS[event.type] ?? "event-dot event-dot-closed"} />
               <div className="min-w-0 flex-1">
-                <div className="truncate">
-                  <span className="font-medium">{event.username}</span>
-                  <span className="text-muted-foreground">
-                    {" "}· {event.prNumber ? `PR #${event.prNumber}` : event.issueNumber ? `Issue #${event.issueNumber}` : ""} · {event.type.replace("_", " ")}
-                  </span>
-                </div>
+                <span className="font-medium">{event.username}</span>
+                <span className="text-muted-foreground">
+                  {" "}{EVENT_LABEL[event.type] ?? event.type.replace(/_/g, " ")}
+                  {event.prNumber ? ` PR #${event.prNumber}` : event.issueNumber ? ` Issue #${event.issueNumber}` : ""}
+                </span>
               </div>
               <span className="text-xs text-muted-foreground whitespace-nowrap">{formatRelativeTime(event.timestamp)}</span>
             </div>

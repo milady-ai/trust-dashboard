@@ -33,8 +33,7 @@ export default function RootLayout({
           <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <h1 className="text-xl font-bold tracking-tight">
-                <span className="text-accent">eliza</span>
-                <span>Effect</span>
+                <span className="brand-gradient">eliza</span><span>Effect</span>
               </h1>
             </div>
             <nav className="flex items-center gap-4 text-sm text-muted-foreground">

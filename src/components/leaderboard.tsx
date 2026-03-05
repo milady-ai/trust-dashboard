@@ -9,8 +9,14 @@ interface LeaderboardProps {
   contributors: Contributor[];
 }
 
+function RankCell({ rank }: { rank: number }) {
+  if (rank === 1) return <span className="text-sm font-bold text-eliza-gold">1</span>;
+  if (rank === 2) return <span className="text-sm font-bold text-slate-300">2</span>;
+  if (rank === 3) return <span className="text-sm font-bold text-amber-600">3</span>;
+  return <span className="text-xs text-muted-foreground font-mono">{rank}</span>;
+}
+
 function EffectBar({ score, github, social, maxScore }: { score: number; github: number; social: number; maxScore: number }) {
-  // Fill relative to the top score in the dataset, so the leader fills the bar
   const fillPct = maxScore > 0 ? Math.min(100, (score / maxScore) * 100) : 0;
   const total = github + social;
   const githubShare = total > 0 ? (github / total) * 100 : 100;
@@ -18,7 +24,7 @@ function EffectBar({ score, github, social, maxScore }: { score: number; github:
   return (
     <div className="flex items-center gap-2 min-w-[140px]">
       <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
-        <div className="h-full flex rounded-full overflow-hidden" style={{ width: `${fillPct}%` }}>
+        <div className="h-full flex rounded-full overflow-hidden transition-all duration-500" style={{ width: `${fillPct}%` }}>
           <div className="h-full bg-github" style={{ width: `${githubShare}%` }} />
           {social > 0 && <div className="h-full bg-social" style={{ width: `${100 - githubShare}%` }} />}
         </div>
@@ -80,16 +86,17 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
                 .reduce((sum, e) => sum + (e.linesChanged ?? 0), 0);
               const tier = c.hierarchy?.tier ?? "new";
               const tierLabel = c.hierarchy?.tierLabel ?? "New";
+              const isTop3 = c.elizaEffect.rank <= 3;
 
               return (
-                <tr key={c.username} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                  <td className="px-4 py-3 text-muted-foreground font-mono text-xs">
-                    {c.elizaEffect.rank}
+                <tr key={c.username} className={`border-b border-border/50 hover:bg-muted/30 transition-colors ${isTop3 ? "bg-muted/20" : ""}`}>
+                  <td className="px-4 py-3 text-center">
+                    <RankCell rank={c.elizaEffect.rank} />
                   </td>
                   <td className="px-4 py-3">
                     <Link href={`/contributor/${c.username}`} className="flex items-center gap-3 hover:text-accent transition-colors">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={c.avatarUrl} alt="" className="h-8 w-8 rounded-full border border-border bg-muted" />
+                      <img src={c.avatarUrl} alt="" className={`h-8 w-8 rounded-full border bg-muted ${isTop3 ? "border-eliza-gold/40 ring-1 ring-eliza-gold/20" : "border-border"}`} />
                       <div className="flex flex-col">
                         <span className="font-medium">{c.username}</span>
                         <TierBadge tier={tier} label={tierLabel} />
@@ -124,16 +131,19 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
         {contributors.map((c) => {
           const tier = c.hierarchy?.tier ?? "new";
           const tierLabel = c.hierarchy?.tierLabel ?? "New";
+          const isTop3 = c.elizaEffect.rank <= 3;
 
           return (
             <Link
               key={c.username}
               href={`/contributor/${c.username}`}
-              className="flex items-center gap-3 px-4 py-3 hover:bg-muted/30 transition-colors"
+              className={`flex items-center gap-3 px-4 py-3 hover:bg-muted/30 transition-colors ${isTop3 ? "bg-muted/20" : ""}`}
             >
-              <span className="text-xs text-muted-foreground font-mono w-6">{c.elizaEffect.rank}</span>
+              <div className="w-6 text-center">
+                <RankCell rank={c.elizaEffect.rank} />
+              </div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={c.avatarUrl} alt="" className="h-8 w-8 rounded-full border border-border bg-muted" />
+              <img src={c.avatarUrl} alt="" className={`h-8 w-8 rounded-full border bg-muted ${isTop3 ? "border-eliza-gold/40" : "border-border"}`} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-sm truncate">{c.username}</span>

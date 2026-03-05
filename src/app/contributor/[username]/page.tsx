@@ -48,11 +48,11 @@ export default async function ContributorDetailPage({
       </div>
 
       {/* Header */}
-      <section className="rounded-xl border border-border bg-card p-4 md:p-6">
+      <section className="rounded-xl border border-border bg-card p-4 md:p-6 glow-accent">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.avatarUrl} alt={c.username} className="h-16 w-16 rounded-full border border-border bg-muted" />
+            <img src={c.avatarUrl} alt={c.username} className={`h-16 w-16 rounded-full border-2 bg-muted ${c.elizaEffect.rank <= 3 ? "border-eliza-gold/50 ring-2 ring-eliza-gold/20" : "border-border"}`} />
             <div>
               <h1 className="text-2xl md:text-3xl font-bold">@{c.username}</h1>
               <p className="text-sm text-muted-foreground">
@@ -62,7 +62,7 @@ export default async function ContributorDetailPage({
           </div>
 
           <div className="text-left md:text-right">
-            <div className="text-4xl font-bold font-mono text-accent">
+            <div className="text-4xl font-bold font-mono brand-gradient">
               {c.elizaEffect.total.toFixed(1)}
             </div>
             <div className="text-xs text-muted-foreground">elizaEffect score</div>
@@ -126,10 +126,10 @@ export default async function ContributorDetailPage({
             <span className="ml-auto text-2xl font-bold font-mono text-github">{gh.total.toFixed(1)}</span>
           </div>
           <div className="space-y-3">
-            <ScoreRow label="Merged PRs" value={gh.prs} max={40} count={totalMerged} />
-            <ScoreRow label="Participation" value={gh.participation} max={20} count={totalParticipation} subtitle="reviews, closes, iterations" />
-            <ScoreRow label="Consistency" value={gh.consistency} max={25} subtitle="active days & weeks" />
-            <ScoreRow label="Impact" value={gh.impact} max={15} subtitle="depth of top PRs" />
+            <ScoreRow label="Merged PRs" value={gh.prs} max={40} count={totalMerged} color="bg-github/70" />
+            <ScoreRow label="Participation" value={gh.participation} max={20} count={totalParticipation} subtitle="reviews, closes, iterations" color="bg-github/70" />
+            <ScoreRow label="Consistency" value={gh.consistency} max={25} subtitle="active days & weeks" color="bg-github/70" />
+            <ScoreRow label="Impact" value={gh.impact} max={15} subtitle="depth of top PRs" color="bg-github/70" />
           </div>
         </div>
 
@@ -142,10 +142,10 @@ export default async function ContributorDetailPage({
           </div>
           {c.socialPosts.length > 0 ? (
             <div className="space-y-3">
-              <ScoreRow label="Posts" value={social.posts} max={30} count={c.socialPosts.length} />
-              <ScoreRow label="Content" value={social.content} max={35} />
-              <ScoreRow label="Engagement" value={social.engagement} max={25} />
-              <ScoreRow label="Referrals" value={social.referrals} max={10} count={c.referralCount} />
+              <ScoreRow label="Posts" value={social.posts} max={30} count={c.socialPosts.length} color="bg-social/70" />
+              <ScoreRow label="Content" value={social.content} max={35} color="bg-social/70" />
+              <ScoreRow label="Engagement" value={social.engagement} max={25} color="bg-social/70" />
+              <ScoreRow label="Referrals" value={social.referrals} max={10} count={c.referralCount} color="bg-social/70" />
             </div>
           ) : (
             <p className="text-xs text-muted-foreground">
@@ -157,7 +157,7 @@ export default async function ContributorDetailPage({
 
       {/* elizaPay Details */}
       {c.elizaPay && c.elizaPay.sharePercent > 0 && (
-        <section className="rounded-xl border border-eliza-gold/20 bg-card p-4 md:p-5">
+        <section className="rounded-xl border border-eliza-gold/20 bg-card p-4 md:p-5 glow-gold">
           <h3 className="text-lg font-semibold mb-3 text-eliza-gold">elizaPay Distribution</h3>
           <div className="grid grid-cols-3 gap-4 text-sm">
             <div>
@@ -189,19 +189,32 @@ export default async function ContributorDetailPage({
           {c.githubEvents
             .sort((a, b) => b.timestamp - a.timestamp)
             .slice(0, 20)
-            .map((event, idx) => (
-              <div key={idx} className="px-4 py-3 flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="shrink-0">{event.type === "pr_merged" ? "✅" : event.type === "pr_rejected" ? "❌" : event.type === "review_given" ? "👁️" : event.type === "issue_closed" ? "🔧" : "⛔"}</span>
-                  <span className="shrink-0">{event.prNumber ? `PR #${event.prNumber}` : event.issueNumber ? `Issue #${event.issueNumber}` : "—"}</span>
-                  <span className="text-muted-foreground truncate">· {event.type.replace(/_/g, " ")}</span>
-                  {event.linesChanged != null && event.linesChanged > 0 && (
-                    <span className="text-xs text-muted-foreground/60 shrink-0">{event.linesChanged >= 1000 ? `${(event.linesChanged / 1000).toFixed(1)}k` : event.linesChanged} lines</span>
-                  )}
+            .map((event, idx) => {
+              const dotClass = event.type === "pr_merged" ? "event-dot-merged"
+                : event.type === "pr_rejected" ? "event-dot-rejected"
+                : event.type === "review_given" ? "event-dot-review"
+                : event.type === "issue_closed" ? "event-dot-issue"
+                : "event-dot-closed";
+              const label = event.type === "pr_merged" ? "merged"
+                : event.type === "pr_rejected" ? "rejected"
+                : event.type === "review_given" ? "reviewed"
+                : event.type === "issue_closed" ? "resolved"
+                : "closed";
+
+              return (
+                <div key={idx} className="px-4 py-2.5 flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className={`event-dot ${dotClass}`} />
+                    <span className="shrink-0">{event.prNumber ? `PR #${event.prNumber}` : event.issueNumber ? `Issue #${event.issueNumber}` : "—"}</span>
+                    <span className="text-muted-foreground truncate">{label}</span>
+                    {event.linesChanged != null && event.linesChanged > 0 && (
+                      <span className="text-xs text-muted-foreground/60 shrink-0">{event.linesChanged >= 1000 ? `${(event.linesChanged / 1000).toFixed(1)}k` : event.linesChanged} lines</span>
+                    )}
+                  </div>
+                  <span className="text-xs text-muted-foreground">{formatRelativeTime(event.timestamp)}</span>
                 </div>
-                <span className="text-xs text-muted-foreground">{formatRelativeTime(event.timestamp)}</span>
-              </div>
-            ))}
+              );
+            })}
           {c.githubEvents.length === 0 && (
             <div className="px-4 py-6 text-sm text-muted-foreground text-center">No events yet.</div>
           )}
@@ -239,7 +252,7 @@ export default async function ContributorDetailPage({
   );
 }
 
-function ScoreRow({ label, value, max, count, subtitle }: { label: string; value: number; max: number; count?: number; subtitle?: string }) {
+function ScoreRow({ label, value, max, count, subtitle, color = "bg-accent/60" }: { label: string; value: number; max: number; count?: number; subtitle?: string; color?: string }) {
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
     <div>
@@ -252,7 +265,7 @@ function ScoreRow({ label, value, max, count, subtitle }: { label: string; value
         <span className="font-mono">{value.toFixed(1)}/{max}</span>
       </div>
       <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-        <div className="h-full rounded-full bg-accent/60" style={{ width: `${Math.min(100, pct)}%` }} />
+        <div className={`h-full rounded-full transition-all duration-500 ${color}`} style={{ width: `${Math.min(100, pct)}%` }} />
       </div>
     </div>
   );

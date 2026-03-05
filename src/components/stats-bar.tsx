@@ -9,15 +9,13 @@ interface StatsBarProps {
   topTier?: string;
 }
 
-export function StatsBar({ stats, generatedAt, topTier }: StatsBarProps) {
+export function StatsBar({ stats, generatedAt }: StatsBarProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
       <StatCard label="Contributors" value={stats.totalContributors.toString()} />
       <StatCard label="GitHub Events" value={stats.totalGitHubEvents.toString()} />
-      <StatCard label="Social Posts" value={stats.totalSocialPosts.toString()} />
       <StatCard label="Avg elizaEffect" value={stats.avgElizaEffect.toFixed(1)} accent />
       <StatCard label="Last Updated" value={formatRelativeTime(generatedAt)} />
-      {topTier && <StatCard label="Top Tier" value={topTier} />}
     </div>
   );
 }
