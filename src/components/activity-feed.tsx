@@ -1,18 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ContributorProfile } from "@/lib/contributor-types";
+import type { Contributor } from "@/lib/types";
 import { formatRelativeTime } from "@/lib/utils";
 
 interface ActivityFeedProps {
-  contributors: ContributorProfile[];
+  contributors: Contributor[];
 }
 
 const EVENT_ICONS: Record<string, string> = {
-  approve: "✅",
-  reject: "❌",
-  close: "⛔",
-  selfClose: "↩️",
+  pr_merged: "✅",
+  pr_rejected: "❌",
+  pr_closed: "⛔",
+  review_given: "👁️",
+  issue_closed: "🔧",
 };
 
 export function ActivityFeed({ contributors }: ActivityFeedProps) {
@@ -20,19 +21,19 @@ export function ActivityFeed({ contributors }: ActivityFeedProps) {
 
   const events = useMemo(() => {
     return contributors
-      .flatMap((contributor) =>
-        contributor.events.map((event) => ({
+      .flatMap((c) =>
+        c.githubEvents.map((event) => ({
           ...event,
-          username: contributor.username,
-          avatar: `https://github.com/${contributor.username}.png`,
+          username: c.username,
+          avatar: c.avatarUrl,
         })),
       )
-      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      .sort((a, b) => b.timestamp - a.timestamp)
       .slice(0, 15);
   }, [contributors]);
 
   return (
-    <section className="rounded-lg border border-border bg-card overflow-hidden">
+    <section className="rounded-xl border border-border bg-card overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -52,13 +53,15 @@ export function ActivityFeed({ contributors }: ActivityFeedProps) {
               <div className="min-w-0 flex-1">
                 <div className="truncate">
                   <span className="font-medium">{event.username}</span>
-                  <span className="text-muted-foreground"> · PR #{event.prNumber} · {event.type}</span>
+                  <span className="text-muted-foreground">
+                    {" "}· {event.prNumber ? `PR #${event.prNumber}` : event.issueNumber ? `Issue #${event.issueNumber}` : ""} · {event.type.replace("_", " ")}
+                  </span>
                 </div>
               </div>
               <span className="text-xs text-muted-foreground whitespace-nowrap">{formatRelativeTime(event.timestamp)}</span>
             </div>
           ))}
-          {events.length === 0 && <div className="px-4 py-6 text-sm text-muted-foreground">No recent events.</div>}
+          {events.length === 0 && <div className="px-4 py-6 text-sm text-muted-foreground text-center">No recent events.</div>}
         </div>
       )}
     </section>

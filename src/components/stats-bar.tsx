@@ -1,30 +1,30 @@
 "use client";
 
-import type { Stats } from "@/lib/data-loader";
+import type { ProjectStats } from "@/lib/types";
 import { formatRelativeTime } from "@/lib/utils";
 
 interface StatsBarProps {
-  stats: Stats;
+  stats: ProjectStats;
   generatedAt: string;
 }
 
 export function StatsBar({ stats, generatedAt }: StatsBarProps) {
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <StatCard label="Total Contributors" value={stats.totalContributors.toString()} />
-        <StatCard label="Total Events" value={stats.totalEvents.toString()} />
-        <StatCard label="Last Updated" value={formatRelativeTime(generatedAt)} />
-      </div>
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <StatCard label="Contributors" value={stats.totalContributors.toString()} />
+      <StatCard label="GitHub Events" value={stats.totalGitHubEvents.toString()} />
+      <StatCard label="Social Posts" value={stats.totalSocialPosts.toString()} />
+      <StatCard label="Avg elizaEffect" value={stats.avgElizaEffect.toFixed(1)} accent />
+      <StatCard label="Last Updated" value={formatRelativeTime(generatedAt)} />
     </div>
   );
 }
 
-function StatCard({ label, value }: { label: string; value: string }) {
+function StatCard({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="rounded-lg border border-border bg-card p-4">
       <div className="text-xs text-muted-foreground">{label}</div>
-      <div className="text-2xl font-bold font-mono mt-1">{value}</div>
+      <div className={`text-2xl font-bold font-mono mt-1 ${accent ? "text-accent" : ""}`}>{value}</div>
     </div>
   );
 }

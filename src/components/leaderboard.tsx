@@ -1,116 +1,126 @@
+"use client";
+
 import Link from "next/link";
-import type { ContributorProfile } from "@/lib/contributor-types";
+import type { Contributor } from "@/lib/types";
 import { formatRelativeTime } from "@/lib/utils";
 
 interface LeaderboardProps {
-  contributors: ContributorProfile[];
+  contributors: Contributor[];
 }
 
-function getTotalPRs(c: ContributorProfile) {
-  return c.totalApprovals + c.totalRejections + c.totalCloses + c.totalSelfCloses;
+function EffectBar({ score, github, social }: { score: number; github: number; social: number }) {
+  const total = github + social;
+  const githubPct = total > 0 ? (github / total) * 100 : 0;
+
+  return (
+    <div className="flex items-center gap-2 min-w-[140px]">
+      <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden flex">
+        <div className="h-full bg-github" style={{ width: `${githubPct}%` }} />
+        <div className="h-full bg-social" style={{ width: `${100 - githubPct}%` }} />
+      </div>
+      <span className="text-sm font-mono font-bold w-10 text-right">{score.toFixed(1)}</span>
+    </div>
+  );
 }
 
-function getApprovalRate(c: ContributorProfile) {
-  const total = getTotalPRs(c);
-  return total > 0 ? Math.round((c.totalApprovals / total) * 100) : 0;
+function PayBadge({ sharePercent }: { sharePercent: number }) {
+  if (sharePercent <= 0) return null;
+  return (
+    <span className="inline-flex items-center rounded-full bg-eliza-gold/10 border border-eliza-gold/30 px-2 py-0.5 text-xs font-mono text-eliza-gold">
+      {sharePercent.toFixed(1)}%
+    </span>
+  );
 }
 
 export function Leaderboard({ contributors }: LeaderboardProps) {
-  return (
-    <>
-      <div className="hidden md:block overflow-hidden rounded-lg border border-border">
-        <div className="grid grid-cols-[3rem_1fr_6rem_6rem_7rem] items-center gap-2 border-b border-border bg-muted/50 px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-          <span>#</span>
-          <span>Contributor</span>
-          <span className="text-center">PRs</span>
-          <span className="text-center">Approval</span>
-          <span className="text-right">Last Active</span>
-        </div>
+  if (contributors.length === 0) {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8 text-center text-muted-foreground">
+        No contributors found.
+      </div>
+    );
+  }
 
-        <div className="divide-y divide-border">
-          {contributors.map((contributor, index) => (
-            <DesktopRow key={contributor.username} contributor={contributor} rank={index + 1} />
-          ))}
-        </div>
+  return (
+    <div className="rounded-xl border border-border bg-card overflow-hidden">
+      {/* Desktop table */}
+      <div className="hidden md:block">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border text-xs text-muted-foreground uppercase tracking-wide">
+              <th className="px-4 py-3 text-left w-10">#</th>
+              <th className="px-4 py-3 text-left">Contributor</th>
+              <th className="px-4 py-3 text-left">elizaEffect</th>
+              <th className="px-4 py-3 text-right">PRs</th>
+              <th className="px-4 py-3 text-right">Reviews</th>
+              <th className="px-4 py-3 text-right">elizaPay</th>
+              <th className="px-4 py-3 text-right">Last Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contributors.map((c) => {
+              const totalPRs = c.githubEvents.filter((e) => e.type === "pr_merged").length;
+              const totalReviews = c.githubEvents.filter((e) => e.type === "review_given").length;
+
+              return (
+                <tr key={c.username} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                  <td className="px-4 py-3 text-muted-foreground font-mono text-xs">
+                    {c.elizaEffect.rank}
+                  </td>
+                  <td className="px-4 py-3">
+                    <Link href={`/contributor/${c.username}`} className="flex items-center gap-3 hover:text-accent transition-colors">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={c.avatarUrl} alt="" className="h-8 w-8 rounded-full border border-border bg-muted" />
+                      <span className="font-medium">{c.username}</span>
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3">
+                    <EffectBar
+                      score={c.elizaEffect.total}
+                      github={c.elizaEffect.github.total}
+                      social={c.elizaEffect.social.total}
+                    />
+                  </td>
+                  <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalPRs}</td>
+                  <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalReviews}</td>
+                  <td className="px-4 py-3 text-right">
+                    <PayBadge sharePercent={c.elizaPay?.sharePercent ?? 0} />
+                  </td>
+                  <td className="px-4 py-3 text-right text-xs text-muted-foreground">
+                    {formatRelativeTime(c.lastActiveAt)}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
-      <div className="md:hidden grid gap-3">
-        {contributors.map((contributor, index) => (
-          <MobileCard key={contributor.username} contributor={contributor} rank={index + 1} />
+      {/* Mobile cards */}
+      <div className="md:hidden divide-y divide-border">
+        {contributors.map((c) => (
+          <Link
+            key={c.username}
+            href={`/contributor/${c.username}`}
+            className="flex items-center gap-3 px-4 py-3 hover:bg-muted/30 transition-colors"
+          >
+            <span className="text-xs text-muted-foreground font-mono w-6">{c.elizaEffect.rank}</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={c.avatarUrl} alt="" className="h-8 w-8 rounded-full border border-border bg-muted" />
+            <div className="flex-1 min-w-0">
+              <div className="font-medium text-sm truncate">{c.username}</div>
+              <div className="flex items-center gap-2 mt-1">
+                <EffectBar
+                  score={c.elizaEffect.total}
+                  github={c.elizaEffect.github.total}
+                  social={c.elizaEffect.social.total}
+                />
+              </div>
+            </div>
+            <PayBadge sharePercent={c.elizaPay?.sharePercent ?? 0} />
+          </Link>
         ))}
       </div>
-    </>
-  );
-}
-
-function DesktopRow({ contributor, rank }: { contributor: ContributorProfile; rank: number }) {
-  const totalPRs = getTotalPRs(contributor);
-  const approvalRate = getApprovalRate(contributor);
-
-  return (
-    <Link
-      href={`/contributor/${contributor.username}`}
-      className="grid grid-cols-[3rem_1fr_6rem_6rem_7rem] items-center gap-2 px-4 py-3 hover:bg-muted/30 transition-colors"
-    >
-      <span className="text-sm font-mono text-muted-foreground">
-        {rank <= 3 ? ["🥇", "🥈", "🥉"][rank - 1] : rank}
-      </span>
-
-      <div className="flex items-center gap-3 min-w-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`https://github.com/${contributor.username}.png`}
-          alt={contributor.username}
-          className="h-8 w-8 rounded-full bg-muted flex-shrink-0"
-          loading="lazy"
-        />
-        <div className="font-medium text-sm truncate">{contributor.username}</div>
-      </div>
-
-      <div className="text-center text-sm font-mono">{totalPRs}</div>
-
-      <div className="text-center text-sm">
-        {totalPRs > 0 && <span className="font-mono">{approvalRate}%</span>}
-      </div>
-
-      <div className="text-right text-xs text-muted-foreground">{formatRelativeTime(contributor.lastEventAt)}</div>
-    </Link>
-  );
-}
-
-function MobileCard({ contributor, rank }: { contributor: ContributorProfile; rank: number }) {
-  const totalPRs = getTotalPRs(contributor);
-  const approvalRate = getApprovalRate(contributor);
-
-  return (
-    <Link
-      href={`/contributor/${contributor.username}`}
-      className="rounded-lg border border-border bg-card p-3 hover:bg-muted/30 transition-colors"
-    >
-      <div className="flex items-center gap-2 mb-2">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`https://github.com/${contributor.username}.png`}
-          alt={contributor.username}
-          className="h-9 w-9 rounded-full bg-muted"
-          loading="lazy"
-        />
-        <div className="min-w-0">
-          <div className="font-medium text-sm truncate">{rank}. {contributor.username}</div>
-          <div className="text-xs text-muted-foreground">{formatRelativeTime(contributor.lastEventAt)}</div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2 text-xs">
-        <div>
-          <div className="text-muted-foreground">PRs</div>
-          <div className="font-mono font-semibold">{totalPRs}</div>
-        </div>
-        <div>
-          <div className="text-muted-foreground">Approval</div>
-          <div className="font-mono font-semibold">{approvalRate}%</div>
-        </div>
-      </div>
-    </Link>
+    </div>
   );
 }

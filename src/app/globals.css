@@ -13,14 +13,17 @@
   --color-primary: #A855F7;
   --color-primary-foreground: #FFFFFF;
 
-  /* Trust tier colors */
-  --color-tier-legendary: #F59E0B;
-  --color-tier-trusted: #10B981;
-  --color-tier-established: #3B82F6;
-  --color-tier-contributing: #06B6D4;
-  --color-tier-probationary: #F97316;
-  --color-tier-untested: #6B7280;
-  --color-tier-restricted: #EF4444;
+  /* elizaEffect colors */
+  --color-eliza-purple: #A855F7;
+  --color-eliza-blue: #3B82F6;
+  --color-eliza-cyan: #06B6D4;
+  --color-eliza-green: #10B981;
+  --color-eliza-gold: #F59E0B;
+  --color-eliza-pink: #EC4899;
+
+  /* Score dimension colors */
+  --color-github: #3B82F6;
+  --color-social: #EC4899;
 
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }

@@ -4,49 +4,45 @@ import { useMemo, useState } from "react";
 import { ActivityFeed } from "@/components/activity-feed";
 import { Leaderboard } from "@/components/leaderboard";
 import { StatsBar } from "@/components/stats-bar";
-import { getGeneratedAt, loadContributors, loadStats } from "@/lib/data-loader";
+import { getGeneratedAt, loadProject } from "@/lib/data-loader";
 
-type SortKey = "recent" | "approvalRate" | "prCount" | "username";
+type SortKey = "elizaEffect" | "elizaPay" | "github" | "social" | "recent" | "username";
 
 const SORT_OPTIONS: Array<{ key: SortKey; label: string }> = [
+  { key: "elizaEffect", label: "elizaEffect Score" },
+  { key: "elizaPay", label: "elizaPay Share" },
+  { key: "github", label: "GitHub Score" },
+  { key: "social", label: "Social Score" },
   { key: "recent", label: "Recent Activity" },
-  { key: "approvalRate", label: "Approval Rate" },
-  { key: "prCount", label: "PR Count" },
   { key: "username", label: "Username" },
 ];
 
-const allContributors = loadContributors();
-const stats = loadStats();
+const project = loadProject();
 const generatedAt = getGeneratedAt();
-
-function getTotalPRs(c: (typeof allContributors)[number]) {
-  return c.totalApprovals + c.totalRejections + c.totalCloses + c.totalSelfCloses;
-}
-
-function getApprovalRate(c: (typeof allContributors)[number]) {
-  const total = getTotalPRs(c);
-  return total > 0 ? (c.totalApprovals / total) * 100 : 0;
-}
 
 export default function HomePage() {
   const [search, setSearch] = useState("");
-  const [sortBy, setSortBy] = useState<SortKey>("recent");
+  const [sortBy, setSortBy] = useState<SortKey>("elizaEffect");
 
   const filteredSorted = useMemo(() => {
     const searchLower = search.trim().toLowerCase();
 
-    const filtered = allContributors.filter((contributor) => {
-      return searchLower.length === 0 || contributor.username.toLowerCase().includes(searchLower);
+    const filtered = project.contributors.filter((c) => {
+      return searchLower.length === 0 || c.username.toLowerCase().includes(searchLower);
     });
 
     return filtered.sort((a, b) => {
       switch (sortBy) {
+        case "elizaEffect":
+          return b.elizaEffect.total - a.elizaEffect.total;
+        case "elizaPay":
+          return (b.elizaPay?.sharePercent ?? 0) - (a.elizaPay?.sharePercent ?? 0);
+        case "github":
+          return b.elizaEffect.github.total - a.elizaEffect.github.total;
+        case "social":
+          return b.elizaEffect.social.total - a.elizaEffect.social.total;
         case "recent":
-          return new Date(b.lastEventAt || 0).getTime() - new Date(a.lastEventAt || 0).getTime();
-        case "approvalRate":
-          return getApprovalRate(b) - getApprovalRate(a);
-        case "prCount":
-          return getTotalPRs(b) - getTotalPRs(a);
+          return new Date(b.lastActiveAt || 0).getTime() - new Date(a.lastActiveAt || 0).getTime();
         case "username":
           return a.username.localeCompare(b.username);
         default:
@@ -58,13 +54,29 @@ export default function HomePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold mb-1">Contributor Dashboard</h2>
+        <h2 className="text-2xl font-bold mb-1">
+          <span className="text-accent">eliza</span>Effect Leaderboard
+        </h2>
         <p className="text-sm text-muted-foreground">
-          Activity overview for milady-ai/milaidy contributors.
+          Combined GitHub contribution + social impact scoring for {project.repoFullName}.
+          {" "}Weights: {Math.round(project.config.githubWeight * 100)}% GitHub / {Math.round(project.config.socialWeight * 100)}% Social.
         </p>
       </div>
 
-      <StatsBar stats={stats} generatedAt={generatedAt} />
+      <StatsBar stats={project.stats} generatedAt={generatedAt} />
+
+      {/* Legend */}
+      <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-github" /> GitHub
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-social" /> Social
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-eliza-gold" /> elizaPay share (quadratic)
+        </span>
+      </div>
 
       <section className="rounded-lg border border-border bg-card p-4 space-y-3">
         <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-center">
@@ -72,7 +84,7 @@ export default function HomePage() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search username..."
+            placeholder="Search contributor..."
             className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
           />
           <div className="flex items-center gap-2">
@@ -91,7 +103,7 @@ export default function HomePage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          <span>{filteredSorted.length} of {allContributors.length} contributors</span>
+          <span>{filteredSorted.length} of {project.contributors.length} contributors</span>
           <span>· sort: {SORT_OPTIONS.find((s) => s.key === sortBy)?.label}</span>
           {search && <span>· search: &quot;{search}&quot;</span>}
         </div>
@@ -99,7 +111,7 @@ export default function HomePage() {
 
       <Leaderboard contributors={filteredSorted} />
 
-      <ActivityFeed contributors={allContributors} />
+      <ActivityFeed contributors={project.contributors} />
 
       <footer className="text-center text-xs text-muted-foreground py-4 space-x-2">
         <a
@@ -108,9 +120,9 @@ export default function HomePage() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Data from milady-ai/milaidy
+          Data from {project.repoFullName}
         </a>
-        <span>· Built by agents, for agents</span>
+        <span>· elizaEffect scoring · quadratic elizaPay distribution</span>
       </footer>
     </div>
   );

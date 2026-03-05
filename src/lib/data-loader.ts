@@ -1,50 +1,51 @@
+// ---------------------------------------------------------------------------
+// Data Loader — Loads legacy trust-scores.json and builds elizaEffect project
+// ---------------------------------------------------------------------------
+
 import trustData from "@/data/trust-scores.json";
-import type { ContributorProfile } from "./contributor-types";
+import { buildProjectFromLegacyData, DEFAULT_CONFIG } from "./eliza-effect";
+import type { Contributor, Project } from "./types";
 
-export interface Stats {
-  totalContributors: number;
-  totalEvents: number;
-}
-
-interface RawContributor {
-  username?: string;
-  avatarUrl?: string;
-  totalApprovals?: number;
-  totalRejections?: number;
-  totalCloses?: number;
+interface LegacyContributor {
+  username: string;
+  avatarUrl: string;
+  totalApprovals: number;
+  totalRejections: number;
+  totalCloses: number;
   totalSelfCloses?: number;
   lastEventAt?: string | null;
   firstSeenAt?: string;
-  events?: ContributorProfile["events"];
+  events: Array<{
+    type: string;
+    timestamp: number;
+    linesChanged?: number;
+    labels?: string[];
+    prNumber?: number;
+  }>;
 }
 
-function normalizeContributors(raw: RawContributor[]): ContributorProfile[] {
-  return raw.map((c) => ({
-    username: c.username ?? "unknown",
-    avatarUrl: c.avatarUrl ?? `https://github.com/${c.username ?? "ghost"}.png`,
-    totalApprovals: c.totalApprovals ?? 0,
-    totalRejections: c.totalRejections ?? 0,
-    totalCloses: c.totalCloses ?? 0,
-    totalSelfCloses: c.totalSelfCloses ?? 0,
-    lastEventAt: c.lastEventAt ?? null,
-    firstSeenAt: c.firstSeenAt ?? new Date().toISOString(),
-    events: c.events ?? [],
-  }));
+let _cachedProject: Project | null = null;
+
+export function loadProject(): Project {
+  if (_cachedProject) return _cachedProject;
+
+  const raw = (trustData as { contributors?: LegacyContributor[] }).contributors ?? [];
+  const generatedAt = (trustData as { generatedAt?: string }).generatedAt;
+
+  _cachedProject = buildProjectFromLegacyData(raw, DEFAULT_CONFIG, generatedAt);
+  return _cachedProject;
 }
 
-export function loadContributors(): ContributorProfile[] {
-  const raw = (trustData.contributors ?? []) as unknown as RawContributor[];
-  return normalizeContributors(raw);
+export function loadContributors(): Contributor[] {
+  return loadProject().contributors;
 }
 
-export function loadStats(): Stats {
-  const s = trustData.stats as { totalContributors?: number; totalEvents?: number };
-  return {
-    totalContributors: s.totalContributors ?? 0,
-    totalEvents: s.totalEvents ?? 0,
-  };
+export function loadContributor(username: string): Contributor | undefined {
+  return loadContributors().find(
+    (c) => c.username.toLowerCase() === username.toLowerCase(),
+  );
 }
 
 export function getGeneratedAt(): string {
-  return trustData.generatedAt;
+  return loadProject().generatedAt;
 }
