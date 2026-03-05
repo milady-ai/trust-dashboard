@@ -1,8 +1,6 @@
 // ---------------------------------------------------------------------------
-// Data Loader — Loads project data and builds elizaEffect project(s)
+// Data Loader — Loads project data and builds elizaEffect project
 // ---------------------------------------------------------------------------
-// Supports single project (current) and multi-project registry.
-// Each project gets its own config, scoring, and hierarchy.
 
 import trustData from "@/data/trust-scores.json";
 import { buildProjectFromLegacyData, DEFAULT_CONFIG } from "./eliza-effect";
