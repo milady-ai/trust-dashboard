@@ -26,10 +26,20 @@ const MAX_IMPACT_POINTS = 15;
 // Recency: half-life of 45 days — gentler decay so recent work stays relevant
 const RECENCY_HALF_LIFE_DAYS = 45;
 
+// ---- Reference Time ---------------------------------------------------------
+// All scoring is relative to a reference timestamp (usually when data was generated).
+// This prevents scores from going stale in static builds.
+
+let _referenceTime = Date.now();
+
+export function setReferenceTime(ms: number): void {
+  _referenceTime = ms;
+}
+
 // ---- Helpers ----------------------------------------------------------------
 
 function recencyWeight(timestampMs: number): number {
-  const daysAgo = Math.max(0, (Date.now() - timestampMs) / 86_400_000);
+  const daysAgo = Math.max(0, (_referenceTime - timestampMs) / 86_400_000);
   return Math.pow(0.5, daysAgo / RECENCY_HALF_LIFE_DAYS);
 }
 
@@ -118,7 +128,7 @@ function scoreParticipation(events: GitHubEvent[]): number {
 function scoreConsistency(events: GitHubEvent[]): number {
   if (events.length === 0) return 0;
 
-  const now = Date.now();
+  const now = _referenceTime;
   const timestamps = events.map((e) => e.timestamp);
   const earliest = Math.min(...timestamps);
   const latest = Math.max(...timestamps);

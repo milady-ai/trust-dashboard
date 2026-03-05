@@ -49,7 +49,7 @@ export default async function ContributorDetailPage({
             <div>
               <h1 className="text-2xl md:text-3xl font-bold">@{c.username}</h1>
               <p className="text-sm text-muted-foreground">
-                Rank #{c.elizaEffect.rank} · Top {100 - c.elizaEffect.percentile}%
+                Rank #{c.elizaEffect.rank} · Top {Math.max(1, 100 - c.elizaEffect.percentile)}%
               </p>
             </div>
           </div>
@@ -143,7 +143,7 @@ export default async function ContributorDetailPage({
             .map((event, idx) => (
               <div key={idx} className="px-4 py-3 flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
-                  <span>{event.type === "pr_merged" ? "✅" : event.type === "review_given" ? "👁️" : event.type === "issue_closed" ? "🔧" : "⛔"}</span>
+                  <span>{event.type === "pr_merged" ? "✅" : event.type === "pr_rejected" ? "❌" : event.type === "review_given" ? "👁️" : event.type === "issue_closed" ? "🔧" : "⛔"}</span>
                   <span>{event.prNumber ? `PR #${event.prNumber}` : event.issueNumber ? `Issue #${event.issueNumber}` : "—"}</span>
                   <span className="text-muted-foreground">· {event.type.replace("_", " ")}</span>
                 </div>

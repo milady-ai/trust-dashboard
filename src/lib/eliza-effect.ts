@@ -15,8 +15,8 @@ import type {
   ProjectStats,
   SocialPost,
 } from "./types";
-import { computeGitHubScore, convertLegacyEvent } from "./github-scoring";
-import { computeSocialScore } from "./social-scoring";
+import { computeGitHubScore, convertLegacyEvent, setReferenceTime } from "./github-scoring";
+import { computeSocialScore, setSocialReferenceTime } from "./social-scoring";
 
 // ---- Default Config ---------------------------------------------------------
 
@@ -57,6 +57,7 @@ export function computeElizaEffect(
 export function computeElizaPay(
   contributors: Array<{ username: string; elizaEffect: number }>,
   totalPool?: number,
+  generatedAt?: string,
 ): ElizaPayDistribution {
   const withSqrt = contributors.map((c) => ({
     username: c.username,
@@ -85,7 +86,7 @@ export function computeElizaPay(
     projectId: DEFAULT_CONFIG.projectId,
     totalPool,
     shares,
-    generatedAt: new Date().toISOString(),
+    generatedAt: generatedAt || new Date().toISOString(),
   };
 }
 
@@ -99,8 +100,11 @@ function assignRanks(contributors: Contributor[]): void {
 
   for (let i = 0; i < sorted.length; i++) {
     sorted[i].elizaEffect.rank = i + 1;
+    // Percentile = what % of contributors scored below you
+    // Rank 1 of 27 → percentile = round((27-1)/27 * 100) = 96
+    // Rank 27 of 27 → percentile = round((27-27)/27 * 100) = 0
     sorted[i].elizaEffect.percentile =
-      total > 1 ? Math.round(((total - 1 - i) / (total - 1)) * 100) : 100;
+      total > 1 ? Math.round(((total - (i + 1)) / total) * 100) : 100;
   }
 }
 
@@ -127,6 +131,11 @@ export function buildProjectFromLegacyData(
   config: ElizaEffectConfig = DEFAULT_CONFIG,
   generatedAt?: string,
 ): Project {
+  // Pin scoring to the data generation timestamp so scores don't go stale in static builds
+  const refTime = generatedAt ? new Date(generatedAt).getTime() : Date.now();
+  setReferenceTime(refTime);
+  setSocialReferenceTime(refTime);
+
   const contributors: Contributor[] = rawContributors.map((raw) => {
     const githubEvents = raw.events.map(convertLegacyEvent);
     const socialPosts: SocialPost[] = []; // no social data yet
@@ -141,7 +150,7 @@ export function buildProjectFromLegacyData(
       socialPosts,
       socialProfiles: [],
       referralCount,
-      firstSeenAt: raw.firstSeenAt ?? new Date().toISOString(),
+      firstSeenAt: raw.firstSeenAt ?? (generatedAt || new Date().toISOString()),
       lastActiveAt: raw.lastEventAt ?? null,
       elizaEffect,
     };
@@ -152,6 +161,8 @@ export function buildProjectFromLegacyData(
   // Compute elizaPay shares
   const payData = computeElizaPay(
     contributors.map((c) => ({ username: c.username, elizaEffect: c.elizaEffect.total })),
+    undefined,
+    generatedAt,
   );
   for (const contributor of contributors) {
     contributor.elizaPay = payData.shares.find((s) => s.username === contributor.username);

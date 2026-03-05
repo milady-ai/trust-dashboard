@@ -21,10 +21,18 @@ const MAX_REFERRAL_POINTS = 10;
 
 const RECENCY_HALF_LIFE_DAYS = 30; // social decays a bit faster than code (45d)
 
+// ---- Reference Time ---------------------------------------------------------
+
+let _referenceTime = Date.now();
+
+export function setSocialReferenceTime(ms: number): void {
+  _referenceTime = ms;
+}
+
 // ---- Helpers ----------------------------------------------------------------
 
 function recencyWeight(timestampMs: number): number {
-  const daysAgo = Math.max(0, (Date.now() - timestampMs) / 86_400_000);
+  const daysAgo = Math.max(0, (_referenceTime - timestampMs) / 86_400_000);
   return Math.pow(0.5, daysAgo / RECENCY_HALF_LIFE_DAYS);
 }
 
