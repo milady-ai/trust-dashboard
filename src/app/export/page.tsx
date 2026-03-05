@@ -25,7 +25,7 @@ export default function ExportPage() {
           &larr; Back to Leaderboard
         </Link>
         <h2 className="text-2xl font-bold mb-1">
-          <span className="text-accent">eliza</span>Pay Distribution Export
+          <span className="brand-gradient">eliza</span>Pay Distribution Export
         </h2>
         <p className="text-sm text-muted-foreground">
           Quadratic distribution derived from elizaEffect scores for creator
@@ -171,31 +171,24 @@ export default function ExportPage() {
           API Endpoint
         </h3>
         <p className="text-sm text-muted-foreground">
-          The distribution data is available programmatically via the{" "}
+          The distribution data is available as JSON via{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-eliza-purple">
             /api/export
-          </code>{" "}
-          endpoint. Pass chain and pool size parameters to get computed payouts
-          for on-chain distribution.
+          </code>
+          . Returns all recipients with elizaEffect scores, share percentages,
+          tiers, and ranks.
         </p>
         <div className="rounded-md border border-border bg-background p-3">
-          <p className="text-xs text-muted-foreground mb-1.5">
-            Example request:
-          </p>
           <code className="block font-mono text-sm text-eliza-blue break-all">
-            /api/export?chain=ethereum&totalPool=1000000
+            GET /api/export
           </code>
         </div>
-        <div className="text-xs text-muted-foreground space-y-1">
+        <div className="text-xs text-muted-foreground">
           <p>
-            <span className="font-mono text-eliza-green">chain</span> &mdash;
-            Target chain:{" "}
-            {CHAINS.map((c) => c.toLowerCase()).join(", ")}
-          </p>
-          <p>
-            <span className="font-mono text-eliza-green">totalPool</span>{" "}
-            &mdash; Total token pool to distribute (computes estimated payouts
-            per recipient)
+            Returns: <span className="font-mono text-eliza-green">chainTarget</span>,{" "}
+            <span className="font-mono text-eliza-green">recipients[]</span>,{" "}
+            <span className="font-mono text-eliza-green">availableChains</span>,{" "}
+            <span className="font-mono text-eliza-green">generatedAt</span>
           </p>
         </div>
       </section>

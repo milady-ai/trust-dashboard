@@ -121,7 +121,7 @@ export function generateOnChainExport(
 ): OnChainExport {
   const recipients: OnChainRecipient[] = project.contributors.map((c) => ({
     username: c.username,
-    walletAddress: undefined, // to be linked by users
+    walletAddress: undefined,
     elizaEffect: c.elizaEffect.total,
     sharePercent: c.elizaPay?.sharePercent ?? 0,
     estimatedPayout: totalPool && c.elizaPay
@@ -172,7 +172,7 @@ export function buildProjectFromLegacyData(
 
   const contributors: Contributor[] = rawContributors.map((raw) => {
     const githubEvents = raw.events.map(convertLegacyEvent);
-    const socialPosts: SocialPost[] = []; // no social data yet
+    const socialPosts: SocialPost[] = [];
     const referralCount = 0;
 
     const elizaEffect = computeElizaEffect(githubEvents, socialPosts, referralCount, config);

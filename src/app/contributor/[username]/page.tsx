@@ -149,7 +149,7 @@ export default async function ContributorDetailPage({
             </div>
           ) : (
             <p className="text-xs text-muted-foreground">
-              No social posts linked yet. Counts for {Math.round((1 - 0.6) * 100)}% of elizaEffect when active.
+              No social posts linked yet.
             </p>
           )}
         </div>
