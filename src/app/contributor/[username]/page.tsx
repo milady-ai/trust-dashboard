@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { loadContributor, loadContributors } from "@/lib/data-loader";
+import { loadContributor, loadContributors, loadContributorAcrossProjects } from "@/lib/data-loader";
 import { formatRelativeTime } from "@/lib/utils";
+import { getTierColor, getTierBgColor } from "@/lib/hierarchy";
 
 export const dynamicParams = false;
 
@@ -15,6 +16,7 @@ export default async function ContributorDetailPage({
 }) {
   const { username } = await params;
   const contributor = loadContributor(username);
+  const { globalEntry } = loadContributorAcrossProjects(username);
 
   if (!contributor) {
     return (
@@ -93,6 +95,34 @@ export default async function ContributorDetailPage({
           <div className="text-xl font-bold font-mono mt-0.5">{c.githubEvents.length}</div>
         </div>
       </section>
+
+      {/* Position & Tier */}
+      {c.hierarchy && (
+        <section className="rounded-xl border bg-card p-4 md:p-5" style={{}}>
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className={`inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold ${getTierBgColor(c.hierarchy.tier)} ${getTierColor(c.hierarchy.tier)}`}>
+                  {c.hierarchy.tierLabel}
+                </span>
+                <span className="text-sm text-muted-foreground">{c.hierarchy.tierDescription}</span>
+              </div>
+              {c.hierarchy.projectRoles.length > 0 && (
+                <div className="mt-2 text-sm text-muted-foreground">
+                  Role: <span className="font-medium text-foreground capitalize">{c.hierarchy.projectRoles[0].role}</span>
+                </div>
+              )}
+            </div>
+            {globalEntry && (
+              <div className="text-left md:text-right">
+                <div className="text-xs text-muted-foreground">Global Rank</div>
+                <div className="text-2xl font-bold font-mono">#{globalEntry.globalRank}</div>
+                <div className="text-xs text-muted-foreground">across {globalEntry.projects.length} project{globalEntry.projects.length !== 1 ? 's' : ''}</div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Score Breakdown */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4">

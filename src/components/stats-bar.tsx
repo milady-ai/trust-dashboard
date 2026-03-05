@@ -6,9 +6,10 @@ import { formatRelativeTime } from "@/lib/utils";
 interface StatsBarProps {
   stats: ProjectStats;
   generatedAt: string;
+  topTier?: string;
 }
 
-export function StatsBar({ stats, generatedAt }: StatsBarProps) {
+export function StatsBar({ stats, generatedAt, topTier }: StatsBarProps) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
       <StatCard label="Contributors" value={stats.totalContributors.toString()} />
@@ -16,6 +17,7 @@ export function StatsBar({ stats, generatedAt }: StatsBarProps) {
       <StatCard label="Social Posts" value={stats.totalSocialPosts.toString()} />
       <StatCard label="Avg elizaEffect" value={stats.avgElizaEffect.toFixed(1)} accent />
       <StatCard label="Last Updated" value={formatRelativeTime(generatedAt)} />
+      {topTier && <StatCard label="Top Tier" value={topTier} />}
     </div>
   );
 }

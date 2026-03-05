@@ -73,6 +73,25 @@ export interface ElizaEffectScore {
   percentile: number;         // 0–100
 }
 
+// ---- Hierarchy & Positioning ------------------------------------------------
+
+export type HierarchyTier = "core" | "active" | "contributor" | "emerging" | "new";
+
+export interface HierarchyPosition {
+  tier: HierarchyTier;
+  tierLabel: string;
+  tierDescription: string;
+  tierThreshold: number;      // minimum elizaEffect for this tier
+  projectRoles: ProjectRole[];
+}
+
+export interface ProjectRole {
+  projectId: string;
+  role: "lead" | "maintainer" | "contributor" | "participant";
+  rank: number;
+  elizaEffect: number;
+}
+
 // ---- elizaPay (Quadratic Distribution) --------------------------------------
 
 export interface ElizaPayShare {
@@ -90,6 +109,30 @@ export interface ElizaPayDistribution {
   generatedAt: string;
 }
 
+// ---- On-Chain Export --------------------------------------------------------
+
+export type ChainTarget = "ethereum" | "solana" | "base" | "arbitrum";
+
+export interface OnChainExport {
+  chainTarget: ChainTarget;
+  projectId: string;
+  projectName: string;
+  tokenAddress?: string;
+  totalPool?: number;
+  generatedAt: string;
+  recipients: OnChainRecipient[];
+}
+
+export interface OnChainRecipient {
+  username: string;
+  walletAddress?: string;     // if linked
+  elizaEffect: number;
+  sharePercent: number;
+  estimatedPayout?: number;
+  rank: number;
+  tier: HierarchyTier;
+}
+
 // ---- Contributor (per-project) ----------------------------------------------
 
 export interface Contributor {
@@ -103,6 +146,29 @@ export interface Contributor {
   lastActiveAt: string | null;
   elizaEffect: ElizaEffectScore;
   elizaPay?: ElizaPayShare;
+  hierarchy?: HierarchyPosition;
+}
+
+// ---- Cross-Project Contributor View -----------------------------------------
+
+export interface CrossProjectProfile {
+  username: string;
+  avatarUrl: string;
+  projects: CrossProjectEntry[];
+  aggregateElizaEffect: number;  // sum across projects
+  totalElizaPay: number;         // combined pay share concept
+  globalRank: number;
+  tier: HierarchyTier;
+}
+
+export interface CrossProjectEntry {
+  projectId: string;
+  projectName: string;
+  repoFullName: string;
+  elizaEffect: number;
+  rank: number;
+  elizaPayShare: number;
+  tier: HierarchyTier;
 }
 
 // ---- Project ----------------------------------------------------------------
@@ -123,4 +189,37 @@ export interface ProjectStats {
   totalSocialPosts: number;
   avgElizaEffect: number;
   topContributor: string;
+}
+
+// ---- Project Registry (multi-project) ---------------------------------------
+
+export interface ProjectRegistry {
+  projects: ProjectSummary[];
+  globalLeaderboard: GlobalLeaderboardEntry[];
+  generatedAt: string;
+}
+
+export interface ProjectSummary {
+  id: string;
+  name: string;
+  repoFullName: string;
+  contributorCount: number;
+  avgElizaEffect: number;
+  topContributor: string;
+  generatedAt: string;
+}
+
+export interface GlobalLeaderboardEntry {
+  username: string;
+  avatarUrl: string;
+  projects: Array<{
+    projectId: string;
+    projectName: string;
+    elizaEffect: number;
+    rank: number;
+    elizaPayShare: number;
+  }>;
+  aggregateElizaEffect: number;
+  globalRank: number;
+  tier: HierarchyTier;
 }

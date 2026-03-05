@@ -75,7 +75,7 @@ export default function HomePage() {
         </p>
       </div>
 
-      <StatsBar stats={project.stats} generatedAt={generatedAt} />
+      <StatsBar stats={project.stats} generatedAt={generatedAt} topTier={project.contributors[0]?.hierarchy?.tierLabel} />
 
       {/* Legend */}
       <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">

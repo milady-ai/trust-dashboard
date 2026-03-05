@@ -2,7 +2,8 @@
 // elizaEffect — Combined Scoring & elizaPay Distribution
 // ---------------------------------------------------------------------------
 // Combines GitHub contribution score and social impact score into a single
-// elizaEffect score per contributor, then computes quadratic elizaPay shares.
+// elizaEffect score per contributor, then computes quadratic elizaPay shares
+// and assigns hierarchy positioning.
 
 import type {
   Contributor,
@@ -11,12 +12,16 @@ import type {
   ElizaPayDistribution,
   ElizaPayShare,
   GitHubEvent,
+  OnChainExport,
+  OnChainRecipient,
+  ChainTarget,
   Project,
   ProjectStats,
   SocialPost,
 } from "./types";
 import { computeGitHubScore, convertLegacyEvent, setReferenceTime } from "./github-scoring";
 import { computeSocialScore, setSocialReferenceTime } from "./social-scoring";
+import { assignHierarchy } from "./hierarchy";
 
 // ---- Default Config ---------------------------------------------------------
 
@@ -56,6 +61,7 @@ export function computeElizaEffect(
 
 export function computeElizaPay(
   contributors: Array<{ username: string; elizaEffect: number }>,
+  projectId: string,
   totalPool?: number,
   generatedAt?: string,
 ): ElizaPayDistribution {
@@ -83,7 +89,7 @@ export function computeElizaPay(
   shares.sort((a, b) => b.sharePercent - a.sharePercent);
 
   return {
-    projectId: DEFAULT_CONFIG.projectId,
+    projectId,
     totalPool,
     shares,
     generatedAt: generatedAt || new Date().toISOString(),
@@ -100,12 +106,40 @@ function assignRanks(contributors: Contributor[]): void {
 
   for (let i = 0; i < sorted.length; i++) {
     sorted[i].elizaEffect.rank = i + 1;
-    // Percentile = what % of contributors scored below you
-    // Rank 1 of 27 → percentile = round((27-1)/27 * 100) = 96
-    // Rank 27 of 27 → percentile = round((27-27)/27 * 100) = 0
     sorted[i].elizaEffect.percentile =
       total > 1 ? Math.round(((total - (i + 1)) / total) * 100) : 100;
   }
+}
+
+// ---- On-Chain Export Generation ---------------------------------------------
+
+export function generateOnChainExport(
+  project: Project,
+  chainTarget: ChainTarget,
+  tokenAddress?: string,
+  totalPool?: number,
+): OnChainExport {
+  const recipients: OnChainRecipient[] = project.contributors.map((c) => ({
+    username: c.username,
+    walletAddress: undefined, // to be linked by users
+    elizaEffect: c.elizaEffect.total,
+    sharePercent: c.elizaPay?.sharePercent ?? 0,
+    estimatedPayout: totalPool && c.elizaPay
+      ? Math.round((c.elizaPay.sharePercent / 100) * totalPool * 100) / 100
+      : undefined,
+    rank: c.elizaEffect.rank,
+    tier: c.hierarchy?.tier ?? "new",
+  }));
+
+  return {
+    chainTarget,
+    projectId: project.id,
+    projectName: project.name,
+    tokenAddress,
+    totalPool,
+    generatedAt: project.generatedAt,
+    recipients,
+  };
 }
 
 // ---- Build Full Project from Legacy Data ------------------------------------
@@ -158,9 +192,13 @@ export function buildProjectFromLegacyData(
 
   assignRanks(contributors);
 
+  // Assign hierarchy tiers and roles
+  assignHierarchy(contributors, config.projectId);
+
   // Compute elizaPay shares
   const payData = computeElizaPay(
     contributors.map((c) => ({ username: c.username, elizaEffect: c.elizaEffect.total })),
+    config.projectId,
     undefined,
     generatedAt,
   );

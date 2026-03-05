@@ -39,6 +39,7 @@ export default function RootLayout({
             </div>
             <nav className="flex items-center gap-4 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-foreground transition-colors">Leaderboard</Link>
+              <Link href="/export" className="hover:text-foreground transition-colors">Export</Link>
               <a
                 href="https://github.com/milady-ai/milaidy"
                 target="_blank"
