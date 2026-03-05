@@ -20,8 +20,8 @@ export interface GitHubEvent {
 export interface GitHubScore {
   total: number;              // 0–100
   prs: number;               // points from merged PRs (complexity-weighted)
-  reviews: number;            // points from code reviews given
-  issues: number;             // points from issues closed
+  reviews: number;            // "participation" — reviews, closes, rejections (showing up)
+  issues: number;             // "impact" — depth of top contributions
   consistency: number;        // points from regular activity over time
 }
 

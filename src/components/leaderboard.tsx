@@ -51,16 +51,16 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
               <th className="px-4 py-3 text-left w-10">#</th>
               <th className="px-4 py-3 text-left">Contributor</th>
               <th className="px-4 py-3 text-left">elizaEffect</th>
-              <th className="px-4 py-3 text-right">PRs</th>
-              <th className="px-4 py-3 text-right">Reviews</th>
+              <th className="px-4 py-3 text-right">Merged</th>
+              <th className="px-4 py-3 text-right">Events</th>
               <th className="px-4 py-3 text-right">elizaPay</th>
               <th className="px-4 py-3 text-right">Last Active</th>
             </tr>
           </thead>
           <tbody>
             {contributors.map((c) => {
-              const totalPRs = c.githubEvents.filter((e) => e.type === "pr_merged").length;
-              const totalReviews = c.githubEvents.filter((e) => e.type === "review_given").length;
+              const totalMerged = c.githubEvents.filter((e) => e.type === "pr_merged").length;
+              const totalEvents = c.githubEvents.length;
 
               return (
                 <tr key={c.username} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
@@ -81,8 +81,8 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
                       social={c.elizaEffect.social.total}
                     />
                   </td>
-                  <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalPRs}</td>
-                  <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalReviews}</td>
+                  <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalMerged}</td>
+                  <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalEvents}</td>
                   <td className="px-4 py-3 text-right">
                     <PayBadge sharePercent={c.elizaPay?.sharePercent ?? 0} />
                   </td>

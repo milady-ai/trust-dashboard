@@ -19,7 +19,7 @@ const MAX_CONTENT_POINTS = 35;
 const MAX_ENGAGEMENT_POINTS = 25;
 const MAX_REFERRAL_POINTS = 10;
 
-const RECENCY_HALF_LIFE_DAYS = 21; // social decays faster than code
+const RECENCY_HALF_LIFE_DAYS = 30; // social decays a bit faster than code (45d)
 
 // ---- Helpers ----------------------------------------------------------------
 

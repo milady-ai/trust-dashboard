@@ -26,9 +26,10 @@ export default async function ContributorDetailPage({
   }
 
   const c = contributor;
-  const totalPRs = c.githubEvents.filter((e) => e.type === "pr_merged").length;
-  const totalReviews = c.githubEvents.filter((e) => e.type === "review_given").length;
-  const totalIssues = c.githubEvents.filter((e) => e.type === "issue_closed").length;
+  const totalMerged = c.githubEvents.filter((e) => e.type === "pr_merged").length;
+  const totalParticipation = c.githubEvents.filter((e) =>
+    e.type === "review_given" || e.type === "pr_rejected" || e.type === "pr_closed" || e.type === "issue_closed"
+  ).length;
 
   const gh = c.elizaEffect.github;
   const social = c.elizaEffect.social;
@@ -77,10 +78,10 @@ export default async function ContributorDetailPage({
             <span className="ml-auto text-2xl font-bold font-mono text-github">{gh.total.toFixed(1)}</span>
           </div>
           <div className="space-y-3">
-            <ScoreRow label="PRs Merged" value={gh.prs} max={35} count={totalPRs} />
-            <ScoreRow label="Code Reviews" value={gh.reviews} max={25} count={totalReviews} />
-            <ScoreRow label="Issues Closed" value={gh.issues} max={20} count={totalIssues} />
-            <ScoreRow label="Consistency" value={gh.consistency} max={20} />
+            <ScoreRow label="Merged PRs" value={gh.prs} max={40} count={totalMerged} />
+            <ScoreRow label="Participation" value={gh.reviews} max={20} count={totalParticipation} subtitle="reviews, closes, iterations" />
+            <ScoreRow label="Consistency" value={gh.consistency} max={25} subtitle="active days & weeks" />
+            <ScoreRow label="Impact" value={gh.issues} max={15} subtitle="depth of top PRs" />
           </div>
         </div>
 
@@ -186,7 +187,7 @@ export default async function ContributorDetailPage({
   );
 }
 
-function ScoreRow({ label, value, max, count }: { label: string; value: number; max: number; count?: number }) {
+function ScoreRow({ label, value, max, count, subtitle }: { label: string; value: number; max: number; count?: number; subtitle?: string }) {
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
     <div>
@@ -194,6 +195,7 @@ function ScoreRow({ label, value, max, count }: { label: string; value: number; 
         <span className="text-muted-foreground">
           {label}
           {count !== undefined && <span className="ml-1 opacity-60">({count})</span>}
+          {subtitle && <span className="ml-1 opacity-40 hidden sm:inline">— {subtitle}</span>}
         </span>
         <span className="font-mono">{value.toFixed(1)}/{max}</span>
       </div>
