@@ -6,12 +6,15 @@ import { Leaderboard } from "@/components/leaderboard";
 import { StatsBar } from "@/components/stats-bar";
 import { getGeneratedAt, loadProject } from "@/lib/data-loader";
 
-type SortKey = "elizaEffect" | "elizaPay" | "github" | "social" | "recent" | "username";
+type SortKey = "elizaEffect" | "elizaPay" | "github" | "merged" | "lines" | "consistency" | "social" | "recent" | "username";
 
 const SORT_OPTIONS: Array<{ key: SortKey; label: string }> = [
   { key: "elizaEffect", label: "elizaEffect Score" },
   { key: "elizaPay", label: "elizaPay Share" },
   { key: "github", label: "GitHub Score" },
+  { key: "merged", label: "Merged PRs" },
+  { key: "lines", label: "Lines Changed" },
+  { key: "consistency", label: "Consistency" },
   { key: "social", label: "Social Score" },
   { key: "recent", label: "Recent Activity" },
   { key: "username", label: "Username" },
@@ -32,6 +35,9 @@ export default function HomePage() {
     });
 
     return filtered.sort((a, b) => {
+      const mergedCount = (c: typeof a) => c.githubEvents.filter((e) => e.type === "pr_merged").length;
+      const linesCount = (c: typeof a) => c.githubEvents.filter((e) => e.type === "pr_merged").reduce((s, e) => s + (e.linesChanged ?? 0), 0);
+
       switch (sortBy) {
         case "elizaEffect":
           return b.elizaEffect.total - a.elizaEffect.total;
@@ -39,6 +45,12 @@ export default function HomePage() {
           return (b.elizaPay?.sharePercent ?? 0) - (a.elizaPay?.sharePercent ?? 0);
         case "github":
           return b.elizaEffect.github.total - a.elizaEffect.github.total;
+        case "merged":
+          return mergedCount(b) - mergedCount(a);
+        case "lines":
+          return linesCount(b) - linesCount(a);
+        case "consistency":
+          return b.elizaEffect.github.consistency - a.elizaEffect.github.consistency;
         case "social":
           return b.elizaEffect.social.total - a.elizaEffect.social.total;
         case "recent":

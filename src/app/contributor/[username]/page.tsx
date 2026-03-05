@@ -27,9 +27,15 @@ export default async function ContributorDetailPage({
 
   const c = contributor;
   const totalMerged = c.githubEvents.filter((e) => e.type === "pr_merged").length;
-  const totalParticipation = c.githubEvents.filter((e) =>
-    e.type === "review_given" || e.type === "pr_rejected" || e.type === "pr_closed" || e.type === "issue_closed"
-  ).length;
+  const totalRejected = c.githubEvents.filter((e) => e.type === "pr_rejected").length;
+  const totalClosed = c.githubEvents.filter((e) => e.type === "pr_closed").length;
+  const totalParticipation = totalRejected + totalClosed +
+    c.githubEvents.filter((e) => e.type === "review_given" || e.type === "issue_closed").length;
+  const totalSubmitted = totalMerged + totalRejected + totalClosed;
+  const mergeRate = totalSubmitted > 0 ? Math.round((totalMerged / totalSubmitted) * 100) : 0;
+  const totalLines = c.githubEvents
+    .filter((e) => e.type === "pr_merged")
+    .reduce((sum, e) => sum + (e.linesChanged ?? 0), 0);
 
   const gh = c.elizaEffect.github;
   const social = c.elizaEffect.social;
@@ -68,6 +74,26 @@ export default async function ContributorDetailPage({
         </div>
       </section>
 
+      {/* Quick Stats */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="rounded-lg border border-border bg-card p-3">
+          <div className="text-xs text-muted-foreground">Merged PRs</div>
+          <div className="text-xl font-bold font-mono mt-0.5">{totalMerged}</div>
+        </div>
+        <div className="rounded-lg border border-border bg-card p-3">
+          <div className="text-xs text-muted-foreground">Merge Rate</div>
+          <div className="text-xl font-bold font-mono mt-0.5">{mergeRate}%</div>
+        </div>
+        <div className="rounded-lg border border-border bg-card p-3">
+          <div className="text-xs text-muted-foreground">Lines Contributed</div>
+          <div className="text-xl font-bold font-mono mt-0.5">{totalLines >= 1000 ? `${(totalLines / 1000).toFixed(1)}k` : totalLines}</div>
+        </div>
+        <div className="rounded-lg border border-border bg-card p-3">
+          <div className="text-xs text-muted-foreground">Total Events</div>
+          <div className="text-xl font-bold font-mono mt-0.5">{c.githubEvents.length}</div>
+        </div>
+      </section>
+
       {/* Score Breakdown */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* GitHub Score */}
@@ -79,9 +105,9 @@ export default async function ContributorDetailPage({
           </div>
           <div className="space-y-3">
             <ScoreRow label="Merged PRs" value={gh.prs} max={40} count={totalMerged} />
-            <ScoreRow label="Participation" value={gh.reviews} max={20} count={totalParticipation} subtitle="reviews, closes, iterations" />
+            <ScoreRow label="Participation" value={gh.participation} max={20} count={totalParticipation} subtitle="reviews, closes, iterations" />
             <ScoreRow label="Consistency" value={gh.consistency} max={25} subtitle="active days & weeks" />
-            <ScoreRow label="Impact" value={gh.issues} max={15} subtitle="depth of top PRs" />
+            <ScoreRow label="Impact" value={gh.impact} max={15} subtitle="depth of top PRs" />
           </div>
         </div>
 
@@ -142,10 +168,13 @@ export default async function ContributorDetailPage({
             .slice(0, 20)
             .map((event, idx) => (
               <div key={idx} className="px-4 py-3 flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2">
-                  <span>{event.type === "pr_merged" ? "✅" : event.type === "pr_rejected" ? "❌" : event.type === "review_given" ? "👁️" : event.type === "issue_closed" ? "🔧" : "⛔"}</span>
-                  <span>{event.prNumber ? `PR #${event.prNumber}` : event.issueNumber ? `Issue #${event.issueNumber}` : "—"}</span>
-                  <span className="text-muted-foreground">· {event.type.replace("_", " ")}</span>
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="shrink-0">{event.type === "pr_merged" ? "✅" : event.type === "pr_rejected" ? "❌" : event.type === "review_given" ? "👁️" : event.type === "issue_closed" ? "🔧" : "⛔"}</span>
+                  <span className="shrink-0">{event.prNumber ? `PR #${event.prNumber}` : event.issueNumber ? `Issue #${event.issueNumber}` : "—"}</span>
+                  <span className="text-muted-foreground truncate">· {event.type.replace(/_/g, " ")}</span>
+                  {event.linesChanged != null && event.linesChanged > 0 && (
+                    <span className="text-xs text-muted-foreground/60 shrink-0">{event.linesChanged >= 1000 ? `${(event.linesChanged / 1000).toFixed(1)}k` : event.linesChanged} lines</span>
+                  )}
                 </div>
                 <span className="text-xs text-muted-foreground">{formatRelativeTime(event.timestamp)}</span>
               </div>

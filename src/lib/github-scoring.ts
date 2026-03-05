@@ -206,15 +206,15 @@ function scoreImpact(events: GitHubEvent[]): number {
 
 export function computeGitHubScore(events: GitHubEvent[]): GitHubScore {
   const prs = Math.round(scoreMergedPRs(events) * 10) / 10;
-  const reviews = Math.round(scoreParticipation(events) * 10) / 10;
+  const participation = Math.round(scoreParticipation(events) * 10) / 10;
   const consistency = Math.round(scoreConsistency(events) * 10) / 10;
-  const issues = Math.round(scoreImpact(events) * 10) / 10;
+  const impact = Math.round(scoreImpact(events) * 10) / 10;
 
   return {
-    total: Math.round((prs + reviews + consistency + issues) * 10) / 10,
+    total: Math.round((prs + participation + consistency + impact) * 10) / 10,
     prs,
-    reviews,     // "participation" — reviews + closes + rejections
-    issues,      // "impact" — depth of top contributions
+    participation,
+    impact,
     consistency,
   };
 }

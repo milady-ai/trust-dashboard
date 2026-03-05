@@ -9,14 +9,18 @@ interface LeaderboardProps {
 }
 
 function EffectBar({ score, github, social }: { score: number; github: number; social: number }) {
+  // Show actual fill level (out of 100) with GitHub/Social color proportions inside
+  const fillPct = Math.min(100, score);
   const total = github + social;
-  const githubPct = total > 0 ? (github / total) * 100 : 0;
+  const githubShare = total > 0 ? (github / total) * 100 : 100;
 
   return (
     <div className="flex items-center gap-2 min-w-[140px]">
-      <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden flex">
-        <div className="h-full bg-github" style={{ width: `${githubPct}%` }} />
-        <div className="h-full bg-social" style={{ width: `${100 - githubPct}%` }} />
+      <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
+        <div className="h-full flex rounded-full overflow-hidden" style={{ width: `${fillPct}%` }}>
+          <div className="h-full bg-github" style={{ width: `${githubShare}%` }} />
+          {social > 0 && <div className="h-full bg-social" style={{ width: `${100 - githubShare}%` }} />}
+        </div>
       </div>
       <span className="text-sm font-mono font-bold w-10 text-right">{score.toFixed(1)}</span>
     </div>
@@ -52,7 +56,7 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
               <th className="px-4 py-3 text-left">Contributor</th>
               <th className="px-4 py-3 text-left">elizaEffect</th>
               <th className="px-4 py-3 text-right">Merged</th>
-              <th className="px-4 py-3 text-right">Events</th>
+              <th className="px-4 py-3 text-right">Lines</th>
               <th className="px-4 py-3 text-right">elizaPay</th>
               <th className="px-4 py-3 text-right">Last Active</th>
             </tr>
@@ -60,7 +64,9 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
           <tbody>
             {contributors.map((c) => {
               const totalMerged = c.githubEvents.filter((e) => e.type === "pr_merged").length;
-              const totalEvents = c.githubEvents.length;
+              const totalLines = c.githubEvents
+                .filter((e) => e.type === "pr_merged")
+                .reduce((sum, e) => sum + (e.linesChanged ?? 0), 0);
 
               return (
                 <tr key={c.username} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
@@ -82,7 +88,7 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
                     />
                   </td>
                   <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalMerged}</td>
-                  <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalEvents}</td>
+                  <td className="px-4 py-3 text-right font-mono text-muted-foreground text-xs">{totalLines >= 1000 ? `${(totalLines / 1000).toFixed(1)}k` : totalLines}</td>
                   <td className="px-4 py-3 text-right">
                     <PayBadge sharePercent={c.elizaPay?.sharePercent ?? 0} />
                   </td>

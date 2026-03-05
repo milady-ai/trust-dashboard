@@ -19,10 +19,10 @@ export interface GitHubEvent {
 
 export interface GitHubScore {
   total: number;              // 0–100
-  prs: number;               // points from merged PRs (complexity-weighted)
-  reviews: number;            // "participation" — reviews, closes, rejections (showing up)
-  issues: number;             // "impact" — depth of top contributions
-  consistency: number;        // points from regular activity over time
+  prs: number;               // merged PRs (complexity-weighted)
+  participation: number;      // reviews, closes, rejections (showing up)
+  impact: number;             // depth of top contributions
+  consistency: number;        // regular activity over time
 }
 
 // ---- Social Impact ----------------------------------------------------------
