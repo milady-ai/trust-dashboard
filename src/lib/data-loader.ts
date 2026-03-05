@@ -1,94 +1,50 @@
 import trustData from "@/data/trust-scores.json";
-import {
-  type ContributorData,
-  type TrustStats,
-  getTierConfig,
-  getTierForScore,
-  type TrustTier,
-} from "./trust-scoring";
+import type { ContributorProfile } from "./contributor-types";
+
+export interface Stats {
+  totalContributors: number;
+  totalEvents: number;
+}
 
 interface RawContributor {
   username?: string;
   avatarUrl?: string;
-  trustScore?: number;
-  tier?: TrustTier;
-  tierInfo?: { label?: TrustTier };
-  breakdown?: ContributorData["breakdown"];
-  currentStreak?: { type: "approve" | "negative" | null; length: number };
-  currentStreakType?: "approve" | "negative" | null;
-  currentStreakLength?: number;
   totalApprovals?: number;
   totalRejections?: number;
   totalCloses?: number;
   totalSelfCloses?: number;
   lastEventAt?: string | null;
   firstSeenAt?: string;
-  walletAddress?: string | null;
-  autoMergeEligible?: boolean;
-  events?: ContributorData["events"];
-  scoreHistory?: ContributorData["scoreHistory"];
-  warnings?: string[];
+  events?: ContributorProfile["events"];
 }
 
-function normalizeContributors(raw: RawContributor[]): ContributorData[] {
-  return raw.map((contributor) => {
-    const tierLabel = contributor.tier ?? contributor.tierInfo?.label ?? getTierForScore(contributor.trustScore ?? 0).label;
-    const tier = getTierConfig(tierLabel);
-
-    const currentStreak = contributor.currentStreak ?? {
-      type: contributor.currentStreakType ?? null,
-      length: contributor.currentStreakLength ?? 0,
-    };
-
-    const breakdown = contributor.breakdown ?? {
-      rawPoints: 0,
-      diminishingFactor: 0,
-      recencyWeightedPoints: 0,
-      streakMultiplier: 1,
-      velocityPenalty: 0,
-      inactivityDecay: 0,
-      manualAdjustment: 0,
-      eventDetails: [],
-    };
-
-    return {
-      username: contributor.username ?? "unknown",
-      avatarUrl: contributor.avatarUrl ?? `https://github.com/${contributor.username ?? "ghost"}.png`,
-      trustScore: contributor.trustScore ?? 0,
-      tier,
-      tierInfo: tier,
-      breakdown,
-      currentStreak,
-      currentStreakType: currentStreak.type === "approve" ? "approve" : currentStreak.type ? "negative" : null,
-      currentStreakLength: currentStreak.length,
-      totalApprovals: contributor.totalApprovals ?? 0,
-      totalRejections: contributor.totalRejections ?? 0,
-      totalCloses: contributor.totalCloses ?? 0,
-      totalSelfCloses: contributor.totalSelfCloses ?? 0,
-      lastEventAt: contributor.lastEventAt ?? null,
-      firstSeenAt: contributor.firstSeenAt ?? new Date().toISOString(),
-      walletAddress: contributor.walletAddress ?? null,
-      autoMergeEligible: contributor.autoMergeEligible ?? tier.autoMerge,
-      events: contributor.events ?? [],
-      scoreHistory: contributor.scoreHistory ?? [],
-      warnings: contributor.warnings ?? [],
-    };
-  });
+function normalizeContributors(raw: RawContributor[]): ContributorProfile[] {
+  return raw.map((c) => ({
+    username: c.username ?? "unknown",
+    avatarUrl: c.avatarUrl ?? `https://github.com/${c.username ?? "ghost"}.png`,
+    totalApprovals: c.totalApprovals ?? 0,
+    totalRejections: c.totalRejections ?? 0,
+    totalCloses: c.totalCloses ?? 0,
+    totalSelfCloses: c.totalSelfCloses ?? 0,
+    lastEventAt: c.lastEventAt ?? null,
+    firstSeenAt: c.firstSeenAt ?? new Date().toISOString(),
+    events: c.events ?? [],
+  }));
 }
 
-export function getContributors(): ContributorData[] {
+export function loadContributors(): ContributorProfile[] {
   const raw = (trustData.contributors ?? []) as unknown as RawContributor[];
   return normalizeContributors(raw);
 }
 
-export function getStats(): TrustStats {
-  return trustData.stats as TrustStats;
+export function loadStats(): Stats {
+  const s = trustData.stats as { totalContributors?: number; totalEvents?: number };
+  return {
+    totalContributors: s.totalContributors ?? 0,
+    totalEvents: s.totalEvents ?? 0,
+  };
 }
 
 export function getGeneratedAt(): string {
   return trustData.generatedAt;
 }
-
-// Backward-compatible aliases
-export const loadContributors = getContributors;
-export const loadStats = getStats;

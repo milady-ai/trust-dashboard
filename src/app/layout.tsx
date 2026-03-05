@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 
 const siteTitle = "Milaidy Contributor Dashboard";
-const siteDescription = "Interactive trust scoring, leaderboard insights, and simulator for milady-ai/milaidy contributors.";
+const siteDescription = "Contributor activity dashboard for milady-ai/milaidy.";
 const faviconSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='#0A0A0F'/><path d='M16 44V20h7l9 14 9-14h7v24h-7V31l-9 13-9-13v13z' fill='#C084FC'/></svg>`;
 
 export const metadata: Metadata = {
@@ -39,9 +39,7 @@ export default function RootLayout({
               </h1>
             </div>
             <nav className="flex items-center gap-4 text-sm text-muted-foreground">
-              <Link href="/" className="hover:text-foreground transition-colors">Leaderboard</Link>
-              <Link href="/scoring" className="hover:text-foreground transition-colors">Scoring</Link>
-              <Link href="/simulator" className="hover:text-foreground transition-colors">Simulator</Link>
+              <Link href="/" className="hover:text-foreground transition-colors">Dashboard</Link>
               <a
                 href="https://github.com/milady-ai/milaidy"
                 target="_blank"
