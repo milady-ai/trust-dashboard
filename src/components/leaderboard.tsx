@@ -3,14 +3,15 @@
 import Link from "next/link";
 import type { Contributor } from "@/lib/types";
 import { formatRelativeTime } from "@/lib/utils";
+import { getTierColor } from "@/lib/hierarchy";
 
 interface LeaderboardProps {
   contributors: Contributor[];
 }
 
-function EffectBar({ score, github, social }: { score: number; github: number; social: number }) {
-  // Show actual fill level (out of 100) with GitHub/Social color proportions inside
-  const fillPct = Math.min(100, score);
+function EffectBar({ score, github, social, maxScore }: { score: number; github: number; social: number; maxScore: number }) {
+  // Fill relative to the top score in the dataset, so the leader fills the bar
+  const fillPct = maxScore > 0 ? Math.min(100, (score / maxScore) * 100) : 0;
   const total = github + social;
   const githubShare = total > 0 ? (github / total) * 100 : 100;
 
@@ -24,6 +25,14 @@ function EffectBar({ score, github, social }: { score: number; github: number; s
       </div>
       <span className="text-sm font-mono font-bold w-10 text-right">{score.toFixed(1)}</span>
     </div>
+  );
+}
+
+function TierBadge({ tier, label }: { tier: string; label: string }) {
+  return (
+    <span className={`text-[10px] font-semibold uppercase tracking-wide ${getTierColor(tier as "core" | "active" | "contributor" | "emerging" | "new")}`}>
+      {label}
+    </span>
   );
 }
 
@@ -44,6 +53,8 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
       </div>
     );
   }
+
+  const maxScore = contributors.reduce((max, c) => Math.max(max, c.elizaEffect.total), 0);
 
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
@@ -67,6 +78,8 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
               const totalLines = c.githubEvents
                 .filter((e) => e.type === "pr_merged")
                 .reduce((sum, e) => sum + (e.linesChanged ?? 0), 0);
+              const tier = c.hierarchy?.tier ?? "new";
+              const tierLabel = c.hierarchy?.tierLabel ?? "New";
 
               return (
                 <tr key={c.username} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
@@ -77,7 +90,10 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
                     <Link href={`/contributor/${c.username}`} className="flex items-center gap-3 hover:text-accent transition-colors">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={c.avatarUrl} alt="" className="h-8 w-8 rounded-full border border-border bg-muted" />
-                      <span className="font-medium">{c.username}</span>
+                      <div className="flex flex-col">
+                        <span className="font-medium">{c.username}</span>
+                        <TierBadge tier={tier} label={tierLabel} />
+                      </div>
                     </Link>
                   </td>
                   <td className="px-4 py-3">
@@ -85,6 +101,7 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
                       score={c.elizaEffect.total}
                       github={c.elizaEffect.github.total}
                       social={c.elizaEffect.social.total}
+                      maxScore={maxScore}
                     />
                   </td>
                   <td className="px-4 py-3 text-right font-mono text-muted-foreground">{totalMerged}</td>
@@ -104,28 +121,37 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
 
       {/* Mobile cards */}
       <div className="md:hidden divide-y divide-border">
-        {contributors.map((c) => (
-          <Link
-            key={c.username}
-            href={`/contributor/${c.username}`}
-            className="flex items-center gap-3 px-4 py-3 hover:bg-muted/30 transition-colors"
-          >
-            <span className="text-xs text-muted-foreground font-mono w-6">{c.elizaEffect.rank}</span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.avatarUrl} alt="" className="h-8 w-8 rounded-full border border-border bg-muted" />
-            <div className="flex-1 min-w-0">
-              <div className="font-medium text-sm truncate">{c.username}</div>
-              <div className="flex items-center gap-2 mt-1">
-                <EffectBar
-                  score={c.elizaEffect.total}
-                  github={c.elizaEffect.github.total}
-                  social={c.elizaEffect.social.total}
-                />
+        {contributors.map((c) => {
+          const tier = c.hierarchy?.tier ?? "new";
+          const tierLabel = c.hierarchy?.tierLabel ?? "New";
+
+          return (
+            <Link
+              key={c.username}
+              href={`/contributor/${c.username}`}
+              className="flex items-center gap-3 px-4 py-3 hover:bg-muted/30 transition-colors"
+            >
+              <span className="text-xs text-muted-foreground font-mono w-6">{c.elizaEffect.rank}</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={c.avatarUrl} alt="" className="h-8 w-8 rounded-full border border-border bg-muted" />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-sm truncate">{c.username}</span>
+                  <TierBadge tier={tier} label={tierLabel} />
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <EffectBar
+                    score={c.elizaEffect.total}
+                    github={c.elizaEffect.github.total}
+                    social={c.elizaEffect.social.total}
+                    maxScore={maxScore}
+                  />
+                </div>
               </div>
-            </div>
-            <PayBadge sharePercent={c.elizaPay?.sharePercent ?? 0} />
-          </Link>
-        ))}
+              <PayBadge sharePercent={c.elizaPay?.sharePercent ?? 0} />
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

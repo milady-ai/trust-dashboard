@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { loadContributor, loadContributors, loadContributorAcrossProjects } from "@/lib/data-loader";
+import { loadContributor, loadContributors } from "@/lib/data-loader";
 import { formatRelativeTime } from "@/lib/utils";
 import { getTierColor, getTierBgColor } from "@/lib/hierarchy";
 
@@ -16,7 +16,6 @@ export default async function ContributorDetailPage({
 }) {
   const { username } = await params;
   const contributor = loadContributor(username);
-  const { globalEntry } = loadContributorAcrossProjects(username);
 
   if (!contributor) {
     return (
@@ -98,7 +97,7 @@ export default async function ContributorDetailPage({
 
       {/* Position & Tier */}
       {c.hierarchy && (
-        <section className="rounded-xl border bg-card p-4 md:p-5" style={{}}>
+        <section className="rounded-xl border bg-card p-4 md:p-5">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <div className="flex items-center gap-2">
@@ -113,13 +112,6 @@ export default async function ContributorDetailPage({
                 </div>
               )}
             </div>
-            {globalEntry && (
-              <div className="text-left md:text-right">
-                <div className="text-xs text-muted-foreground">Global Rank</div>
-                <div className="text-2xl font-bold font-mono">#{globalEntry.globalRank}</div>
-                <div className="text-xs text-muted-foreground">across {globalEntry.projects.length} project{globalEntry.projects.length !== 1 ? 's' : ''}</div>
-              </div>
-            )}
           </div>
         </section>
       )}
@@ -148,16 +140,17 @@ export default async function ContributorDetailPage({
             <h3 className="text-lg font-semibold">Social Score</h3>
             <span className="ml-auto text-2xl font-bold font-mono text-social">{social.total.toFixed(1)}</span>
           </div>
-          <div className="space-y-3">
-            <ScoreRow label="Posts" value={social.posts} max={30} count={c.socialPosts.length} />
-            <ScoreRow label="Content" value={social.content} max={35} />
-            <ScoreRow label="Engagement" value={social.engagement} max={25} />
-            <ScoreRow label="Referrals" value={social.referrals} max={10} count={c.referralCount} />
-          </div>
-          {c.socialPosts.length === 0 && (
-            <div className="mt-4 text-xs text-muted-foreground border border-dashed border-border rounded-lg p-3 text-center">
-              No social posts linked yet. Social scoring will activate once posts are submitted.
+          {c.socialPosts.length > 0 ? (
+            <div className="space-y-3">
+              <ScoreRow label="Posts" value={social.posts} max={30} count={c.socialPosts.length} />
+              <ScoreRow label="Content" value={social.content} max={35} />
+              <ScoreRow label="Engagement" value={social.engagement} max={25} />
+              <ScoreRow label="Referrals" value={social.referrals} max={10} count={c.referralCount} />
             </div>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              No social posts linked yet. Counts for {Math.round((1 - 0.6) * 100)}% of elizaEffect when active.
+            </p>
           )}
         </div>
       </section>

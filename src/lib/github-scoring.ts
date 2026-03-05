@@ -230,8 +230,8 @@ export function convertLegacyEvent(event: {
   const typeMap: Record<string, GitHubEvent["type"]> = {
     approve: "pr_merged",
     reject: "pr_rejected",
-    close: "pr_closed",
-    selfClose: "pr_closed",
+    close: "pr_rejected",    // maintainer closed your PR — effectively a rejection
+    selfClose: "pr_closed",  // you closed your own PR — iteration, not rejection
   };
 
   return {

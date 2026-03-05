@@ -81,7 +81,7 @@ export interface HierarchyPosition {
   tier: HierarchyTier;
   tierLabel: string;
   tierDescription: string;
-  tierThreshold: number;      // minimum elizaEffect for this tier
+  percentileMin: number;      // minimum percentile for this tier (0–100)
   projectRoles: ProjectRole[];
 }
 
@@ -149,28 +149,6 @@ export interface Contributor {
   hierarchy?: HierarchyPosition;
 }
 
-// ---- Cross-Project Contributor View -----------------------------------------
-
-export interface CrossProjectProfile {
-  username: string;
-  avatarUrl: string;
-  projects: CrossProjectEntry[];
-  aggregateElizaEffect: number;  // sum across projects
-  totalElizaPay: number;         // combined pay share concept
-  globalRank: number;
-  tier: HierarchyTier;
-}
-
-export interface CrossProjectEntry {
-  projectId: string;
-  projectName: string;
-  repoFullName: string;
-  elizaEffect: number;
-  rank: number;
-  elizaPayShare: number;
-  tier: HierarchyTier;
-}
-
 // ---- Project ----------------------------------------------------------------
 
 export interface Project {
@@ -191,35 +169,3 @@ export interface ProjectStats {
   topContributor: string;
 }
 
-// ---- Project Registry (multi-project) ---------------------------------------
-
-export interface ProjectRegistry {
-  projects: ProjectSummary[];
-  globalLeaderboard: GlobalLeaderboardEntry[];
-  generatedAt: string;
-}
-
-export interface ProjectSummary {
-  id: string;
-  name: string;
-  repoFullName: string;
-  contributorCount: number;
-  avgElizaEffect: number;
-  topContributor: string;
-  generatedAt: string;
-}
-
-export interface GlobalLeaderboardEntry {
-  username: string;
-  avatarUrl: string;
-  projects: Array<{
-    projectId: string;
-    projectName: string;
-    elizaEffect: number;
-    rank: number;
-    elizaPayShare: number;
-  }>;
-  aggregateElizaEffect: number;
-  globalRank: number;
-  tier: HierarchyTier;
-}

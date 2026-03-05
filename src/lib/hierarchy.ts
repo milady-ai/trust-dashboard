@@ -18,10 +18,7 @@
 
 import type {
   Contributor,
-  GlobalLeaderboardEntry,
-  HierarchyPosition,
   HierarchyTier,
-  Project,
   ProjectRole,
 } from "./types";
 
@@ -51,12 +48,6 @@ export function getTierForPercentile(percentile: number): TierDef {
   return TIER_DEFS[TIER_DEFS.length - 1];
 }
 
-export function getTierForRank(rank: number, total: number): HierarchyTier {
-  if (total === 0) return "new";
-  const percentile = total > 1 ? Math.round(((total - rank) / total) * 100) : 100;
-  return getTierForPercentile(percentile).tier;
-}
-
 // ---- Role Assignment --------------------------------------------------------
 
 function getRoleForRank(rank: number, elizaEffect: number): "lead" | "maintainer" | "contributor" | "participant" {
@@ -84,7 +75,7 @@ export function assignHierarchy(contributors: Contributor[], projectId: string):
       tier: tierDef.tier,
       tierLabel: tierDef.label,
       tierDescription: tierDef.description,
-      tierThreshold: tierDef.percentileMin,
+      percentileMin: tierDef.percentileMin,
       projectRoles: [projectRole],
     };
   }
@@ -112,68 +103,3 @@ export function getTierBgColor(tier: HierarchyTier): string {
   }
 }
 
-// ---- Global Leaderboard (Cross-Project) -------------------------------------
-
-export function buildGlobalLeaderboard(projects: Project[]): GlobalLeaderboardEntry[] {
-  // Aggregate contributors across all projects
-  const userMap = new Map<string, GlobalLeaderboardEntry>();
-
-  for (const project of projects) {
-    for (const c of project.contributors) {
-      let entry = userMap.get(c.username);
-      if (!entry) {
-        entry = {
-          username: c.username,
-          avatarUrl: c.avatarUrl,
-          projects: [],
-          aggregateElizaEffect: 0,
-          globalRank: 0,
-          tier: "new",
-        };
-        userMap.set(c.username, entry);
-      }
-
-      entry.projects.push({
-        projectId: project.id,
-        projectName: project.name,
-        elizaEffect: c.elizaEffect.total,
-        rank: c.elizaEffect.rank,
-        elizaPayShare: c.elizaPay?.sharePercent ?? 0,
-      });
-    }
-  }
-
-  // Calculate aggregate scores
-  const entries = Array.from(userMap.values());
-  for (const entry of entries) {
-    entry.aggregateElizaEffect = Math.round(
-      entry.projects.reduce((sum, p) => sum + p.elizaEffect, 0) * 10,
-    ) / 10;
-  }
-
-  // Sort and assign global ranks
-  entries.sort((a, b) => b.aggregateElizaEffect - a.aggregateElizaEffect);
-  for (let i = 0; i < entries.length; i++) {
-    entries[i].globalRank = i + 1;
-    entries[i].tier = getTierForRank(i + 1, entries.length);
-  }
-
-  return entries;
-}
-
-// ---- Tier Summary Stats -----------------------------------------------------
-
-export function getTierDistribution(contributors: Contributor[]): Record<HierarchyTier, number> {
-  const dist: Record<HierarchyTier, number> = {
-    core: 0,
-    active: 0,
-    contributor: 0,
-    emerging: 0,
-    new: 0,
-  };
-  for (const c of contributors) {
-    const tier = c.hierarchy?.tier ?? "new";
-    dist[tier]++;
-  }
-  return dist;
-}
