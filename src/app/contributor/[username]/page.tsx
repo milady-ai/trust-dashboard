@@ -4,8 +4,11 @@ import { EventTimeline } from "@/components/contributor/event-timeline";
 import { ScoreBreakdownViz } from "@/components/contributor/score-breakdown";
 import { ScoreSparkline } from "@/components/contributor/score-sparkline";
 import { VelocityGauge } from "@/components/contributor/velocity-gauge";
+import { SkillPanel } from "@/components/contributor-skills";
 import type { ContributorProfile, TrustScoresDataFile } from "@/lib/contributor-types";
 import { TIERS, getNextTier, getPointsToNextTier, getTierForScore } from "@/lib/trust-scoring";
+import { computeSkillProfile } from "@/lib/contributor-skills";
+import type { TrustEvent } from "@/lib/scoring-engine";
 
 function normalizeData(input: unknown): ContributorProfile[] {
   if (Array.isArray(input)) return input as ContributorProfile[];
@@ -93,6 +96,8 @@ export default async function ContributorDetailPage({
       ? `${"⚠️".repeat(Math.min(3, profile.currentStreakLength))}${profile.currentStreakLength > 3 ? ` ×${profile.currentStreakLength}` : ""}`
       : "No active streak";
 
+  const skillProfile = computeSkillProfile((profile.events ?? []) as unknown as TrustEvent[]);
+
   return (
     <div className="space-y-5 md:space-y-6">
       <div className="space-y-2">
@@ -139,6 +144,8 @@ export default async function ContributorDetailPage({
       </section>
 
       <ScoreBreakdownViz breakdown={profile.breakdown} />
+
+      <SkillPanel skillProfile={skillProfile} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
         <ScoreSparkline history={profile.scoreHistory} />

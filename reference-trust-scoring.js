@@ -131,6 +131,16 @@ const DEFAULT_CONFIG = {
   // Prevents single-day trust explosion
   dailyPointCap: 35,
 
+  // --- Active-shipper protection ---
+  // Contributors who are actively merging production code get a longer recency
+  // half-life so their historical contributions decay more slowly.
+  // This prevents the recency penalty from hurting devs who are consistently shipping.
+  activeShipper: {
+    windowDays: 7,      // look-back window for counting recent approvals
+    minApprovals: 3,    // minimum approved PRs in window to qualify
+    halfLifeBoostDays: 20, // days added to recencyHalfLifeDays (45 → 65)
+  },
+
   // --- Tier thresholds ---
   tiers: [
     {
@@ -222,6 +232,23 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
   // Sort events chronologically (oldest first)
   const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);
 
+  // --- Active-shipper protection ---
+  // Contributors actively merging production code get a longer recency half-life
+  // so their historical contributions decay more slowly.
+  const activeShipperWindow = now - config.activeShipper.windowDays * 24 * 60 * 60 * 1000;
+  const recentApprovals = sorted.filter(
+    (e) => e.type === "approve" && e.timestamp >= activeShipperWindow,
+  ).length;
+  const isActiveShipper = recentApprovals >= config.activeShipper.minApprovals;
+  const effectiveHalfLifeDays = isActiveShipper
+    ? config.recencyHalfLifeDays + config.activeShipper.halfLifeBoostDays
+    : config.recencyHalfLifeDays;
+  if (isActiveShipper) {
+    warnings.push(
+      `Active shipper: ${recentApprovals} approvals in ${config.activeShipper.windowDays}d — using ${effectiveHalfLifeDays}d recency half-life`,
+    );
+  }
+
   // --- Phase 1: Compute per-event weighted points ---
   let approvalCount = 0;
   const currentStreak = { type: null, length: 0 };
@@ -246,7 +273,7 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
 
     // 1c. Recency weighting
     const daysSinceEvent = (now - event.timestamp) / (1000 * 60 * 60 * 24);
-    const recencyWeight = 0.5 ** (daysSinceEvent / config.recencyHalfLifeDays);
+    const recencyWeight = 0.5 ** (daysSinceEvent / effectiveHalfLifeDays);
     detail.recencyWeight = round(recencyWeight, 4);
     detail.daysSinceEvent = round(daysSinceEvent, 1);
 
@@ -425,12 +452,27 @@ function getComplexityMultiplier(linesChanged, config) {
 function getCategoryMultiplier(labels, config) {
   if (!labels || labels.length === 0) return config.defaultCategoryWeight;
 
+  // Common label aliases used in milady-ai repos
+  const labelAliases = {
+    tests: "test",
+    testing: "test",
+    documentation: "docs",
+    bug: "bugfix",
+    fix: "bugfix",
+  };
+
   let maxWeight = 0;
   let found = false;
   for (const label of labels) {
-    const normalizedLabel = label.toLowerCase().replace(/\s+/g, "-");
-    if (config.categoryWeights[normalizedLabel] !== undefined) {
-      maxWeight = Math.max(maxWeight, config.categoryWeights[normalizedLabel]);
+    let normalized = label.toLowerCase().replace(/\s+/g, "-");
+    // Strip "category:" prefix used in milady-ai/milady labels (e.g. "category:security")
+    if (normalized.startsWith("category:")) {
+      normalized = normalized.slice("category:".length);
+    }
+    // Apply aliases
+    normalized = labelAliases[normalized] ?? normalized;
+    if (config.categoryWeights[normalized] !== undefined) {
+      maxWeight = Math.max(maxWeight, config.categoryWeights[normalized]);
       found = true;
     }
   }

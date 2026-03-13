@@ -6,6 +6,7 @@ import {
   getTierForScore,
   type TrustTier,
 } from "./trust-scoring";
+import { computeSkillProfile } from "./contributor-skills";
 
 interface RawContributor {
   username?: string;
@@ -72,6 +73,7 @@ function normalizeContributors(raw: RawContributor[]): ContributorData[] {
       events: contributor.events ?? [],
       scoreHistory: contributor.scoreHistory ?? [],
       warnings: contributor.warnings ?? [],
+      skillProfile: computeSkillProfile(contributor.events ?? []),
     };
   });
 }

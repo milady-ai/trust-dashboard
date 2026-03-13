@@ -54,6 +54,20 @@ export interface TrustScoringConfig {
   initialScore: number;
   dailyPointCap: number;
   tiers: TierConfig[];
+  /**
+   * Active-shipper protection: contributors who are actively merging production
+   * code get a longer recency half-life so their historical contributions decay
+   * more slowly. This prevents the recency penalty from hurting devs who are
+   * consistently shipping.
+   */
+  activeShipper: {
+    /** Look-back window for counting recent approvals (days) */
+    windowDays: number;
+    /** Minimum approved PRs in the window to qualify as an active shipper */
+    minApprovals: number;
+    /** Additional days added to recencyHalfLifeDays for active shippers */
+    halfLifeBoostDays: number;
+  };
 }
 
 export interface TrustEvent {
@@ -173,6 +187,11 @@ export const DEFAULT_CONFIG: TrustScoringConfig = {
   maxScore: 100,
   initialScore: 35,
   dailyPointCap: 35,
+  activeShipper: {
+    windowDays: 7,
+    minApprovals: 3,
+    halfLifeBoostDays: 20,
+  },
   tiers: [
     { minScore: 90, label: "legendary", description: "Elite contributor, auto-merge eligible" },
     { minScore: 75, label: "trusted", description: "Highly trusted, expedited review" },
@@ -215,6 +234,23 @@ export function computeTrustScore(
 
   const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);
 
+  // --- Active-shipper protection ---
+  // Contributors actively merging production code get a longer recency half-life
+  // so their historical contributions decay more slowly.
+  const activeShipperWindow = now - config.activeShipper.windowDays * 24 * 60 * 60 * 1000;
+  const recentApprovals = sorted.filter(
+    (e) => e.type === "approve" && e.timestamp >= activeShipperWindow,
+  ).length;
+  const isActiveShipper = recentApprovals >= config.activeShipper.minApprovals;
+  const effectiveHalfLifeDays = isActiveShipper
+    ? config.recencyHalfLifeDays + config.activeShipper.halfLifeBoostDays
+    : config.recencyHalfLifeDays;
+  if (isActiveShipper) {
+    warnings.push(
+      `Active shipper: ${recentApprovals} approvals in ${config.activeShipper.windowDays}d — using ${effectiveHalfLifeDays}d recency half-life`,
+    );
+  }
+
   let approvalCount = 0;
   const currentStreak: { type: "approve" | "negative" | null; length: number } = {
     type: null,
@@ -250,7 +286,7 @@ export function computeTrustScore(
     detail.diminishingMultiplier = round(diminishingMultiplier, 4);
 
     const daysSinceEvent = (now - event.timestamp) / (1000 * 60 * 60 * 24);
-    const recencyWeight = 0.5 ** (daysSinceEvent / config.recencyHalfLifeDays);
+    const recencyWeight = 0.5 ** (daysSinceEvent / effectiveHalfLifeDays);
     detail.recencyWeight = round(recencyWeight, 4);
     detail.daysSinceEvent = round(daysSinceEvent, 1);
 
@@ -407,12 +443,28 @@ export function getComplexityMultiplier(linesChanged: number, config: TrustScori
 export function getCategoryMultiplier(labels: string[], config: TrustScoringConfig): number {
   if (!labels || labels.length === 0) return config.defaultCategoryWeight;
 
+  // Common label aliases used in milady-ai repos
+  const labelAliases: Record<string, string> = {
+    tests: "test",
+    testing: "test",
+    documentation: "docs",
+    "critical-fix": "critical-fix",
+    bug: "bugfix",
+    fix: "bugfix",
+  };
+
   let maxWeight = 0;
   let found = false;
   for (const label of labels) {
-    const normalizedLabel = label.toLowerCase().replace(/\s+/g, "-");
-    if (config.categoryWeights[normalizedLabel] !== undefined) {
-      maxWeight = Math.max(maxWeight, config.categoryWeights[normalizedLabel]);
+    let normalized = label.toLowerCase().replace(/\s+/g, "-");
+    // Strip "category:" prefix used in milady-ai/milady labels (e.g. "category:security")
+    if (normalized.startsWith("category:")) {
+      normalized = normalized.slice("category:".length);
+    }
+    // Apply aliases
+    normalized = labelAliases[normalized] ?? normalized;
+    if (config.categoryWeights[normalized] !== undefined) {
+      maxWeight = Math.max(maxWeight, config.categoryWeights[normalized]);
       found = true;
     }
   }

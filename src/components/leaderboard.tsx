@@ -4,6 +4,7 @@ import { daysSince, formatRelativeTime } from "@/lib/utils";
 import { TierBadge } from "./tier-badge";
 import { ScoreBar } from "./score-bar";
 import { StreakIndicator } from "./streak-indicator";
+import { FocusAreaBadge, RoleBadge } from "./contributor-skills";
 
 interface LeaderboardProps {
   contributors: ContributorData[];
@@ -13,10 +14,11 @@ export function Leaderboard({ contributors }: LeaderboardProps) {
   return (
     <>
       <div className="hidden md:block overflow-hidden rounded-lg border border-border">
-        <div className="grid grid-cols-[3rem_1fr_auto_11rem_6rem_7rem_7rem] items-center gap-2 border-b border-border bg-muted/50 px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        <div className="grid grid-cols-[3rem_1fr_auto_auto_11rem_6rem_7rem_7rem] items-center gap-2 border-b border-border bg-muted/50 px-4 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
           <span>#</span>
           <span>Contributor</span>
           <span>Tier</span>
+          <span>Role &amp; Skills</span>
           <span>Trust Score</span>
           <span className="text-center">Streak</span>
           <span className="text-center">PRs</span>
@@ -45,11 +47,13 @@ function DesktopRow({ contributor, rank }: { contributor: ContributorData; rank:
   const approvalRate = Math.round(getApprovalRate(contributor));
   const joinedDays = daysSince(contributor.firstSeenAt);
   const isNew = joinedDays <= 30;
+  const { role, focusAreas } = contributor.skillProfile;
+  const topArea = focusAreas[0];
 
   return (
     <Link
       href={`/contributor/${contributor.username}`}
-      className="grid grid-cols-[3rem_1fr_auto_11rem_6rem_7rem_7rem] items-center gap-2 px-4 py-3 hover:bg-muted/30 transition-colors"
+      className="grid grid-cols-[3rem_1fr_auto_auto_11rem_6rem_7rem_7rem] items-center gap-2 px-4 py-3 hover:bg-muted/30 transition-colors"
     >
       <span className="text-sm font-mono text-muted-foreground">
         {rank <= 3 ? ["🥇", "🥈", "🥉"][rank - 1] : rank}
@@ -74,6 +78,11 @@ function DesktopRow({ contributor, rank }: { contributor: ContributorData; rank:
 
       <TierBadge tier={contributor.tier} size="sm" />
 
+      <div className="flex flex-col gap-1 items-start">
+        <RoleBadge role={role} size="xs" />
+        {topArea && <FocusAreaBadge area={topArea} size="xs" />}
+      </div>
+
       <div
         title={`Approvals: ${contributor.totalApprovals}, Rejections: ${contributor.totalRejections}, Closes: ${contributor.totalCloses}, Self-closes: ${contributor.totalSelfCloses}`}
       >
@@ -96,6 +105,8 @@ function DesktopRow({ contributor, rank }: { contributor: ContributorData; rank:
 
 function MobileCard({ contributor, rank }: { contributor: ContributorData; rank: number }) {
   const approvalRate = Math.round(getApprovalRate(contributor));
+  const { role, focusAreas } = contributor.skillProfile;
+  const topAreas = focusAreas.slice(0, 2);
 
   return (
     <Link
@@ -119,7 +130,7 @@ function MobileCard({ contributor, rank }: { contributor: ContributorData; rank:
         <TierBadge tier={contributor.tier} size="sm" />
       </div>
 
-      <div className="grid grid-cols-3 gap-2 text-xs">
+      <div className="grid grid-cols-3 gap-2 text-xs mb-2">
         <div>
           <div className="text-muted-foreground">Score</div>
           <div className="font-mono font-semibold">{contributor.trustScore.toFixed(1)}</div>
@@ -132,6 +143,13 @@ function MobileCard({ contributor, rank }: { contributor: ContributorData; rank:
           <div className="text-muted-foreground">Approval</div>
           <div className="font-mono font-semibold">{approvalRate}%</div>
         </div>
+      </div>
+
+      <div className="flex flex-wrap gap-1 mt-1">
+        <RoleBadge role={role} size="xs" />
+        {topAreas.map((area) => (
+          <FocusAreaBadge key={area.key} area={area} size="xs" />
+        ))}
       </div>
     </Link>
   );
