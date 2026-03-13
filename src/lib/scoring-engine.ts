@@ -97,6 +97,10 @@ export interface ScoreBreakdown {
   velocityPenalty: number;
   inactivityDecay: number;
   manualAdjustment: number;
+  /** Bonus for high approval rate (new in v3) */
+  approveRateBonus: number;
+  /** Volume bonus for sustained contributions (new in v3) */
+  volumeBonus: number;
   eventDetails: EventBreakdown[];
 }
 
@@ -117,11 +121,11 @@ export const DEFAULT_CONFIG: TrustScoringConfig = {
   basePoints: {
     approve: 12,
     reject: -6,
-    close: -10,
+    close: -5,
     selfClose: -2,
   },
-  diminishingRate: 0.2,
-  recencyHalfLifeDays: 45,
+  diminishingRate: 0.08,
+  recencyHalfLifeDays: 60,
   complexityBuckets: [
     { maxLines: 10, multiplier: 0.4, label: "trivial" },
     { maxLines: 50, multiplier: 0.7, label: "small" },
@@ -157,9 +161,9 @@ export const DEFAULT_CONFIG: TrustScoringConfig = {
   },
   velocity: {
     windowDays: 7,
-    softCapPRs: 10,
-    hardCapPRs: 25,
-    penaltyPerExcess: 0.15,
+    softCapPRs: 80,
+    hardCapPRs: 200,
+    penaltyPerExcess: 0.03,
   },
   reviewSeverity: {
     critical: 1.8,
@@ -171,8 +175,8 @@ export const DEFAULT_CONFIG: TrustScoringConfig = {
   defaultReviewSeverity: "normal",
   minScore: 0,
   maxScore: 100,
-  initialScore: 35,
-  dailyPointCap: 35,
+  initialScore: 40,
+  dailyPointCap: 80,
   tiers: [
     { minScore: 90, label: "legendary", description: "Elite contributor, auto-merge eligible" },
     { minScore: 75, label: "trusted", description: "Highly trusted, expedited review" },
@@ -199,6 +203,8 @@ export function computeTrustScore(
     velocityPenalty: 0,
     inactivityDecay: 0,
     manualAdjustment: 0,
+    approveRateBonus: 0,
+    volumeBonus: 0,
     eventDetails: [],
   };
 
@@ -215,7 +221,26 @@ export function computeTrustScore(
 
   const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);
 
+  // Build the set of superseded close/selfClose events:
+  // If a close/selfClose is followed by an approve on the same PR within 24h,
+  // the close penalty is reduced to -2 (they fixed it quickly).
+  const SUPERSEDE_WINDOW_MS = 24 * 60 * 60 * 1000;
+  const supersededPRs = new Set<number>();
+  for (let i = 0; i < sorted.length; i++) {
+    const ev = sorted[i];
+    if (ev.type !== "close" && ev.type !== "selfClose") continue;
+    for (let j = i + 1; j < sorted.length; j++) {
+      const next = sorted[j];
+      if (next.timestamp - ev.timestamp > SUPERSEDE_WINDOW_MS) break;
+      if (next.type === "approve") {
+        supersededPRs.add(ev.prNumber);
+        break;
+      }
+    }
+  }
+
   let approvalCount = 0;
+  let closeCount = 0;
   const currentStreak: { type: "approve" | "negative" | null; length: number } = {
     type: null,
     length: 0,
@@ -239,13 +264,21 @@ export function computeTrustScore(
       finalPoints: 0,
     };
 
-    const basePoints = config.basePoints[event.type] ?? 0;
+    // Superseded closes get a reduced penalty
+    const isSuperseded =
+      (event.type === "close" || event.type === "selfClose") &&
+      supersededPRs.has(event.prNumber);
+    const basePoints = isSuperseded ? -2 : (config.basePoints[event.type] ?? 0);
     detail.basePoints = basePoints;
 
     let diminishingMultiplier = 1;
     if (basePoints > 0) {
       diminishingMultiplier = 1 / (1 + config.diminishingRate * Math.log(1 + approvalCount));
       approvalCount++;
+    } else if (basePoints < 0 && (event.type === "close" || event.type === "selfClose" || event.type === "reject")) {
+      // Diminishing returns also apply to negative events
+      diminishingMultiplier = 1 / (1 + config.diminishingRate * Math.log(1 + closeCount));
+      closeCount++;
     }
     detail.diminishingMultiplier = round(diminishingMultiplier, 4);
 
@@ -283,6 +316,7 @@ export function computeTrustScore(
     } else {
       eventPoints =
         basePoints *
+        diminishingMultiplier *
         recencyWeight *
         severityMultiplier *
         streakMult *
@@ -333,7 +367,33 @@ export function computeTrustScore(
   breakdown.velocityPenalty = round(1 - velocityMultiplier, 4);
 
   const adjustedPoints = totalWeightedPoints > 0 ? totalWeightedPoints * velocityMultiplier : totalWeightedPoints;
-  let score = config.initialScore + adjustedPoints;
+
+  // Approve-rate bonus: reward contributors who consistently get PRs merged
+  let approveRateBonus = 0;
+  const totalEvents = approvalCount + closeCount;
+  if (totalEvents > 0 && approvalCount > 0) {
+    const approveRate = approvalCount / totalEvents;
+    let rateMultiplier = 1;
+    if (approveRate >= 0.9) rateMultiplier = 1.5;
+    else if (approveRate >= 0.8) rateMultiplier = 1.3;
+    else if (approveRate >= 0.7) rateMultiplier = 1.2;
+    else if (approveRate >= 0.6) rateMultiplier = 1.1;
+    if (rateMultiplier > 1) {
+      const positivePoints = breakdown.eventDetails
+        .filter((d) => d.finalPoints > 0)
+        .reduce((sum, d) => sum + d.finalPoints, 0);
+      const boostedPositive = positivePoints * velocityMultiplier * rateMultiplier;
+      const originalPositive = positivePoints * velocityMultiplier;
+      approveRateBonus = round(boostedPositive - originalPositive, 4);
+    }
+  }
+  breakdown.approveRateBonus = approveRateBonus;
+
+  // Volume bonus: rewards sustained contribution
+  const volumeBonus = round(Math.min(10, Math.sqrt(approvalCount) * 1.5), 4);
+  breakdown.volumeBonus = volumeBonus;
+
+  let score = config.initialScore + adjustedPoints + approveRateBonus + volumeBonus;
 
   const lastEventTime = sorted[sorted.length - 1].timestamp;
   const daysSinceLastEvent = (now - lastEventTime) / (1000 * 60 * 60 * 24);
@@ -407,12 +467,28 @@ export function getComplexityMultiplier(linesChanged: number, config: TrustScori
 export function getCategoryMultiplier(labels: string[], config: TrustScoringConfig): number {
   if (!labels || labels.length === 0) return config.defaultCategoryWeight;
 
+  // Common label aliases used in milady-ai repos
+  const labelAliases: Record<string, string> = {
+    tests: "test",
+    testing: "test",
+    documentation: "docs",
+    "critical-fix": "critical-fix",
+    bug: "bugfix",
+    fix: "bugfix",
+  };
+
   let maxWeight = 0;
   let found = false;
   for (const label of labels) {
-    const normalizedLabel = label.toLowerCase().replace(/\s+/g, "-");
-    if (config.categoryWeights[normalizedLabel] !== undefined) {
-      maxWeight = Math.max(maxWeight, config.categoryWeights[normalizedLabel]);
+    let normalized = label.toLowerCase().replace(/\s+/g, "-");
+    // Strip "category:" prefix used in milady-ai/milady labels (e.g. "category:security")
+    if (normalized.startsWith("category:")) {
+      normalized = normalized.slice("category:".length);
+    }
+    // Apply aliases
+    normalized = labelAliases[normalized] ?? normalized;
+    if (config.categoryWeights[normalized] !== undefined) {
+      maxWeight = Math.max(maxWeight, config.categoryWeights[normalized]);
       found = true;
     }
   }
