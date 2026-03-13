@@ -9,6 +9,7 @@ import type { ContributorProfile, TrustScoresDataFile } from "@/lib/contributor-
 import { TIERS, getNextTier, getPointsToNextTier, getTierForScore } from "@/lib/trust-scoring";
 import { computeSkillProfile } from "@/lib/contributor-skills";
 import type { TrustEvent } from "@/lib/scoring-engine";
+import { DEFAULT_CONFIG } from "@/lib/scoring-engine";
 
 function normalizeData(input: unknown): ContributorProfile[] {
   if (Array.isArray(input)) return input as ContributorProfile[];
@@ -140,7 +141,7 @@ export default async function ContributorDetailPage({
         <InfoCard label="Current Score" value={profile.trustScore.toFixed(1)} subtitle={`${tier.label} tier`} accent={tier.color} />
         <InfoCard label="Approval Rate" value={formatPct(approvalRate)} subtitle={`${profile.totalApprovals}/${totalPRs || 0} approvals`} />
         <InfoCard label="Current Streak" value={streakText} subtitle={profile.currentStreakType ? `${profile.currentStreakType} streak` : "No streak"} />
-        <InfoCard label="Weekly Velocity" value={`${weeklyVelocity}/10`} subtitle="soft cap per week" />
+        <InfoCard label="Weekly Velocity" value={`${weeklyVelocity}/${DEFAULT_CONFIG.velocity.softCapPRs}`} subtitle="soft cap per week" />
       </section>
 
       <ScoreBreakdownViz breakdown={profile.breakdown} />
@@ -149,7 +150,7 @@ export default async function ContributorDetailPage({
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
         <ScoreSparkline history={profile.scoreHistory} />
-        <VelocityGauge weeklyCount={weeklyVelocity} softCap={10} hardCap={25} />
+        <VelocityGauge weeklyCount={weeklyVelocity} softCap={DEFAULT_CONFIG.velocity.softCapPRs} hardCap={DEFAULT_CONFIG.velocity.hardCapPRs} />
       </div>
 
       <section className="rounded-xl border border-border bg-card p-4 md:p-5">
