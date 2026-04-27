@@ -4,8 +4,12 @@ import { EventTimeline } from "@/components/contributor/event-timeline";
 import { ScoreBreakdownViz } from "@/components/contributor/score-breakdown";
 import { ScoreSparkline } from "@/components/contributor/score-sparkline";
 import { VelocityGauge } from "@/components/contributor/velocity-gauge";
+import { SkillPanel } from "@/components/contributor-skills";
 import type { ContributorProfile, TrustScoresDataFile } from "@/lib/contributor-types";
 import { TIERS, getNextTier, getPointsToNextTier, getTierForScore } from "@/lib/trust-scoring";
+import { computeSkillProfile } from "@/lib/contributor-skills";
+import type { TrustEvent } from "@/lib/scoring-engine";
+import { DEFAULT_CONFIG } from "@/lib/scoring-engine";
 
 function normalizeData(input: unknown): ContributorProfile[] {
   if (Array.isArray(input)) return input as ContributorProfile[];
@@ -93,6 +97,8 @@ export default async function ContributorDetailPage({
       ? `${"⚠️".repeat(Math.min(3, profile.currentStreakLength))}${profile.currentStreakLength > 3 ? ` ×${profile.currentStreakLength}` : ""}`
       : "No active streak";
 
+  const skillProfile = computeSkillProfile((profile.events ?? []) as unknown as TrustEvent[]);
+
   return (
     <div className="space-y-5 md:space-y-6">
       <div className="space-y-2">
@@ -135,14 +141,16 @@ export default async function ContributorDetailPage({
         <InfoCard label="Current Score" value={profile.trustScore.toFixed(1)} subtitle={`${tier.label} tier`} accent={tier.color} />
         <InfoCard label="Approval Rate" value={formatPct(approvalRate)} subtitle={`${profile.totalApprovals}/${totalPRs || 0} approvals`} />
         <InfoCard label="Current Streak" value={streakText} subtitle={profile.currentStreakType ? `${profile.currentStreakType} streak` : "No streak"} />
-        <InfoCard label="Weekly Velocity" value={`${weeklyVelocity}/10`} subtitle="soft cap per week" />
+        <InfoCard label="Weekly Velocity" value={`${weeklyVelocity}/${DEFAULT_CONFIG.velocity.softCapPRs}`} subtitle="soft cap per week" />
       </section>
 
       <ScoreBreakdownViz breakdown={profile.breakdown} />
 
+      <SkillPanel skillProfile={skillProfile} />
+
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
         <ScoreSparkline history={profile.scoreHistory} />
-        <VelocityGauge weeklyCount={weeklyVelocity} softCap={10} hardCap={25} />
+        <VelocityGauge weeklyCount={weeklyVelocity} softCap={DEFAULT_CONFIG.velocity.softCapPRs} hardCap={DEFAULT_CONFIG.velocity.hardCapPRs} />
       </div>
 
       <section className="rounded-xl border border-border bg-card p-4 md:p-5">
