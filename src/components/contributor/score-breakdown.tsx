@@ -29,7 +29,11 @@ export function ScoreBreakdownViz({ breakdown }: ScoreBreakdownProps) {
   const dailyCapLoss = breakdown.eventDetails.reduce((sum, event) => sum + (event.cappedBy ?? 0), 0);
   const afterInactivity = afterVelocity - breakdown.inactivityDecay;
   const afterDailyCap = afterInactivity - dailyCapLoss;
-  const afterManual = afterDailyCap + breakdown.manualAdjustment;
+  const approveRateBonus = breakdown.approveRateBonus ?? 0;
+  const volumeBonus = breakdown.volumeBonus ?? 0;
+  const afterRateBonus = afterDailyCap + approveRateBonus;
+  const afterVolumeBonus = afterRateBonus + volumeBonus;
+  const afterManual = afterVolumeBonus + breakdown.manualAdjustment;
 
   const rows: StepRow[] = [
     {
@@ -77,6 +81,22 @@ export function ScoreBreakdownViz({ breakdown }: ScoreBreakdownProps) {
       value: afterDailyCap,
       change: -dailyCapLoss,
       detail: dailyCapLoss > 0 ? `-${dailyCapLoss.toFixed(2)} points capped` : "No daily cap applied",
+    },
+    {
+      label: "Approval-rate bonus",
+      value: afterRateBonus,
+      change: approveRateBonus,
+      detail: approveRateBonus > 0
+        ? `+${approveRateBonus.toFixed(2)} bonus for high merge-rate`
+        : "No approval-rate bonus yet",
+    },
+    {
+      label: "Volume bonus",
+      value: afterVolumeBonus,
+      change: volumeBonus,
+      detail: volumeBonus > 0
+        ? `+${volumeBonus.toFixed(2)} sustained-contribution bonus`
+        : "No volume bonus yet",
     },
     {
       label: "Manual adjustment",

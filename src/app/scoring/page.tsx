@@ -10,11 +10,11 @@ const PAD_X = 48;
 const PAD_Y = 20;
 
 function diminishingMultiplier(x: number): number {
-  return 1 / (1 + 0.2 * Math.log(1 + x));
+  return 1 / (1 + 0.08 * Math.log(1 + x));
 }
 
 function recencyWeight(days: number): number {
-  return 0.5 ** (days / 45);
+  return 0.5 ** (days / 60);
 }
 
 function ScoringCard({ title, formula, description }: { title: string; formula: string; description: string }) {
@@ -45,7 +45,7 @@ function DiminishingCurve() {
   return (
     <div className="rounded-lg border border-border bg-card p-4 space-y-3">
       <h4 className="font-semibold">Diminishing Returns Curve</h4>
-      <p className="text-xs text-muted-foreground">multiplier = 1 / (1 + 0.2 × ln(1 + priorApprovals))</p>
+      <p className="text-xs text-muted-foreground">multiplier = 1 / (1 + 0.08 × ln(1 + priorApprovals))</p>
 
       <svg
         viewBox={`0 0 ${DIM_WIDTH} ${DIM_HEIGHT}`}
@@ -71,8 +71,8 @@ function DiminishingCurve() {
 
       <div className="grid gap-2 text-xs sm:grid-cols-3 text-muted-foreground">
         <p>Your 1st approval: 100%</p>
-        <p>Your 10th: 68%</p>
-        <p>Your 50th: 56%</p>
+        <p>Your 10th: {(diminishingMultiplier(10) * 100).toFixed(0)}%</p>
+        <p>Your 50th: {(diminishingMultiplier(50) * 100).toFixed(0)}%</p>
       </div>
     </div>
   );
@@ -93,13 +93,13 @@ function RecencyCurve() {
   return (
     <div className="rounded-lg border border-border bg-card p-4 space-y-3">
       <h4 className="font-semibold">Recency Decay Curve</h4>
-      <p className="text-xs text-muted-foreground">weight = 0.5 ^ (daysSinceEvent / 45)</p>
+      <p className="text-xs text-muted-foreground">weight = 0.5 ^ (daysSinceEvent / 60)</p>
       <svg viewBox={`0 0 ${DIM_WIDTH} ${DIM_HEIGHT}`} className="w-full">
         <line x1={PAD_X} y1={DIM_HEIGHT - PAD_Y} x2={DIM_WIDTH - PAD_X} y2={DIM_HEIGHT - PAD_Y} stroke="currentColor" opacity="0.35" />
         <line x1={PAD_X} y1={PAD_Y} x2={PAD_X} y2={DIM_HEIGHT - PAD_Y} stroke="currentColor" opacity="0.35" />
         <path d={path} fill="none" stroke="#06B6D4" strokeWidth="3" />
 
-        {[45, 90, 135].map((marker) => {
+        {[60, 120, 180].map((marker) => {
           const x = PAD_X + (marker / 180) * (DIM_WIDTH - PAD_X * 2);
           const y = PAD_Y + (1 - recencyWeight(marker)) * (DIM_HEIGHT - PAD_Y * 2);
           return (
@@ -111,7 +111,7 @@ function RecencyCurve() {
           );
         })}
       </svg>
-      <p className="text-xs text-muted-foreground">Half-life checkpoints: 45d → 50%, 90d → 25%, 135d → 12.5%</p>
+      <p className="text-xs text-muted-foreground">Half-life checkpoints: 60d → 50%, 120d → 25%, 180d → 12.5%</p>
     </div>
   );
 }
@@ -165,7 +165,7 @@ export default function ScoringPage() {
       <div>
         <h2 className="text-2xl font-bold mb-1">Trust Scoring Algorithm</h2>
         <p className="text-sm text-muted-foreground">
-          How contributor trust scores are computed for milady-ai/milaidy. Score range: 0-100. Starting score: 35 (probationary).
+          How contributor trust scores are computed for milady-ai/milaidy. Score range: 0-100. Starting score: 40 (probationary).
         </p>
       </div>
 
@@ -188,17 +188,17 @@ export default function ScoringPage() {
       </section>
 
       <section>
-        <h3 className="text-lg font-semibold mb-3">8 Scoring Components</h3>
+        <h3 className="text-lg font-semibold mb-3">10 Scoring Components</h3>
         <div className="grid gap-3">
           <ScoringCard
             title="1. Diminishing Returns"
-            formula="multiplier = 1 / (1 + 0.2 × ln(1 + priorApprovals))"
-            description="Each subsequent approval is worth less. Your 50th approval earns ~56% of your 1st. Prevents grinding."
+            formula="multiplier = 1 / (1 + 0.08 × ln(1 + priorApprovals))"
+            description="Each subsequent approval is worth less. Your 50th approval earns ~79% of your 1st. Gentle scaling for high-velocity repos."
           />
           <ScoringCard
             title="2. Recency Weighting"
-            formula="weight = 0.5 ^ (daysSinceEvent / 45)"
-            description="Events lose relevance over time with a 45-day half-life. After 90 days, an event has 25% weight."
+            formula="weight = 0.5 ^ (daysSinceEvent / 60)"
+            description="Events lose relevance over time with a 60-day half-life. After 120 days, an event has 25% weight."
           />
           <ScoringCard
             title="3. Complexity Buckets"
@@ -208,7 +208,7 @@ export default function ScoringPage() {
           <ScoringCard
             title="4. Category Weights"
             formula="security: 1.8x → core: 1.3x → feature: 1.1x → docs: 0.6x → chore: 0.5x"
-            description="High-impact categories earn more trust. Security fixes are worth 3.6x a chore PR."
+            description="High-impact categories earn more trust. Supports category: prefix (e.g. category:security)."
           />
           <ScoringCard
             title="5. Streak Mechanics"
@@ -222,13 +222,23 @@ export default function ScoringPage() {
           />
           <ScoringCard
             title="7. Velocity Gates"
-            formula="Soft cap: 10 PRs/week (-15%/excess) | Hard cap: 25 PRs/week (zeroed)"
-            description="Too many PRs too fast is suspicious. Points are reduced or zeroed above thresholds."
+            formula="Soft cap: 80 PRs/week (-3%/excess) | Hard cap: 200 PRs/week (zeroed)"
+            description="Extreme PR volumes are suspicious. Normal contributors (under 80/week) are never penalized."
           />
           <ScoringCard
             title="8. Daily Point Cap"
-            formula="Max 35 raw positive points per calendar day"
-            description="Prevents trust explosions from a single day of activity. Encourages sustained contributions."
+            formula="Max 80 raw positive points per calendar day"
+            description="Prevents trust explosions from a single burst day. Encourages sustained, consistent contributions."
+          />
+          <ScoringCard
+            title="9. Approval-Rate Bonus"
+            formula="≥90% rate: 1.5x · ≥80%: 1.3x · ≥70%: 1.2x · ≥60%: 1.1x"
+            description="Consistently getting PRs merged earns a bonus multiplier on positive points."
+          />
+          <ScoringCard
+            title="10. Volume Bonus"
+            formula="min(10, √approvalCount × 1.5)"
+            description="Sustained contribution earns a flat bonus up to +10 points. Rewards long-term engagement."
           />
         </div>
       </section>
@@ -264,8 +274,8 @@ export default function ScoringPage() {
               </tr>
               <tr>
                 <td className="px-4 py-2 font-mono text-tier-restricted">close</td>
-                <td className="px-4 py-2 font-mono">-10</td>
-                <td className="px-4 py-2 text-muted-foreground">PR closed without merge</td>
+                <td className="px-4 py-2 font-mono">-5</td>
+                <td className="px-4 py-2 text-muted-foreground">PR closed without merge (-2 if reopened & merged within 24h)</td>
               </tr>
               <tr>
                 <td className="px-4 py-2 font-mono text-muted-foreground">selfClose</td>

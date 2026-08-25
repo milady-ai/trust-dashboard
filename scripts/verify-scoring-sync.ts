@@ -13,7 +13,7 @@ const reference = require("../reference-trust-scoring.js") as {
   };
 };
 
-const NOW = Date.parse("2026-02-18T00:00:00.000Z");
+const NOW = Date.parse("2026-03-13T00:00:00.000Z");
 
 function daysAgo(days: number): number {
   return NOW - days * 24 * 60 * 60 * 1000;
@@ -61,19 +61,36 @@ const scenarios: Array<{ name: string; history: ContributorState }> = [
     ]),
   },
   {
-    name: "Daily cap enforcement",
+    name: "Daily cap enforcement (security PRs hit 80pt daily cap)",
     history: makeHistory("daily-cap", [
       { type: "approve", prNumber: 30, timestamp: daysAgo(1), linesChanged: 1500, labels: ["security"] },
       { type: "approve", prNumber: 31, timestamp: daysAgo(1) + 60_000, linesChanged: 1500, labels: ["security"] },
+      { type: "approve", prNumber: 32, timestamp: daysAgo(1) + 120_000, linesChanged: 1500, labels: ["security"] },
+      { type: "approve", prNumber: 33, timestamp: daysAgo(1) + 180_000, linesChanged: 1500, labels: ["security"] },
+      { type: "approve", prNumber: 34, timestamp: daysAgo(1) + 240_000, linesChanged: 1500, labels: ["security"] },
+      { type: "approve", prNumber: 35, timestamp: daysAgo(1) + 300_000, linesChanged: 1500, labels: ["security"] },
     ]),
   },
   {
-    name: "Velocity hard cap (>25 PRs/7d)",
+    name: "Velocity hard cap (>200 PRs/7d)",
     history: makeHistory(
       "velocity",
-      Array.from({ length: 26 }, (_, idx) => ({
+      Array.from({ length: 201 }, (_, idx) => ({
         type: "approve" as const,
         prNumber: 100 + idx,
+        timestamp: daysAgo(1) + idx * 60_000,
+        linesChanged: 20,
+        labels: ["chore"],
+      })),
+    ),
+  },
+  {
+    name: "Velocity soft cap (>80 but <200 PRs/7d)",
+    history: makeHistory(
+      "velocity-soft",
+      Array.from({ length: 90 }, (_, idx) => ({
+        type: "approve" as const,
+        prNumber: 200 + idx,
         timestamp: daysAgo(1) + idx * 60_000,
         linesChanged: 20,
         labels: ["chore"],
@@ -86,6 +103,35 @@ const scenarios: Array<{ name: string; history: ContributorState }> = [
       { type: "approve", prNumber: 200, timestamp: daysAgo(40), linesChanged: 500, labels: ["core"] },
       { type: "approve", prNumber: 201, timestamp: daysAgo(39), linesChanged: 500, labels: ["core"] },
       { type: "approve", prNumber: 202, timestamp: daysAgo(38), linesChanged: 500, labels: ["core"] },
+    ]),
+  },
+  {
+    name: "Superseded close (close followed by approve within 24h)",
+    history: makeHistory("superseded", [
+      { type: "close", prNumber: 300, timestamp: daysAgo(10), linesChanged: 200, labels: ["core"] },
+      { type: "approve", prNumber: 300, timestamp: daysAgo(10) + 60 * 60 * 1000, linesChanged: 200, labels: ["core"] },
+    ]),
+  },
+  {
+    name: "High approval-rate bonus (≥90% approval rate)",
+    history: makeHistory("high-rate", [
+      { type: "approve", prNumber: 400, timestamp: daysAgo(20), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 401, timestamp: daysAgo(18), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 402, timestamp: daysAgo(16), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 403, timestamp: daysAgo(14), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 404, timestamp: daysAgo(12), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 405, timestamp: daysAgo(10), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 406, timestamp: daysAgo(8), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 407, timestamp: daysAgo(6), linesChanged: 100, labels: ["bugfix"] },
+      { type: "approve", prNumber: 408, timestamp: daysAgo(4), linesChanged: 100, labels: ["bugfix"] },
+      { type: "reject", prNumber: 409, timestamp: daysAgo(2), linesChanged: 50, labels: ["bugfix"] },
+    ]),
+  },
+  {
+    name: "Category label normalization (category: prefix)",
+    history: makeHistory("category-labels", [
+      { type: "approve", prNumber: 500, timestamp: daysAgo(5), linesChanged: 200, labels: ["category:security"] },
+      { type: "approve", prNumber: 501, timestamp: daysAgo(3), linesChanged: 100, labels: ["category:feature"] },
     ]),
   },
 ];
@@ -110,7 +156,7 @@ for (const scenario of scenarios) {
 }
 
 if (failures > 0) {
-  console.error(`\\nverify:scoring failed (${failures}/${scenarios.length} scenarios)`);
+  console.error(`\nverify:scoring failed (${failures}/${scenarios.length} scenarios)`);
   process.exit(1);
 }
 
