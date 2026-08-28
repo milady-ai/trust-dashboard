@@ -95,6 +95,18 @@ export async function fetchClosedPRs(
         fetchJson<PullReview[]>(reviewsUrl, token),
       ]);
 
+      // closed_by on the PR endpoint is unreliable (often null or wrong).
+      // For non-merged PRs, fetch issue events to find who actually closed it.
+      let closedByLogin = detail.closed_by?.login ?? null;
+      if (!detail.merged_at) {
+        const eventsUrl = `${GITHUB_API}/repos/${owner}/${repo}/issues/${pr.number}/events`;
+        const events = await fetchJson<Array<{ event: string; actor?: GitHubUser }>>(eventsUrl, token);
+        const closeEvent = [...events].reverse().find((e) => e.event === "closed");
+        if (closeEvent?.actor?.login) {
+          closedByLogin = closeEvent.actor.login;
+        }
+      }
+
       allPRs.push({
         number: detail.number,
         title: detail.title,
@@ -106,7 +118,7 @@ export async function fetchClosedPRs(
         deletions: detail.deletions,
         labels: detail.labels.map((l) => l.name),
         reviews,
-        closedByLogin: detail.closed_by?.login ?? null,
+        closedByLogin,
       });
 
       // Avoid GitHub secondary rate limits
