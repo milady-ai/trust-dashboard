@@ -29,107 +29,88 @@
 
 const DEFAULT_CONFIG = {
   // --- Base point values ---
-  // These are the RAW points before all modifiers. Actual impact varies.
   basePoints: {
     approve: 12, // PR approved and merged
     reject: -6, // PR rejected (REQUEST_CHANGES)
-    close: -10, // PR closed without merge (wasted reviewer time)
+    close: -5, // PR closed without merge (reduced from -10 in v3)
     selfClose: -2, // Contributor closed their own PR (less punitive)
   },
 
   // --- Diminishing returns (logarithmic scaling) ---
-  // Formula: points * (1 / (1 + diminishingRate * ln(1 + priorApprovals)))
-  // At 0 prior approvals: 100% of points
-  // At 5 prior approvals:  ~74% of points
-  // At 20 prior approvals: ~62% of points
-  // At 50 prior approvals: ~49% of points
-  // NOTE: Rate lowered from 0.25 → 0.20 for high-velocity repos (10 PRs/week baseline)
-  diminishingRate: 0.2,
+  // Rate lowered to 0.08 in v3 for high-velocity repos
+  diminishingRate: 0.08,
 
   // --- Recency weighting (exponential decay) ---
-  // Events lose relevance over time. Half-life in days.
-  // After 1 half-life, event weight = 50%
-  // After 2 half-lives, event weight = 25%
-  recencyHalfLifeDays: 45,
+  // Half-life increased to 60 days in v3 to be less punitive
+  recencyHalfLifeDays: 60,
 
   // --- PR complexity/size multipliers ---
-  // Based on total lines changed (additions + deletions)
-  // Multiplier is capped to prevent gaming via massive auto-generated diffs
   complexityBuckets: [
-    { maxLines: 10, multiplier: 0.4, label: "trivial" }, // typo fixes
-    { maxLines: 50, multiplier: 0.7, label: "small" }, // minor fixes
-    { maxLines: 150, multiplier: 1.0, label: "medium" }, // standard PR
-    { maxLines: 500, multiplier: 1.3, label: "large" }, // features
-    { maxLines: 1500, multiplier: 1.5, label: "xlarge" }, // major features
-    { maxLines: Infinity, multiplier: 1.2, label: "massive" }, // suspiciously large → capped lower
+    { maxLines: 10, multiplier: 0.4, label: "trivial" },
+    { maxLines: 50, multiplier: 0.7, label: "small" },
+    { maxLines: 150, multiplier: 1.0, label: "medium" },
+    { maxLines: 500, multiplier: 1.3, label: "large" },
+    { maxLines: 1500, multiplier: 1.5, label: "xlarge" },
+    { maxLines: Infinity, multiplier: 1.2, label: "massive" },
   ],
 
   // --- Category weighting (based on PR labels) ---
-  // Multiple labels: highest multiplier wins (no stacking)
   categoryWeights: {
-    security: 1.8, // security fixes are high-trust
-    "critical-fix": 1.5, // critical bug fixes
-    core: 1.3, // core system changes
-    feature: 1.1, // new features
-    bugfix: 1.0, // standard bugs (baseline)
-    refactor: 0.9, // refactoring
-    docs: 0.6, // documentation
-    chore: 0.5, // dependency bumps, CI tweaks
-    aesthetic: 0.4, // cosmetic/style changes
-    test: 0.8, // test additions
+    security: 1.8,
+    "critical-fix": 1.5,
+    core: 1.3,
+    feature: 1.1,
+    bugfix: 1.0,
+    refactor: 0.9,
+    docs: 0.6,
+    chore: 0.5,
+    aesthetic: 0.4,
+    test: 0.8,
   },
-  defaultCategoryWeight: 0.8, // unlabeled PRs get a slight penalty
+  defaultCategoryWeight: 0.8,
 
   // --- Streak mechanics ---
-  // Consecutive approvals apply a bonus multiplier
-  // Consecutive rejections apply a compounding penalty
   streaks: {
-    approvalBonus: 0.08, // +8% per consecutive approval (additive)
-    approvalMaxBonus: 0.5, // cap at +50% bonus (reached at ~6 streak)
-    rejectionPenalty: 0.15, // +15% penalty per consecutive rejection (compounding)
-    rejectionMaxPenalty: 2.5, // cap at 2.5x penalty multiplier
+    approvalBonus: 0.08,
+    approvalMaxBonus: 0.5,
+    rejectionPenalty: 0.15,
+    rejectionMaxPenalty: 2.5,
   },
 
   // --- Time decay (inactivity) ---
-  // Trust decays toward a baseline when contributor is inactive
-  // Applied AFTER all event scoring, as a final adjustment
   inactivityDecay: {
-    gracePeriodDays: 10, // no decay for 10 days of inactivity (fast-moving repo)
-    decayRatePerDay: 0.005, // 0.5% per day after grace period
-    decayFloor: 30, // score never decays below 30 (keeps some history)
-    decayTarget: 40, // decay trends toward this value, not zero
+    gracePeriodDays: 10,
+    decayRatePerDay: 0.005,
+    decayFloor: 30,
+    decayTarget: 40,
   },
 
   // --- Velocity gates ---
-  // Too many PRs too fast is suspicious (bot spam, gaming)
+  // Caps raised significantly in v3 for high-velocity repos
   velocity: {
-    windowDays: 7, // look-back window
-    softCapPRs: 10, // PRs in window before penalty starts (10/week is baseline)
-    hardCapPRs: 25, // PRs in window where points are zeroed
-    penaltyPerExcess: 0.15, // 15% penalty per PR over soft cap
+    windowDays: 7,
+    softCapPRs: 80, // raised from 10 in v2
+    hardCapPRs: 200, // raised from 25 in v2
+    penaltyPerExcess: 0.03, // reduced from 0.15 in v2
   },
 
   // --- Review severity ---
-  // Rejection can carry different weights based on the nature of the issue
-  // Set via a label or review comment tag: [severity:critical], [severity:minor]
   reviewSeverity: {
-    critical: 1.8, // critical security/correctness issue
-    major: 1.3, // significant design/logic problem
-    normal: 1.0, // standard rejection
-    minor: 0.5, // style/formatting nitpick
-    trivial: 0.3, // very minor, almost a suggestion
+    critical: 1.8,
+    major: 1.3,
+    normal: 1.0,
+    minor: 0.5,
+    trivial: 0.3,
   },
   defaultReviewSeverity: "normal",
 
   // --- Score boundaries ---
   minScore: 0,
   maxScore: 100,
-  initialScore: 35, // new contributors start below midpoint — trust is earned
+  initialScore: 40, // raised from 35 in v3
 
   // --- Daily point cap ---
-  // Maximum raw points (positive) that can be earned in a single calendar day
-  // Prevents single-day trust explosion
-  dailyPointCap: 35,
+  dailyPointCap: 80, // raised from 35 in v3
 
   // --- Tier thresholds ---
   tiers: [
@@ -205,6 +186,8 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
     velocityPenalty: 0,
     inactivityDecay: 0,
     manualAdjustment: 0,
+    approveRateBonus: 0,
+    volumeBonus: 0,
     eventDetails: [],
   };
 
@@ -222,8 +205,27 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
   // Sort events chronologically (oldest first)
   const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);
 
+  // Build the set of superseded close/selfClose events:
+  // If a close/selfClose is followed by an approve on the same PR within 24h,
+  // the close penalty is reduced to -2 (they fixed it quickly).
+  const SUPERSEDE_WINDOW_MS = 24 * 60 * 60 * 1000;
+  const supersededPRs = new Set();
+  for (let i = 0; i < sorted.length; i++) {
+    const ev = sorted[i];
+    if (ev.type !== "close" && ev.type !== "selfClose") continue;
+    for (let j = i + 1; j < sorted.length; j++) {
+      const next = sorted[j];
+      if (next.timestamp - ev.timestamp > SUPERSEDE_WINDOW_MS) break;
+      if (next.type === "approve") {
+        supersededPRs.add(ev.prNumber);
+        break;
+      }
+    }
+  }
+
   // --- Phase 1: Compute per-event weighted points ---
   let approvalCount = 0;
+  let closeCount = 0;
   const currentStreak = { type: null, length: 0 };
   const dailyPoints = {}; // dateKey -> accumulated positive points
   let totalWeightedPoints = 0;
@@ -231,16 +233,23 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
   for (const event of sorted) {
     const detail = { prNumber: event.prNumber, type: event.type };
 
-    // 1a. Base points
-    const basePoints = config.basePoints[event.type] || 0;
+    // 1a. Base points (superseded closes get a reduced penalty)
+    const isSuperseded =
+      (event.type === "close" || event.type === "selfClose") &&
+      supersededPRs.has(event.prNumber);
+    const basePoints = isSuperseded ? -2 : (config.basePoints[event.type] || 0);
     detail.basePoints = basePoints;
 
-    // 1b. Diminishing returns (only for positive events)
+    // 1b. Diminishing returns (applies to both positive AND negative events in v3)
     let diminishingMultiplier = 1;
     if (basePoints > 0) {
       diminishingMultiplier =
         1 / (1 + config.diminishingRate * Math.log(1 + approvalCount));
       approvalCount++;
+    } else if (basePoints < 0 && (event.type === "close" || event.type === "selfClose" || event.type === "reject")) {
+      diminishingMultiplier =
+        1 / (1 + config.diminishingRate * Math.log(1 + closeCount));
+      closeCount++;
     }
     detail.diminishingMultiplier = round(diminishingMultiplier, 4);
 
@@ -280,7 +289,6 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
     // --- Combine all multipliers ---
     let eventPoints;
     if (basePoints >= 0) {
-      // Positive events: all multipliers apply
       eventPoints =
         basePoints *
         diminishingMultiplier *
@@ -289,15 +297,13 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
         categoryMultiplier *
         streakMult;
     } else {
-      // Negative events: severity and streak compound the penalty
-      // Recency still applies (old mistakes fade)
-      // Complexity/category still matter (closing a security PR is worse)
       eventPoints =
         basePoints *
+        diminishingMultiplier *
         recencyWeight *
         severityMultiplier *
         streakMult *
-        Math.max(categoryMultiplier, 0.8); // floor category at 0.8 for penalties
+        Math.max(categoryMultiplier, 0.8);
     }
 
     detail.weightedPoints = round(eventPoints, 4);
@@ -331,7 +337,7 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
   let velocityMultiplier = 1;
 
   if (recentPRs > config.velocity.hardCapPRs) {
-    velocityMultiplier = 0; // zero out all gains
+    velocityMultiplier = 0;
     warnings.push(
       `VELOCITY HARD CAP: ${recentPRs} PRs in ${config.velocity.windowDays} days (limit: ${config.velocity.hardCapPRs})`,
     );
@@ -348,19 +354,39 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
 
   breakdown.velocityPenalty = round(1 - velocityMultiplier, 4);
 
-  // Only apply velocity penalty to positive portion of score
-  let adjustedPoints;
-  if (totalWeightedPoints > 0) {
-    adjustedPoints = totalWeightedPoints * velocityMultiplier;
-  } else {
-    adjustedPoints = totalWeightedPoints; // don't reduce penalties
+  const adjustedPoints =
+    totalWeightedPoints > 0
+      ? totalWeightedPoints * velocityMultiplier
+      : totalWeightedPoints;
+
+  // --- Phase 2b: Approve-rate bonus ---
+  // Reward contributors who consistently get PRs merged
+  let approveRateBonus = 0;
+  const totalEvents = approvalCount + closeCount;
+  if (totalEvents > 0 && approvalCount > 0) {
+    const approveRate = approvalCount / totalEvents;
+    let rateMultiplier = 1;
+    if (approveRate >= 0.9) rateMultiplier = 1.5;
+    else if (approveRate >= 0.8) rateMultiplier = 1.3;
+    else if (approveRate >= 0.7) rateMultiplier = 1.2;
+    else if (approveRate >= 0.6) rateMultiplier = 1.1;
+    if (rateMultiplier > 1) {
+      const positivePoints = breakdown.eventDetails
+        .filter((d) => d.finalPoints > 0)
+        .reduce((sum, d) => sum + d.finalPoints, 0);
+      const boostedPositive = positivePoints * velocityMultiplier * rateMultiplier;
+      const originalPositive = positivePoints * velocityMultiplier;
+      approveRateBonus = round(boostedPositive - originalPositive, 4);
+    }
   }
+  breakdown.approveRateBonus = approveRateBonus;
+
+  // --- Phase 2c: Volume bonus ---
+  const volumeBonus = round(Math.min(10, Math.sqrt(approvalCount) * 1.5), 4);
+  breakdown.volumeBonus = volumeBonus;
 
   // --- Phase 3: Convert points to score ---
-  // Score = initialScore + adjustedPoints, clamped to [0, 100]
-  // The point scale is designed so that ~60 weighted points ≈ score of 95
-  // This means a contributor needs sustained, quality contributions to reach top tier
-  let score = config.initialScore + adjustedPoints;
+  let score = config.initialScore + adjustedPoints + approveRateBonus + volumeBonus;
 
   // --- Phase 4: Inactivity decay ---
   const lastEventTime = sorted[sorted.length - 1].timestamp;
@@ -370,7 +396,6 @@ function computeTrustScore(history, config = DEFAULT_CONFIG, now = Date.now()) {
     const decayDays =
       daysSinceLastEvent - config.inactivityDecay.gracePeriodDays;
     const decayAmount = decayDays * config.inactivityDecay.decayRatePerDay;
-    // Decay pulls score toward decayTarget, not toward zero
     const target = config.inactivityDecay.decayTarget;
     if (score > target) {
       const maxDecay =
@@ -425,12 +450,27 @@ function getComplexityMultiplier(linesChanged, config) {
 function getCategoryMultiplier(labels, config) {
   if (!labels || labels.length === 0) return config.defaultCategoryWeight;
 
+  // Common label aliases used in milady-ai repos
+  const labelAliases = {
+    tests: "test",
+    testing: "test",
+    documentation: "docs",
+    bug: "bugfix",
+    fix: "bugfix",
+  };
+
   let maxWeight = 0;
   let found = false;
   for (const label of labels) {
-    const normalizedLabel = label.toLowerCase().replace(/\s+/g, "-");
-    if (config.categoryWeights[normalizedLabel] !== undefined) {
-      maxWeight = Math.max(maxWeight, config.categoryWeights[normalizedLabel]);
+    let normalized = label.toLowerCase().replace(/\s+/g, "-");
+    // Strip "category:" prefix used in milady-ai/milady labels (e.g. "category:security")
+    if (normalized.startsWith("category:")) {
+      normalized = normalized.slice("category:".length);
+    }
+    // Apply aliases
+    normalized = labelAliases[normalized] ?? normalized;
+    if (config.categoryWeights[normalized] !== undefined) {
+      maxWeight = Math.max(maxWeight, config.categoryWeights[normalized]);
       found = true;
     }
   }

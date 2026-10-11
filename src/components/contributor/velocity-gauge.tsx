@@ -19,7 +19,7 @@ function describeArc(cx: number, cy: number, radius: number, startAngle: number,
   return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArcFlag} 0 ${end.x} ${end.y}`;
 }
 
-export function VelocityGauge({ weeklyCount, softCap = 10, hardCap = 25 }: VelocityGaugeProps) {
+export function VelocityGauge({ weeklyCount, softCap = 80, hardCap = 200 }: VelocityGaugeProps) {
   const maxDisplay = Math.max(hardCap + 10, weeklyCount);
   const ratio = Math.min(1, weeklyCount / maxDisplay);
   const needleAngle = 180 * ratio;

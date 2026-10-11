@@ -7,8 +7,10 @@ import {
   type TrustEvent as EngineTrustEvent,
   type TrustTier,
 } from "./scoring-engine";
+import type { SkillProfile } from "./contributor-skills";
 
 export type { EventType, TrustTier } from "./scoring-engine";
+export type { SkillProfile, FocusAreaProfile, FocusAreaKey, ContributorRole, ContributorRoleKey } from "./contributor-skills";
 
 export interface TierConfig extends EngineTierConfig {
   color: string;
@@ -64,6 +66,8 @@ export interface ContributorData {
   events: TrustEvent[];
   scoreHistory: { timestamp: number; score: number }[];
   warnings: string[];
+  /** MMORPG-style skill profile: role, focus areas, and top skills */
+  skillProfile: SkillProfile;
 }
 
 export interface TrustStats {

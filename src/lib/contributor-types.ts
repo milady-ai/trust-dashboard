@@ -22,6 +22,8 @@ export interface ScoreBreakdown {
   velocityPenalty: number;
   inactivityDecay: number;
   manualAdjustment: number;
+  approveRateBonus?: number;
+  volumeBonus?: number;
   eventDetails: EventDetail[];
 }
 
